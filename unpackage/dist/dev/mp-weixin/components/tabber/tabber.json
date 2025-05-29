@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uv-tabbar-item": "../../node-modules/@climblee/uv-ui/components/uv-tabbar-item/uv-tabbar-item",
+    "uv-tabbar": "../../node-modules/@climblee/uv-ui/components/uv-tabbar/uv-tabbar"
+  }
+}

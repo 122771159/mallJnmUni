@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "uv-button": "../../node-modules/@climblee/uv-ui/components/uv-button/uv-button",
+    "my-tabber": "../../components/tabber/tabber",
+    "layout": "../../layout/index"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/cart/cart"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#F0AD4E",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#F8F8F8",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "name": "home",
+        "icon": "home"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "name": "cart",
+        "icon": "shopping-cart"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "name": "account",
+        "icon": "account"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
