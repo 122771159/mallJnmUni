@@ -2,7 +2,7 @@
 const common_vendor = require("../../../../../common/vendor.js");
 const _sfc_main = {
   name: "uv-badge",
-  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.props$7],
+  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.props$9],
   computed: {
     // 是否将badge中心与父组件右上角重合
     boxStyle() {

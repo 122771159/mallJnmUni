@@ -85,9 +85,9 @@ function getTabbers() {
   });
   return res;
 }
-const __vite_glob_0_0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   getTabbers
 }, Symbol.toStringTag, { value: "Module" }));
-exports.__vite_glob_0_0 = __vite_glob_0_0;
+exports.__vite_glob_0_1 = __vite_glob_0_1;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/composables/getTabbers.js.map

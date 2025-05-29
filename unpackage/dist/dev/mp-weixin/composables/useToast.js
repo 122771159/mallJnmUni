@@ -6,9 +6,9 @@ function toast(params) {
   };
   return showToast(params);
 }
-const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   toast
 }, Symbol.toStringTag, { value: "Module" }));
-exports.__vite_glob_0_1 = __vite_glob_0_1;
+exports.__vite_glob_0_2 = __vite_glob_0_2;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/composables/useToast.js.map

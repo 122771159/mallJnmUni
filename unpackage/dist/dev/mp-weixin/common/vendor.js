@@ -4,7 +4,7 @@
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
 **/
-var _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
+var _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B;
 function makeMap(str, expectsLowerCase) {
   const set2 = new Set(str.split(","));
   return expectsLowerCase ? (val) => set2.has(val.toLowerCase()) : (val) => set2.has(val);
@@ -10723,7 +10723,7 @@ const openType = {
     }
   }
 };
-const props$a = {
+const props$c = {
   props: {
     // 是否细边框
     hairline: {
@@ -10886,73 +10886,6 @@ const props$a = {
     ...(_f = (_e = index$1.$uv) == null ? void 0 : _e.props) == null ? void 0 : _f.button
   }
 };
-const props$9 = {
-  props: {
-    // 是否显示组件
-    show: {
-      type: Boolean,
-      default: true
-    },
-    // 颜色
-    color: {
-      type: String,
-      default: "#909193"
-    },
-    // 提示文字颜色
-    textColor: {
-      type: String,
-      default: "#909193"
-    },
-    // 文字和图标是否垂直排列
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
-    mode: {
-      type: String,
-      default: "spinner"
-    },
-    // 图标大小，单位默认px
-    size: {
-      type: [String, Number],
-      default: 24
-    },
-    // 文字大小
-    textSize: {
-      type: [String, Number],
-      default: 15
-    },
-    // 文字样式
-    textStyle: {
-      type: Object,
-      default() {
-        return {};
-      }
-    },
-    // 文字内容
-    text: {
-      type: [String, Number],
-      default: ""
-    },
-    // 动画模式 https://www.runoob.com/cssref/css3-pr-animation-timing-function.html
-    timingFunction: {
-      type: String,
-      default: "linear"
-    },
-    // 动画执行周期时间
-    duration: {
-      type: [String, Number],
-      default: 1200
-    },
-    // mode=circle时的暗边颜色
-    inactiveColor: {
-      type: String,
-      default: ""
-    },
-    ...(_h = (_g = index$1.$uv) == null ? void 0 : _g.props) == null ? void 0 : _h.loadingIcon
-  }
-};
 const icons = {
   "uvicon-level": "e68f",
   "uvicon-checkbox-mark": "e659",
@@ -11113,7 +11046,7 @@ const icons = {
   "uvicon-twitte": "e607",
   "uvicon-twitter-circle-fill": "e6cf"
 };
-const props$8 = {
+const props$b = {
   props: {
     // 图标类名
     name: {
@@ -11200,7 +11133,109 @@ const props$8 = {
       type: Boolean,
       default: false
     },
-    ...(_j = (_i = index$1.$uv) == null ? void 0 : _i.props) == null ? void 0 : _j.icon
+    ...(_h = (_g = index$1.$uv) == null ? void 0 : _g.props) == null ? void 0 : _h.icon
+  }
+};
+const props$a = {
+  props: {
+    // 宫格的name
+    name: {
+      type: [String, Number, null],
+      default: null
+    },
+    // 背景颜色
+    bgColor: {
+      type: String,
+      default: "transparent"
+    },
+    ...(_j = (_i = index$1.$uv) == null ? void 0 : _i.props) == null ? void 0 : _j.gridItem
+  }
+};
+const props$9 = {
+  props: {
+    // 分成几列
+    col: {
+      type: [String, Number],
+      default: 3
+    },
+    // 是否显示边框
+    border: {
+      type: Boolean,
+      default: false
+    },
+    // 宫格对齐方式，表现为数量少的时候，靠左，居中，还是靠右
+    align: {
+      type: String,
+      default: "left"
+    },
+    ...(_l = (_k = index$1.$uv) == null ? void 0 : _k.props) == null ? void 0 : _l.grid
+  }
+};
+const props$8 = {
+  props: {
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: true
+    },
+    // 颜色
+    color: {
+      type: String,
+      default: "#909193"
+    },
+    // 提示文字颜色
+    textColor: {
+      type: String,
+      default: "#909193"
+    },
+    // 文字和图标是否垂直排列
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
+    mode: {
+      type: String,
+      default: "spinner"
+    },
+    // 图标大小，单位默认px
+    size: {
+      type: [String, Number],
+      default: 24
+    },
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: 15
+    },
+    // 文字样式
+    textStyle: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
+    // 文字内容
+    text: {
+      type: [String, Number],
+      default: ""
+    },
+    // 动画模式 https://www.runoob.com/cssref/css3-pr-animation-timing-function.html
+    timingFunction: {
+      type: String,
+      default: "linear"
+    },
+    // 动画执行周期时间
+    duration: {
+      type: [String, Number],
+      default: 1200
+    },
+    // mode=circle时的暗边颜色
+    inactiveColor: {
+      type: String,
+      default: ""
+    },
+    ...(_n = (_m = index$1.$uv) == null ? void 0 : _m.props) == null ? void 0 : _n.loadingIcon
   }
 };
 const props$7 = {
@@ -11240,7 +11275,7 @@ const props$7 = {
       type: [Object, String],
       default: "top: 6px;right:2px;"
     },
-    ...(_l = (_k = index$1.$uv) == null ? void 0 : _k.props) == null ? void 0 : _l.tabbarItem
+    ...(_p = (_o = index$1.$uv) == null ? void 0 : _o.props) == null ? void 0 : _p.tabbarItem
   }
 };
 const props$6 = {
@@ -11290,7 +11325,7 @@ const props$6 = {
       type: [String, Number],
       default: 20
     },
-    ...(_n = (_m = index$1.$uv) == null ? void 0 : _m.props) == null ? void 0 : _n.tabbar
+    ...(_r = (_q = index$1.$uv) == null ? void 0 : _q.props) == null ? void 0 : _r.tabbar
   }
 };
 const props$5 = {
@@ -11324,7 +11359,7 @@ const props$5 = {
       type: Boolean,
       default: false
     },
-    ...(_p = (_o = index$1.$uv) == null ? void 0 : _o.props) == null ? void 0 : _p.line
+    ...(_t = (_s = index$1.$uv) == null ? void 0 : _s.props) == null ? void 0 : _t.line
   }
 };
 const props$4 = {
@@ -11413,7 +11448,7 @@ const props$4 = {
       type: [String, Object],
       default: ""
     },
-    ...(_r = (_q = index$1.$uv) == null ? void 0 : _q.props) == null ? void 0 : _r.navbar
+    ...(_v = (_u = index$1.$uv) == null ? void 0 : _u.props) == null ? void 0 : _v.navbar
   }
 };
 const props$3 = {
@@ -11486,7 +11521,7 @@ const props$3 = {
       type: Boolean,
       default: false
     },
-    ...(_t = (_s = index$1.$uv) == null ? void 0 : _s.props) == null ? void 0 : _t.badge
+    ...(_x = (_w = index$1.$uv) == null ? void 0 : _w.props) == null ? void 0 : _x.badge
   }
 };
 const props$2 = {
@@ -11519,7 +11554,7 @@ const props$1 = {
       type: [String, Number],
       default: 0
     },
-    ...(_v = (_u = index$1.$uv) == null ? void 0 : _u.props) == null ? void 0 : _v.gap
+    ...(_z = (_y = index$1.$uv) == null ? void 0 : _y.props) == null ? void 0 : _z.gap
   }
 };
 const props = {
@@ -11544,7 +11579,7 @@ const props = {
       type: [String, Number],
       default: 0.5
     },
-    ...(_x = (_w = index$1.$uv) == null ? void 0 : _w.props) == null ? void 0 : _x.overlay
+    ...(_B = (_A = index$1.$uv) == null ? void 0 : _A.props) == null ? void 0 : _B.overlay
   }
 };
 class MPAnimation {
@@ -11680,17 +11715,19 @@ exports.onMounted = onMounted;
 exports.onUnmounted = onUnmounted;
 exports.openType = openType;
 exports.p = p;
-exports.props = props$a;
-exports.props$1 = props$9;
-exports.props$10 = props;
-exports.props$2 = props$8;
-exports.props$3 = props$7;
-exports.props$4 = props$6;
-exports.props$5 = props$5;
-exports.props$6 = props$4;
-exports.props$7 = props$3;
-exports.props$8 = props$2;
-exports.props$9 = props$1;
+exports.props = props$c;
+exports.props$1 = props$b;
+exports.props$10 = props$2;
+exports.props$11 = props$1;
+exports.props$12 = props;
+exports.props$2 = props$a;
+exports.props$3 = props$9;
+exports.props$4 = props$8;
+exports.props$5 = props$7;
+exports.props$6 = props$6;
+exports.props$7 = props$5;
+exports.props$8 = props$4;
+exports.props$9 = props$3;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
