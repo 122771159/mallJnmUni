@@ -14,9 +14,21 @@ const pages = [
     }
   },
   {
-    path: "pages/cart/cart",
+    path: "pages/login/login",
     style: {
-      navigationBarTitleText: "购物车页面"
+      navigationBarTitleText: ""
+    }
+  },
+  {
+    path: "pages/policy/privacy",
+    style: {
+      navigationBarTitleText: "用户隐私政策"
+    }
+  },
+  {
+    path: "pages/policy/service",
+    style: {
+      navigationBarTitleText: "用户服务协议"
     }
   }
 ];
@@ -40,12 +52,6 @@ const tabBar = {
       text: "首页",
       name: "home",
       icon: "home"
-    },
-    {
-      pagePath: "pages/cart/cart",
-      text: "购物车",
-      name: "cart",
-      icon: "shopping-cart"
     },
     {
       pagePath: "pages/user/user",
@@ -85,9 +91,9 @@ function getTabbers() {
   });
   return res;
 }
-const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   getTabbers
 }, Symbol.toStringTag, { value: "Module" }));
-exports.__vite_glob_0_1 = __vite_glob_0_1;
+exports.__vite_glob_0_2 = __vite_glob_0_2;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/composables/getTabbers.js.map

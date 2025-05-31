@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/user/user",
-    "pages/cart/cart"
+    "pages/login/login",
+    "pages/policy/privacy",
+    "pages/policy/service"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -23,12 +25,6 @@
         "text": "首页",
         "name": "home",
         "icon": "home"
-      },
-      {
-        "pagePath": "pages/cart/cart",
-        "text": "购物车",
-        "name": "cart",
-        "icon": "shopping-cart"
       },
       {
         "pagePath": "pages/user/user",

@@ -25,7 +25,7 @@ const request = (options) => {
         const { data, header: responseHeaders } = res;
         const new_token = responseHeaders.Authorization || responseHeaders.authorization;
         if (new_token) {
-          stores_index.useAdminStore().setToken(new_token);
+          stores_index.useUserStore().setToken(new_token);
         }
         if (data.code === 104) {
           common_vendor.index.showModal({
@@ -36,7 +36,7 @@ const request = (options) => {
             // 一般不给用户取消的机会
             success: (modalRes) => {
               if (modalRes.confirm) {
-                stores_index.useAdminStore().clearToken();
+                stores_index.useUserStore().clearToken();
                 common_vendor.index.reLaunch({
                   url: "/pages/login/login"
                   // 请替换为你的登录页面路径

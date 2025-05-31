@@ -6,7 +6,9 @@ const composables_index = require("./composables/index.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/user/user.js";
-  "./pages/cart/cart.js";
+  "./pages/login/login.js";
+  "./pages/policy/privacy.js";
+  "./pages/policy/service.js";
 }
 const _sfc_main = {
   onLaunch: function() {

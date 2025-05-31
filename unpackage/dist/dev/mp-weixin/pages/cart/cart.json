@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "购物车页面",
-  "usingComponents": {
-    "my-tabber": "../../components/tabber/tabber",
-    "layout": "../../layout/index"
-  }
-}

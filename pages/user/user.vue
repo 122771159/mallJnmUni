@@ -1,5 +1,5 @@
 <template>
-  <layout title="我的" :hidden-left-arrow="true">
+  <layout title="我的" hiddenLeft>
     <view
       class="user-page-container"
       :style="{
@@ -12,15 +12,11 @@
           <view class="username">{{ username }}</view>
           <view class="user-type">
             <uv-icon name="level" size="14" color="#f9ae3d"></uv-icon>
-            <text class="user-type-text">普通客户</text>
+            <text class="user-type-text">{{ userType }}</text>
           </view>
         </view>
-        <view
-          v-if="isLoggedIn"
-          class="member-center-link"
-          @click="goToMemberCenter"
-        >
-          会员中心
+        <view v-if="isLoggedIn" class="member-center-link" @click="logout">
+          退出登录
           <uv-icon name="arrow-right" size="14" color="#909399"></uv-icon>
         </view>
         <view v-if="!isLoggedIn" class="member-center-link" @click="goToLogin">
@@ -92,34 +88,33 @@
 
 <script setup>
 import { ref, computed } from "vue";
-// import { useAdminStore } from '@/stores'; // 暂时忽略
-
-// const adminStore = useAdminStore(); // 暂时忽略
-// const isLoggedIn = computed(() => adminStore.isLogin); // 登录状态，后续对接 Pinia
-// const currentUser = computed(() => adminStore.userInfo); // 用户信息，后续对接 Pinia
+import { useUserStore } from "@/stores";
+const userStore = useUserStore();
+const isLoggedIn = computed(() => userStore.isLogin);
+const currentUser = computed(() => userStore.getUserInfo);
+const userRoles = computed(() => userStore.getRoles);
 const topHeight = uni.$com.getHeight().topHeight;
 const bottomHeight = uni.$com.getHeight().bottomHeight;
 
-// --- 未对接 Pinia 前的临时状态 ---
-const isLoggedIn = ref(false); // 手动切换 true/false 查看效果
-const tempUsername = "商场用户1111"; // 登录后的用户名
-const defaultAvatar = "/static/images/default-avatar.png"; // 确保此路径有默认头像图片
-
 const username = computed(() => {
   if (isLoggedIn.value) {
-    // return currentUser.value?.nickname || tempUsername; // 对接Pinia后使用
-    return tempUsername;
+    return currentUser.value?.name || "未登录"; // 对接Pinia后使用
   }
   return "未登录";
 });
-
-const avatarUrl = computed(() => {
+const userType = computed(() => {
   if (isLoggedIn.value) {
-    // return currentUser.value?.avatar || defaultAvatar; // 对接Pinia后使用
-    return "/static/logo.png"; // 假设登录后使用logo作为头像示例
+    if (userRoles.value.includes("SALES")) {
+      return "业务员";
+    } else if (userRoles.value.includes("CUSTOMER")) {
+      return "普通客户";
+    } else {
+      return "未登录";
+    }
   }
-  return defaultAvatar;
+  return "请先登录";
 });
+const avatarUrl = "/static/images/default-avatar.png";
 // --- 临时状态结束 ---
 
 // const stats = ref([
@@ -189,8 +184,17 @@ const handleActionClick = (item) => {
   }
 };
 
-const goToMemberCenter = () => {
-  uni.navigateTo({ url: "/pages/member-center/member-center" });
+const logout = () => {
+  uni.showModal({
+    title: "提示",
+    content: "确定退出登录吗？",
+    success: (res) => {
+      if (res.confirm) {
+        userStore.logout();
+        uni.navigateTo({ url: "/pages/login/login" });
+      }
+    },
+  });
 };
 const goToLogin = () => {
   uni.navigateTo({ url: "/pages/login/login" });

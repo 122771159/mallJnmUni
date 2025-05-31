@@ -2,7 +2,7 @@
 const common_vendor = require("../../../../../common/vendor.js");
 const _sfc_main = {
   name: "uv-gap",
-  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.props$11],
+  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.props$17],
   computed: {
     gapStyle() {
       const style = {

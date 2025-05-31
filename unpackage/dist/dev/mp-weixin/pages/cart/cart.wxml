@@ -1,1 +1,0 @@
-<layout wx:if="{{b}}" u-s="{{['d']}}" u-i="4bee41be-0" bind:__l="__l" u-p="{{b}}"><view></view><my-tabber wx:if="{{a}}" u-i="4bee41be-1,4bee41be-0" bind:__l="__l" u-p="{{a}}"></my-tabber></layout>

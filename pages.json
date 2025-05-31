@@ -12,10 +12,26 @@
 				"navigationBarTitleText": "我的"
 			}
 		},
+
 		{
-			"path": "pages/cart/cart",
-			"style": {
-				"navigationBarTitleText": "购物车页面"
+			"path" : "pages/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/policy/privacy",
+			"style" : 
+			{
+				"navigationBarTitleText" : "用户隐私政策"
+			}
+		},
+		{
+			"path" : "pages/policy/service",
+			"style" : 
+			{
+				"navigationBarTitleText" : "用户服务协议"
 			}
 		}
 	],
@@ -38,12 +54,6 @@
 				"text": "首页",
 				"name": "home",
 				"icon": "home"
-			},
-			{
-				"pagePath": "pages/cart/cart",
-				"text": "购物车",
-				"name": "cart",
-				"icon": "shopping-cart"
 			},
 			{
 				"pagePath": "pages/user/user",

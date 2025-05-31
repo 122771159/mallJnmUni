@@ -66,6 +66,11 @@ const handleShowToast = (params) => {
     });
   }
 };
+const hide = () => {
+  if (toastRef.value) {
+    toastRef.value.hide();
+  }
+};
 const bacHome = () => {
   uni.reLaunch({
     url: "/pages/index/index",
@@ -73,10 +78,12 @@ const bacHome = () => {
 };
 onMounted(() => {
   uni.$on("show-toast", handleShowToast);
+  uni.$on("hide-toast", hide);
 });
 
 onUnmounted(() => {
   uni.$off("show-toast", handleShowToast);
+  uni.$off("hide-toast", hide);
 });
 </script>
 <style scoped lang="scss">

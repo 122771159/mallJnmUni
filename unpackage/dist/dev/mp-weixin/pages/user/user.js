@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const stores_index = require("../../stores/index.js");
 if (!Array) {
   const _easycom_uv_icon2 = common_vendor.resolveComponent("uv-icon");
   const _easycom_uv_grid_item2 = common_vendor.resolveComponent("uv-grid-item");
@@ -16,25 +17,34 @@ const _easycom_my_tabber = () => "../../components/tabber/tabber.js";
 if (!Math) {
   (_easycom_uv_icon + _easycom_uv_grid_item + _easycom_uv_grid + _easycom_layout + _easycom_my_tabber)();
 }
-const tempUsername = "商场用户1111";
-const defaultAvatar = "/static/images/default-avatar.png";
+const avatarUrl = "/static/images/default-avatar.png";
 const _sfc_main = {
   __name: "user",
   setup(__props) {
+    const userStore = stores_index.useUserStore();
+    const isLoggedIn = common_vendor.computed(() => userStore.isLogin);
+    const currentUser = common_vendor.computed(() => userStore.getUserInfo);
+    const userRoles = common_vendor.computed(() => userStore.getRoles);
     const topHeight = common_vendor.index.$com.getHeight().topHeight;
     const bottomHeight = common_vendor.index.$com.getHeight().bottomHeight;
-    const isLoggedIn = common_vendor.ref(false);
     const username = common_vendor.computed(() => {
+      var _a;
       if (isLoggedIn.value) {
-        return tempUsername;
+        return ((_a = currentUser.value) == null ? void 0 : _a.name) || "未登录";
       }
       return "未登录";
     });
-    const avatarUrl = common_vendor.computed(() => {
+    const userType = common_vendor.computed(() => {
       if (isLoggedIn.value) {
-        return "/static/logo.png";
+        if (userRoles.value.includes("SALES")) {
+          return "业务员";
+        } else if (userRoles.value.includes("CUSTOMER")) {
+          return "普通客户";
+        } else {
+          return "未登录";
+        }
       }
-      return defaultAvatar;
+      return "请先登录";
     });
     const paymentActions = common_vendor.ref([
       {
@@ -55,8 +65,17 @@ const _sfc_main = {
         common_vendor.index.showToast({ title: `${item.text} 功能暂未开放`, icon: "none" });
       }
     };
-    const goToMemberCenter = () => {
-      common_vendor.index.navigateTo({ url: "/pages/member-center/member-center" });
+    const logout = () => {
+      common_vendor.index.showModal({
+        title: "提示",
+        content: "确定退出登录吗？",
+        success: (res) => {
+          if (res.confirm) {
+            userStore.logout();
+            common_vendor.index.navigateTo({ url: "/pages/login/login" });
+          }
+        }
+      });
     };
     const goToLogin = () => {
       common_vendor.index.navigateTo({ url: "/pages/login/login" });
@@ -66,38 +85,39 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: avatarUrl.value,
+        a: avatarUrl,
         b: common_vendor.t(username.value),
         c: common_vendor.p({
           name: "level",
           size: "14",
           color: "#f9ae3d"
         }),
-        d: isLoggedIn.value
+        d: common_vendor.t(userType.value),
+        e: isLoggedIn.value
       }, isLoggedIn.value ? {
-        e: common_vendor.p({
+        f: common_vendor.p({
           name: "arrow-right",
           size: "14",
           color: "#909399"
         }),
-        f: common_vendor.o(goToMemberCenter)
+        g: common_vendor.o(logout)
       } : {}, {
-        g: !isLoggedIn.value
+        h: !isLoggedIn.value
       }, !isLoggedIn.value ? {
-        h: common_vendor.p({
+        i: common_vendor.p({
           name: "arrow-right",
           size: "14",
           color: "#909399"
         }),
-        i: common_vendor.o(goToLogin)
+        j: common_vendor.o(goToLogin)
       } : {}, {
-        j: common_vendor.p({
+        k: common_vendor.p({
           name: "level",
           size: "20",
           color: "#f9ae3d"
         }),
-        k: common_vendor.o(goToUpgrade),
-        l: common_vendor.f(paymentActions.value, (item, index, i0) => {
+        l: common_vendor.o(goToUpgrade),
+        m: common_vendor.f(paymentActions.value, (item, index, i0) => {
           return {
             a: "0f7520f0-7-" + i0 + "," + ("0f7520f0-6-" + i0),
             b: common_vendor.p({
@@ -112,16 +132,16 @@ const _sfc_main = {
             f: "0f7520f0-6-" + i0 + ",0f7520f0-5"
           };
         }),
-        m: common_vendor.p({
+        n: common_vendor.p({
           col: 5,
           border: false
         }),
-        n: "calc(100vh - " + common_vendor.unref(topHeight) + "px - " + common_vendor.unref(bottomHeight) + "px)",
-        o: common_vendor.p({
-          title: "我的",
-          ["hidden-left-arrow"]: true
-        }),
+        o: "calc(100vh - " + common_vendor.unref(topHeight) + "px - " + common_vendor.unref(bottomHeight) + "px)",
         p: common_vendor.p({
+          title: "我的",
+          hiddenLeft: true
+        }),
+        q: common_vendor.p({
           value: "account"
         })
       });

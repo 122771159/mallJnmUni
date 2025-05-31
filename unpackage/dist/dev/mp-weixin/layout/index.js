@@ -49,6 +49,11 @@ const _sfc_main = {
         });
       }
     };
+    const hide = () => {
+      if (toastRef.value) {
+        toastRef.value.hide();
+      }
+    };
     const bacHome = () => {
       common_vendor.index.reLaunch({
         url: "/pages/index/index"
@@ -56,9 +61,11 @@ const _sfc_main = {
     };
     common_vendor.onMounted(() => {
       common_vendor.index.$on("show-toast", handleShowToast);
+      common_vendor.index.$on("hide-toast", hide);
     });
     common_vendor.onUnmounted(() => {
       common_vendor.index.$off("show-toast", handleShowToast);
+      common_vendor.index.$off("hide-toast", hide);
     });
     return (_ctx, _cache) => {
       return common_vendor.e({

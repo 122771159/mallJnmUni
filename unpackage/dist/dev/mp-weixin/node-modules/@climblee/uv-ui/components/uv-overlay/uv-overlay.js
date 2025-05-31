@@ -3,7 +3,7 @@ const common_vendor = require("../../../../../common/vendor.js");
 const _sfc_main = {
   name: "uv-overlay",
   emits: ["click"],
-  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.props$12],
+  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.props$18],
   watch: {
     show(newVal) {
     }
