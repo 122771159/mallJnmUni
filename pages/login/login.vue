@@ -35,7 +35,7 @@
       </view>
 
       <view class="button-section">
-        <uv-button type="success" shape="circle" @click="handleWeChatLogin">
+        <!-- <uv-button type="success" shape="circle" @click="handleWeChatLogin">
           <uv-icon
             name="weixin-fill"
             color="#ffffff"
@@ -43,7 +43,7 @@
             customStyle="margin-right: 8px;"
           ></uv-icon>
           微信登录
-        </uv-button>
+        </uv-button> -->
         <uv-button
           type="default"
           shape="circle"

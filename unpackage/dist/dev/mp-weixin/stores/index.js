@@ -91,9 +91,6 @@ const useUserStore = common_vendor.defineStore("user", () => {
   }
   function wxlogin() {
     return new Promise((resolve, reject) => {
-      common_vendor.index.$com.toast({
-        type: "loading"
-      });
       common_vendor.index.login({
         provider: "weixin",
         success: async function(loginRes) {
@@ -109,20 +106,13 @@ const useUserStore = common_vendor.defineStore("user", () => {
             setRoles(res.data.roles);
             setTokenExpiresIn(res.data.tokenExpiresIn);
             setTokenTimestamp(Date.now());
-            common_vendor.index.$com.toastHide();
             resolve("success");
           }).catch(() => {
-            common_vendor.index.$com.toastHide();
-            reject("微信一键登录失败");
+            reject(new Error("微信一键登录失败"));
           });
         },
         fail: function() {
-          common_vendor.index.$com.toastHide();
-          common_vendor.index.$com.toast({
-            type: "error",
-            message: "登录失败"
-          });
-          reject("微信一键登录失败");
+          reject(new Error("微信一键登录失败"));
         }
       });
     });
@@ -135,6 +125,7 @@ const useUserStore = common_vendor.defineStore("user", () => {
   });
   const getUserInfo = common_vendor.computed(() => JSON.parse(userInfo.value));
   return {
+    token,
     getToken,
     getRoles,
     setToken,

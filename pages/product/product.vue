@@ -1,9 +1,5 @@
 <template>
   <layout title="商品详情" hiddenLeftHome>
-    <image
-      src="http://58.87.96.189:1231/empty.png"
-      style="width: 200rpx; height: 200rpx"
-    ></image>
     <view
       class="product-detail-page"
       v-if="product"
@@ -225,8 +221,6 @@ const confirmPurchase = () => {
  * @returns {string} 替换后的 Markdown 文本。
  */
 function replaceImageBaseUrlIfContainsImagesPath(markdownText, newBaseUrl) {
-  console.log(markdownText, newBaseUrl);
-
   // 正则表达式解释:
   // \!\[(.*?)\]         - 捕获组1 (altText): 图片描述文字 "![]"
   // \(                 - 匹配 "("
@@ -270,7 +264,6 @@ function replaceImageBaseUrlIfContainsImagesPath(markdownText, newBaseUrl) {
       return `![${altText}](${cleanNewBaseUrl}${cleanPathWithImages}?x-oss-process=image/resize,w_1000/quality,q_80)`;
     }
   );
-  console.log(replacedText);
 
   return replacedText;
 }

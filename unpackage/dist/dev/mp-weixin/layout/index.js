@@ -27,20 +27,43 @@ const _sfc_main = {
         common_vendor.index.navigateBack();
       }
     },
-    hiddenLeft: {
+    hiddenLeftStrong: {
       type: Boolean,
       default: false
     },
-    hiddenLeftArrow: {
+    hiddenRightStrong: {
       type: Boolean,
       default: false
     },
-    hiddenLeftHome: {
+    hiddenAllStrong: {
       type: Boolean,
       default: false
     }
   },
   setup(__props) {
+    const prop = __props;
+    const navigationSource = common_vendor.ref();
+    const getIsHiidenLeft = () => {
+      if (prop.hiddenAllStrong)
+        return false;
+      if (prop.hiddenLeftStrong)
+        return false;
+      if (navigationSource.value == "reLaunch")
+        return false;
+      return true;
+    };
+    const getIsHiidenRight = () => {
+      if (prop.hiddenAllStrong)
+        return false;
+      if (prop.hiddenRightStrong)
+        return false;
+      return true;
+    };
+    const getIsHiidenCenter = () => {
+      if (getIsHiidenLeft() && getIsHiidenRight())
+        return true;
+      return false;
+    };
     const toastRef = common_vendor.ref(null);
     const handleShowToast = (params) => {
       if (toastRef.value) {
@@ -56,9 +79,23 @@ const _sfc_main = {
     };
     const bacHome = () => {
       common_vendor.index.reLaunch({
-        url: "/pages/index/index"
+        url: "/pages/user/user"
       });
     };
+    common_vendor.onLoad(() => {
+      const pages = getCurrentPages();
+      const pageStackLength = pages.length;
+      common_vendor.index.__f__("log", "at layout/index.vue:107", "当前页面栈层级:", pageStackLength);
+      if (pageStackLength === 1) {
+        navigationSource.value = "reLaunch";
+        common_vendor.index.__f__("log", "at layout/index.vue:112", "此页面可能是通过 uni.reLaunch 打开，或者是应用的初始启动页。");
+      } else if (pageStackLength > 1) {
+        navigationSource.value = "navigateTo";
+        common_vendor.index.__f__("log", "at layout/index.vue:117", "此页面可能是通过 uni.navigateTo 打开。");
+      } else {
+        common_vendor.index.__f__("warn", "at layout/index.vue:122", "获取页面栈层级异常!");
+      }
+    });
     common_vendor.onMounted(() => {
       common_vendor.index.$on("show-toast", handleShowToast);
       common_vendor.index.$on("hide-toast", hide);
@@ -69,18 +106,18 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: !__props.hiddenLeft
-      }, !__props.hiddenLeft ? common_vendor.e({
-        b: !__props.hiddenLeftArrow
-      }, !__props.hiddenLeftArrow ? {
+        a: !__props.hiddenAllStrong
+      }, !__props.hiddenAllStrong ? common_vendor.e({
+        b: getIsHiidenLeft()
+      }, getIsHiidenLeft() ? {
         c: common_vendor.o(__props.leftClick),
         d: common_vendor.p({
           name: "arrow-left",
           size: "24"
         })
       } : {}, {
-        e: !__props.hiddenLeftArrow && !__props.hiddenLeftHome
-      }, !__props.hiddenLeftArrow && !__props.hiddenLeftHome ? {
+        e: getIsHiidenCenter()
+      }, getIsHiidenCenter() ? {
         f: common_vendor.p({
           direction: "column",
           hairline: false,
@@ -88,8 +125,8 @@ const _sfc_main = {
           margin: "0 8px"
         })
       } : {}, {
-        g: !__props.hiddenLeftHome
-      }, !__props.hiddenLeftHome ? {
+        g: getIsHiidenRight()
+      }, getIsHiidenRight() ? {
         h: common_vendor.o(bacHome),
         i: common_vendor.p({
           name: "home",

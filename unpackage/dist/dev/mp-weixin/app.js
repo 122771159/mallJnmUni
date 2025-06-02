@@ -3,6 +3,7 @@ Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
 const utils_request = require("./utils/request.js");
 const composables_index = require("./composables/index.js");
+require("./utils/requestInterceptor.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/user/user.js";

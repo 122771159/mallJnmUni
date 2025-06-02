@@ -45,7 +45,7 @@ const _sfc_main = {
         }),
         c: common_vendor.p({
           title: "首页",
-          hiddenLeft: true
+          hiddenAllStrong: true
         }),
         d: common_vendor.o(openPopup),
         e: common_vendor.sr(popup, "069749a4-5", {

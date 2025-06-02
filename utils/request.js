@@ -124,12 +124,12 @@ const http = {
     });
   },
   getFile(url, header = {}) {
-    const token = uni.getStorageSync("token");
+    // const token = uni.getStorageSync("token");
     return new Promise((resolve, reject) => {
       uni.downloadFile({
         url: BASE_URL + url,
         header: {
-          Authorization: token,
+          // Authorization: token,
           ...header,
         },
         success: (res) => {

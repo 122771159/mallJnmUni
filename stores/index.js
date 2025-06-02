@@ -101,9 +101,6 @@ export const useUserStore = defineStore("user", () => {
   }
   function wxlogin() {
     return new Promise((resolve, reject) => {
-      uni.$com.toast({
-        type: "loading",
-      });
       uni.login({
         provider: "weixin",
         success: async function (loginRes) {
@@ -121,21 +118,14 @@ export const useUserStore = defineStore("user", () => {
               setRoles(res.data.roles);
               setTokenExpiresIn(res.data.tokenExpiresIn);
               setTokenTimestamp(Date.now());
-              uni.$com.toastHide();
               resolve("success");
             })
             .catch(() => {
-              uni.$com.toastHide();
-              reject("微信一键登录失败");
+              reject(new Error("微信一键登录失败"));
             });
         },
         fail: function () {
-          uni.$com.toastHide();
-          uni.$com.toast({
-            type: "error",
-            message: "登录失败",
-          });
-          reject("微信一键登录失败");
+          reject(new Error("微信一键登录失败"));
         },
       });
     });
@@ -149,6 +139,7 @@ export const useUserStore = defineStore("user", () => {
   });
   const getUserInfo = computed(() => JSON.parse(userInfo.value)); // 获取用户信息
   return {
+    token,
     getToken,
     getRoles,
     setToken,

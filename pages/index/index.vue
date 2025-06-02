@@ -1,5 +1,5 @@
 <template>
-  <layout title="首页" hiddenLeft>
+  <layout title="首页" hiddenAllStrong>
     <uv-search
       placeholder="请输入搜索内容"
       :showAction="false"

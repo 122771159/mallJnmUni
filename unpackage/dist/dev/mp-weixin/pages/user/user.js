@@ -82,7 +82,7 @@ const _sfc_main = {
       common_vendor.index.navigateTo({ url: "/pages/login/login" });
     };
     const goToUpgrade = () => {
-      common_vendor.index.navigateTo({ url: "/pages/member-upgrade/member-upgrade" });
+      common_vendor.index.switchTab({ url: "/pages/index/index" });
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -120,7 +120,7 @@ const _sfc_main = {
         k: common_vendor.p({
           name: "level",
           size: "20",
-          color: "#f9ae3d"
+          color: "#429FFB"
         }),
         l: common_vendor.o(goToUpgrade),
         m: common_vendor.f(paymentActions.value, (item, index, i0) => {
@@ -145,7 +145,7 @@ const _sfc_main = {
         o: "calc(100vh - " + common_vendor.unref(topHeight) + "px - " + common_vendor.unref(bottomHeight) + "px)",
         p: common_vendor.p({
           title: "我的",
-          hiddenLeft: true
+          hiddenAllStrong: true
         }),
         q: common_vendor.p({
           value: "account"

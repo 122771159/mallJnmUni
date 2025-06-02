@@ -1,5 +1,5 @@
 <template>
-  <layout title="我的" hiddenLeft>
+  <layout title="我的" hiddenAllStrong>
     <view
       class="user-page-container"
       :style="{
@@ -38,12 +38,12 @@
 
       <view class="membership-banner-card">
         <view class="membership-info">
-          <uv-icon name="level" size="20" color="#f9ae3d"></uv-icon>
-          <text class="membership-title">至尊会员</text>
-          <text class="membership-perks">全年尊享6大权益</text>
+          <uv-icon name="level" size="20" color="#429FFB"></uv-icon>
+          <text class="membership-title">中裕内部专用</text>
+          <text class="membership-perks">品质保障</text>
         </view>
         <button class="upgrade-button" size="mini" @click="goToUpgrade">
-          去升级
+          去购物
         </button>
       </view>
 
@@ -94,6 +94,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useUserStore } from "@/stores";
+import { url } from "@climblee/uv-ui/libs/function/test";
 const userStore = useUserStore();
 const isLoggedIn = computed(() => userStore.isLogin);
 const currentUser = computed(() => userStore.getUserInfo);
@@ -205,7 +206,7 @@ const goToLogin = () => {
   uni.navigateTo({ url: "/pages/login/login" });
 };
 const goToUpgrade = () => {
-  uni.navigateTo({ url: "/pages/member-upgrade/member-upgrade" });
+  uni.switchTab({ url: "/pages/index/index" });
 };
 </script>
 
