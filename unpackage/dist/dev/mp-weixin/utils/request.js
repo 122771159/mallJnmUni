@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const stores_index = require("../stores/index.js");
-const BASE_URL = "http://127.0.0.1:8080";
+require("../stores/index.js");
+const BASE_URL = "http://192.168.110.152:8080";
 const request = (options) => {
   return new Promise((resolve, reject) => {
     const header = {
@@ -9,10 +9,6 @@ const request = (options) => {
       ...options.header
       // 允许覆盖默认header
     };
-    const token = common_vendor.index.getStorageSync("token");
-    if (token) {
-      header["Authorization"] = token;
-    }
     common_vendor.index.request({
       url: BASE_URL + options.url,
       method: options.method || "GET",
@@ -23,46 +19,10 @@ const request = (options) => {
       // --- 响应成功拦截器逻辑 ---
       success: (res) => {
         const { data, header: responseHeaders } = res;
-        const new_token = responseHeaders.Authorization || responseHeaders.authorization;
-        if (new_token) {
-          stores_index.useUserStore().setToken(new_token);
-        }
-        if (data.code === 104) {
-          common_vendor.index.showModal({
-            title: "提示",
-            content: "您的登录已失效，请重新登录",
-            confirmText: "再次登录",
-            showCancel: false,
-            // 一般不给用户取消的机会
-            success: (modalRes) => {
-              if (modalRes.confirm) {
-                stores_index.useUserStore().clearToken();
-                common_vendor.index.reLaunch({
-                  url: "/pages/login/login"
-                  // 请替换为你的登录页面路径
-                });
-              }
-            }
-          });
-          return reject(new Error("登录失效"));
-        }
-        if (data.success !== void 0 && !data.success) {
-          common_vendor.index.showToast({
-            title: data.msg || "操作失败",
-            icon: "none",
-            duration: 3e3
-          });
-          return reject(new Error(data.msg || "操作失败"));
-        }
         resolve(data);
       },
       // --- 响应失败拦截器逻辑 (网络错误等) ---
       fail: (error) => {
-        common_vendor.index.showToast({
-          title: `请求失败: ${error.errMsg || "网络错误"}`,
-          icon: "none",
-          duration: 3e3
-        });
         reject(error);
       }
     });
@@ -99,6 +59,24 @@ const http = {
       method: "DELETE",
       data,
       header
+    });
+  },
+  getFile(url, header = {}) {
+    const token = common_vendor.index.getStorageSync("token");
+    return new Promise((resolve, reject) => {
+      common_vendor.index.downloadFile({
+        url: BASE_URL + url,
+        header: {
+          Authorization: token,
+          ...header
+        },
+        success: (res) => {
+          resolve(res);
+        },
+        fail: (err) => {
+          reject(err);
+        }
+      });
     });
   }
   // 你可以继续封装 upload 等方法

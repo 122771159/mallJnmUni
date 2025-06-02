@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我的",
   "usingComponents": {
+    "uv-avatar": "../../node-modules/@climblee/uv-ui/components/uv-avatar/uv-avatar",
     "uv-icon": "../../node-modules/@climblee/uv-ui/components/uv-icon/uv-icon",
     "uv-grid-item": "../../node-modules/@climblee/uv-ui/components/uv-grid-item/uv-grid-item",
     "uv-grid": "../../node-modules/@climblee/uv-ui/components/uv-grid/uv-grid",

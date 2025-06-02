@@ -4,7 +4,7 @@
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
 * @license MIT
 **/
-var _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L;
+var _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z, __, _$, _aa, _ba;
 function makeMap(str, expectsLowerCase) {
   const set2 = new Set(str.split(","));
   return expectsLowerCase ? (val) => set2.has(val.toLowerCase()) : (val) => set2.has(val);
@@ -37,9 +37,9 @@ const isPromise = (val) => {
   return (isObject$1(val) || isFunction(val)) && isFunction(val.then) && isFunction(val.catch);
 };
 const objectToString = Object.prototype.toString;
-const toTypeString = (value) => objectToString.call(value);
-const toRawType = (value) => {
-  return toTypeString(value).slice(8, -1);
+const toTypeString = (value2) => objectToString.call(value2);
+const toRawType = (value2) => {
+  return toTypeString(value2).slice(8, -1);
 };
 const isPlainObject$2 = (val) => toTypeString(val) === "[object Object]";
 const isIntegerKey = (key) => isString(key) && key !== "NaN" && key[0] !== "-" && "" + parseInt(key, 10) === key;
@@ -72,28 +72,28 @@ const toHandlerKey = cacheStringFunction((str) => {
   const s2 = str ? `on${capitalize(str)}` : ``;
   return s2;
 });
-const hasChanged = (value, oldValue) => !Object.is(value, oldValue);
+const hasChanged = (value2, oldValue) => !Object.is(value2, oldValue);
 const invokeArrayFns$1 = (fns, arg) => {
   for (let i = 0; i < fns.length; i++) {
     fns[i](arg);
   }
 };
-const def = (obj, key, value) => {
+const def = (obj, key, value2) => {
   Object.defineProperty(obj, key, {
     configurable: true,
     enumerable: false,
-    value
+    value: value2
   });
 };
 const looseToNumber = (val) => {
   const n2 = parseFloat(val);
   return isNaN(n2) ? val : n2;
 };
-function normalizeStyle(value) {
-  if (isArray$1(value)) {
+function normalizeStyle(value2) {
+  if (isArray$1(value2)) {
     const res = {};
-    for (let i = 0; i < value.length; i++) {
-      const item = value[i];
+    for (let i = 0; i < value2.length; i++) {
+      const item = value2[i];
       const normalized = isString(item) ? parseStringStyle(item) : normalizeStyle(item);
       if (normalized) {
         for (const key in normalized) {
@@ -102,8 +102,8 @@ function normalizeStyle(value) {
       }
     }
     return res;
-  } else if (isString(value) || isObject$1(value)) {
-    return value;
+  } else if (isString(value2) || isObject$1(value2)) {
+    return value2;
   }
 }
 const listDelimiterRE = /;(?![^(]*\))/g;
@@ -119,20 +119,20 @@ function parseStringStyle(cssText) {
   });
   return ret;
 }
-function normalizeClass(value) {
+function normalizeClass(value2) {
   let res = "";
-  if (isString(value)) {
-    res = value;
-  } else if (isArray$1(value)) {
-    for (let i = 0; i < value.length; i++) {
-      const normalized = normalizeClass(value[i]);
+  if (isString(value2)) {
+    res = value2;
+  } else if (isArray$1(value2)) {
+    for (let i = 0; i < value2.length; i++) {
+      const normalized = normalizeClass(value2[i]);
       if (normalized) {
         res += normalized + " ";
       }
     }
-  } else if (isObject$1(value)) {
-    for (const name in value) {
-      if (value[name]) {
+  } else if (isObject$1(value2)) {
+    for (const name in value2) {
+      if (value2[name]) {
         res += name + " ";
       }
     }
@@ -374,8 +374,8 @@ const MINI_PROGRAM_PAGE_RUNTIME_HOOKS = /* @__PURE__ */ (() => {
     onShareTimeline: 1 << 2
   };
 })();
-function isUniLifecycleHook(name, value, checkType = true) {
-  if (checkType && !isFunction(value)) {
+function isUniLifecycleHook(name, value2, checkType = true) {
+  if (checkType && !isFunction(value2)) {
     return false;
   }
   if (UniLifecycleHooks.indexOf(name) > -1) {
@@ -892,30 +892,30 @@ class MutableReactiveHandler extends BaseReactiveHandler {
   constructor(isShallow2 = false) {
     super(false, isShallow2);
   }
-  set(target, key, value, receiver) {
+  set(target, key, value2, receiver) {
     let oldValue = target[key];
     if (!this._isShallow) {
       const isOldValueReadonly = isReadonly(oldValue);
-      if (!isShallow(value) && !isReadonly(value)) {
+      if (!isShallow(value2) && !isReadonly(value2)) {
         oldValue = toRaw(oldValue);
-        value = toRaw(value);
+        value2 = toRaw(value2);
       }
-      if (!isArray$1(target) && isRef(oldValue) && !isRef(value)) {
+      if (!isArray$1(target) && isRef(oldValue) && !isRef(value2)) {
         if (isOldValueReadonly) {
           return false;
         } else {
-          oldValue.value = value;
+          oldValue.value = value2;
           return true;
         }
       }
     }
     const hadKey = isArray$1(target) && isIntegerKey(key) ? Number(key) < target.length : hasOwn(target, key);
-    const result = Reflect.set(target, key, value, receiver);
+    const result = Reflect.set(target, key, value2, receiver);
     if (target === toRaw(receiver)) {
       if (!hadKey) {
-        trigger(target, "add", key, value);
-      } else if (hasChanged(value, oldValue)) {
-        trigger(target, "set", key, value, oldValue);
+        trigger(target, "add", key, value2);
+      } else if (hasChanged(value2, oldValue)) {
+        trigger(target, "set", key, value2, oldValue);
       }
     }
     return result;
@@ -974,7 +974,7 @@ const shallowReactiveHandlers = /* @__PURE__ */ new MutableReactiveHandler(
   true
 );
 const shallowReadonlyHandlers = /* @__PURE__ */ new ReadonlyReactiveHandler(true);
-const toShallow = (value) => value;
+const toShallow = (value2) => value2;
 const getProto = (v) => Reflect.getPrototypeOf(v);
 function get(target, key, isReadonly2 = false, isShallow2 = false) {
   target = target["__v_raw"];
@@ -1013,19 +1013,19 @@ function size(target, isReadonly2 = false) {
   !isReadonly2 && track(toRaw(target), "iterate", ITERATE_KEY);
   return Reflect.get(target, "size", target);
 }
-function add(value) {
-  value = toRaw(value);
+function add(value2) {
+  value2 = toRaw(value2);
   const target = toRaw(this);
   const proto = getProto(target);
-  const hadKey = proto.has.call(target, value);
+  const hadKey = proto.has.call(target, value2);
   if (!hadKey) {
-    target.add(value);
-    trigger(target, "add", value, value);
+    target.add(value2);
+    trigger(target, "add", value2, value2);
   }
   return this;
 }
-function set$1(key, value) {
-  value = toRaw(value);
+function set$1(key, value2) {
+  value2 = toRaw(value2);
   const target = toRaw(this);
   const { has: has2, get: get2 } = getProto(target);
   let hadKey = has2.call(target, key);
@@ -1036,11 +1036,11 @@ function set$1(key, value) {
     checkIdentityKeys(target, has2, key);
   }
   const oldValue = get2.call(target, key);
-  target.set(key, value);
+  target.set(key, value2);
   if (!hadKey) {
-    trigger(target, "add", key, value);
-  } else if (hasChanged(value, oldValue)) {
-    trigger(target, "set", key, value, oldValue);
+    trigger(target, "add", key, value2);
+  } else if (hasChanged(value2, oldValue)) {
+    trigger(target, "set", key, value2, oldValue);
   }
   return this;
 }
@@ -1078,8 +1078,8 @@ function createForEach(isReadonly2, isShallow2) {
     const rawTarget = toRaw(target);
     const wrap = isShallow2 ? toShallow : isReadonly2 ? toReadonly : toReactive;
     !isReadonly2 && track(rawTarget, "iterate", ITERATE_KEY);
-    return target.forEach((value, key) => {
-      return callback.call(thisArg, wrap(value), wrap(key), observed);
+    return target.forEach((value2, key) => {
+      return callback.call(thisArg, wrap(value2), wrap(key), observed);
     });
   };
 }
@@ -1100,9 +1100,9 @@ function createIterableMethod(method3, isReadonly2, isShallow2) {
     return {
       // iterator protocol
       next() {
-        const { value, done } = innerIterator.next();
-        return done ? { value, done } : {
-          value: isPair ? [wrap(value[0]), wrap(value[1])] : wrap(value),
+        const { value: value2, done } = innerIterator.next();
+        return done ? { value: value2, done } : {
+          value: isPair ? [wrap(value2[0]), wrap(value2[1])] : wrap(value2),
           done
         };
       },
@@ -1271,8 +1271,8 @@ function targetTypeMap(rawType) {
       return 0;
   }
 }
-function getTargetType(value) {
-  return value["__v_skip"] || !Object.isExtensible(value) ? 0 : targetTypeMap(toRawType(value));
+function getTargetType(value2) {
+  return value2["__v_skip"] || !Object.isExtensible(value2) ? 0 : targetTypeMap(toRawType(value2));
 }
 function reactive(target) {
   if (isReadonly(target)) {
@@ -1338,33 +1338,33 @@ function createReactiveObject(target, isReadonly2, baseHandlers, collectionHandl
   proxyMap.set(target, proxy);
   return proxy;
 }
-function isReactive(value) {
-  if (isReadonly(value)) {
-    return isReactive(value["__v_raw"]);
+function isReactive(value2) {
+  if (isReadonly(value2)) {
+    return isReactive(value2["__v_raw"]);
   }
-  return !!(value && value["__v_isReactive"]);
+  return !!(value2 && value2["__v_isReactive"]);
 }
-function isReadonly(value) {
-  return !!(value && value["__v_isReadonly"]);
+function isReadonly(value2) {
+  return !!(value2 && value2["__v_isReadonly"]);
 }
-function isShallow(value) {
-  return !!(value && value["__v_isShallow"]);
+function isShallow(value2) {
+  return !!(value2 && value2["__v_isShallow"]);
 }
-function isProxy(value) {
-  return isReactive(value) || isReadonly(value);
+function isProxy(value2) {
+  return isReactive(value2) || isReadonly(value2);
 }
 function toRaw(observed) {
   const raw = observed && observed["__v_raw"];
   return raw ? toRaw(raw) : observed;
 }
-function markRaw(value) {
-  if (Object.isExtensible(value)) {
-    def(value, "__v_skip", true);
+function markRaw(value2) {
+  if (Object.isExtensible(value2)) {
+    def(value2, "__v_skip", true);
   }
-  return value;
+  return value2;
 }
-const toReactive = (value) => isObject$1(value) ? reactive(value) : value;
-const toReadonly = (value) => isObject$1(value) ? readonly(value) : value;
+const toReactive = (value2) => isObject$1(value2) ? reactive(value2) : value2;
+const toReadonly = (value2) => isObject$1(value2) ? readonly(value2) : value2;
 const COMPUTED_SIDE_EFFECT_WARN = `Computed is still dirty after getter evaluation, likely because a computed is mutating its own dependency in its getter. State mutations in computed getters should be avoided.  Check the docs for more details: https://vuejs.org/guide/essentials/computed.html#getters-should-be-side-effect-free`;
 class ComputedRefImpl {
   constructor(getter, _setter, isReadonly2, isSSR) {
@@ -1469,8 +1469,8 @@ function triggerRefValue(ref2, dirtyLevel = 4, newVal) {
 function isRef(r2) {
   return !!(r2 && r2.__v_isRef === true);
 }
-function ref(value) {
-  return createRef(value, false);
+function ref(value2) {
+  return createRef(value2, false);
 }
 function createRef(rawValue, shallow) {
   if (isRef(rawValue)) {
@@ -1479,12 +1479,12 @@ function createRef(rawValue, shallow) {
   return new RefImpl(rawValue, shallow);
 }
 class RefImpl {
-  constructor(value, __v_isShallow) {
+  constructor(value2, __v_isShallow) {
     this.__v_isShallow = __v_isShallow;
     this.dep = void 0;
     this.__v_isRef = true;
-    this._rawValue = __v_isShallow ? value : toRaw(value);
-    this._value = __v_isShallow ? value : toReactive(value);
+    this._rawValue = __v_isShallow ? value2 : toRaw(value2);
+    this._value = __v_isShallow ? value2 : toReactive(value2);
   }
   get value() {
     trackRefValue(this);
@@ -1505,13 +1505,13 @@ function unref(ref2) {
 }
 const shallowUnwrapHandlers = {
   get: (target, key, receiver) => unref(Reflect.get(target, key, receiver)),
-  set: (target, key, value, receiver) => {
+  set: (target, key, value2, receiver) => {
     const oldValue = target[key];
-    if (isRef(oldValue) && !isRef(value)) {
-      oldValue.value = value;
+    if (isRef(oldValue) && !isRef(value2)) {
+      oldValue.value = value2;
       return true;
     } else {
-      return Reflect.set(target, key, value, receiver);
+      return Reflect.set(target, key, value2, receiver);
     }
   }
 };
@@ -1662,20 +1662,20 @@ function formatProps(props2) {
   }
   return res;
 }
-function formatProp(key, value, raw) {
-  if (isString(value)) {
-    value = JSON.stringify(value);
-    return raw ? value : [`${key}=${value}`];
-  } else if (typeof value === "number" || typeof value === "boolean" || value == null) {
-    return raw ? value : [`${key}=${value}`];
-  } else if (isRef(value)) {
-    value = formatProp(key, toRaw(value.value), true);
-    return raw ? value : [`${key}=Ref<`, value, `>`];
-  } else if (isFunction(value)) {
-    return [`${key}=fn${value.name ? `<${value.name}>` : ``}`];
+function formatProp(key, value2, raw) {
+  if (isString(value2)) {
+    value2 = JSON.stringify(value2);
+    return raw ? value2 : [`${key}=${value2}`];
+  } else if (typeof value2 === "number" || typeof value2 === "boolean" || value2 == null) {
+    return raw ? value2 : [`${key}=${value2}`];
+  } else if (isRef(value2)) {
+    value2 = formatProp(key, toRaw(value2.value), true);
+    return raw ? value2 : [`${key}=Ref<`, value2, `>`];
+  } else if (isFunction(value2)) {
+    return [`${key}=fn${value2.name ? `<${value2.name}>` : ``}`];
   } else {
-    value = toRaw(value);
-    return raw ? value : [`${key}=`, value];
+    value2 = toRaw(value2);
+    return raw ? value2 : [`${key}=`, value2];
   }
 }
 const ErrorTypeStrings = {
@@ -2413,15 +2413,15 @@ function doWatch(source, cb, {
   }
   return unwatch;
 }
-function instanceWatch(source, value, options) {
+function instanceWatch(source, value2, options) {
   const publicThis = this.proxy;
   const getter = isString(source) ? source.includes(".") ? createPathGetter(publicThis, source) : () => publicThis[source] : source.bind(publicThis, publicThis);
   let cb;
-  if (isFunction(value)) {
-    cb = value;
+  if (isFunction(value2)) {
+    cb = value2;
   } else {
-    cb = value.handler;
-    options = value;
+    cb = value2.handler;
+    options = value2;
   }
   const reset = setCurrentInstance(this);
   const res = doWatch(getter, cb.bind(publicThis), options);
@@ -2438,37 +2438,37 @@ function createPathGetter(ctx, path) {
     return cur;
   };
 }
-function traverse(value, depth, currentDepth = 0, seen) {
-  if (!isObject$1(value) || value["__v_skip"]) {
-    return value;
+function traverse(value2, depth, currentDepth = 0, seen) {
+  if (!isObject$1(value2) || value2["__v_skip"]) {
+    return value2;
   }
   if (depth && depth > 0) {
     if (currentDepth >= depth) {
-      return value;
+      return value2;
     }
     currentDepth++;
   }
   seen = seen || /* @__PURE__ */ new Set();
-  if (seen.has(value)) {
-    return value;
+  if (seen.has(value2)) {
+    return value2;
   }
-  seen.add(value);
-  if (isRef(value)) {
-    traverse(value.value, depth, currentDepth, seen);
-  } else if (isArray$1(value)) {
-    for (let i = 0; i < value.length; i++) {
-      traverse(value[i], depth, currentDepth, seen);
+  seen.add(value2);
+  if (isRef(value2)) {
+    traverse(value2.value, depth, currentDepth, seen);
+  } else if (isArray$1(value2)) {
+    for (let i = 0; i < value2.length; i++) {
+      traverse(value2[i], depth, currentDepth, seen);
     }
-  } else if (isSet(value) || isMap(value)) {
-    value.forEach((v) => {
+  } else if (isSet(value2) || isMap(value2)) {
+    value2.forEach((v) => {
       traverse(v, depth, currentDepth, seen);
     });
-  } else if (isPlainObject$2(value)) {
-    for (const key in value) {
-      traverse(value[key], depth, currentDepth, seen);
+  } else if (isPlainObject$2(value2)) {
+    for (const key in value2) {
+      traverse(value2[key], depth, currentDepth, seen);
     }
   }
-  return value;
+  return value2;
 }
 function validateDirectiveName(name) {
   if (isBuiltInDirective(name)) {
@@ -2586,13 +2586,13 @@ function createAppAPI(render, hydrate) {
       // fixed by xxxxxx
       unmount() {
       },
-      provide(key, value) {
+      provide(key, value2) {
         if (key in context.provides) {
           warn$1(
             `App already provides property with key "${String(key)}". It will be overwritten with the new value.`
           );
         }
-        context.provides[key] = value;
+        context.provides[key] = value2;
         return app;
       },
       runWithContext(fn) {
@@ -2609,7 +2609,7 @@ function createAppAPI(render, hydrate) {
   };
 }
 let currentApp = null;
-function provide(key, value) {
+function provide(key, value2) {
   if (!currentInstance) {
     {
       warn$1(`provide() can only be used inside setup().`);
@@ -2620,9 +2620,9 @@ function provide(key, value) {
     if (parentProvides === provides) {
       provides = currentInstance.provides = Object.create(parentProvides);
     }
-    provides[key] = value;
+    provides[key] = value2;
     if (currentInstance.type.mpType === "app") {
-      currentInstance.appContext.app.provide(key, value);
+      currentInstance.appContext.app.provide(key, value2);
     }
   }
 }
@@ -2717,21 +2717,21 @@ function injectHook(type2, hook, target = currentInstance, prepend = false) {
     );
   }
 }
-const createHook = (lifecycle) => (hook, target = currentInstance) => (
+const createHook$1 = (lifecycle) => (hook, target = currentInstance) => (
   // post-create lifecycle registrations are noops during SSR (except for serverPrefetch)
   (!isInSSRComponentSetup || lifecycle === "sp") && injectHook(lifecycle, (...args) => hook(...args), target)
 );
-const onBeforeMount = createHook("bm");
-const onMounted = createHook("m");
-const onBeforeUpdate = createHook("bu");
-const onUpdated = createHook("u");
-const onBeforeUnmount = createHook("bum");
-const onUnmounted = createHook("um");
-const onServerPrefetch = createHook("sp");
-const onRenderTriggered = createHook(
+const onBeforeMount = createHook$1("bm");
+const onMounted = createHook$1("m");
+const onBeforeUpdate = createHook$1("bu");
+const onUpdated = createHook$1("u");
+const onBeforeUnmount = createHook$1("bum");
+const onUnmounted = createHook$1("um");
+const onServerPrefetch = createHook$1("sp");
+const onRenderTriggered = createHook$1(
   "rtg"
 );
-const onRenderTracked = createHook(
+const onRenderTracked = createHook$1(
   "rtc"
 );
 function onErrorCaptured(hook, target = currentInstance) {
@@ -2851,16 +2851,16 @@ const PublicInstanceProxyHandlers = {
       }
     }
   },
-  set({ _: instance }, key, value) {
+  set({ _: instance }, key, value2) {
     const { data, setupState, ctx } = instance;
     if (hasSetupBinding(setupState, key)) {
-      setupState[key] = value;
+      setupState[key] = value2;
       return true;
     } else if (setupState.__isScriptSetup && hasOwn(setupState, key)) {
       warn$1(`Cannot mutate <script setup> binding "${key}" from Options API.`);
       return false;
     } else if (data !== EMPTY_OBJ && hasOwn(data, key)) {
-      data[key] = value;
+      data[key] = value2;
       return true;
     } else if (hasOwn(instance.props, key)) {
       warn$1(`Attempting to mutate prop "${key}". Props are readonly.`);
@@ -2876,10 +2876,10 @@ const PublicInstanceProxyHandlers = {
         Object.defineProperty(ctx, key, {
           enumerable: true,
           configurable: true,
-          value
+          value: value2
         });
       } else {
-        ctx[key] = value;
+        ctx[key] = value2;
       }
     }
     return true;
@@ -3443,11 +3443,11 @@ function updateProps(instance, rawProps, rawPrevProps, optimized) {
         if (isEmitListener(instance.emitsOptions, key)) {
           continue;
         }
-        const value = rawProps[key];
+        const value2 = rawProps[key];
         if (options) {
           if (hasOwn(attrs, key)) {
-            if (value !== attrs[key]) {
-              attrs[key] = value;
+            if (value2 !== attrs[key]) {
+              attrs[key] = value2;
               hasAttrsChanged = true;
             }
           } else {
@@ -3456,14 +3456,14 @@ function updateProps(instance, rawProps, rawPrevProps, optimized) {
               options,
               rawCurrentProps,
               camelizedKey,
-              value,
+              value2,
               instance,
               false
             );
           }
         } else {
-          if (value !== attrs[key]) {
-            attrs[key] = value;
+          if (value2 !== attrs[key]) {
+            attrs[key] = value2;
             hasAttrsChanged = true;
           }
         }
@@ -3522,17 +3522,17 @@ function setFullProps(instance, rawProps, props2, attrs) {
       if (isReservedProp(key)) {
         continue;
       }
-      const value = rawProps[key];
+      const value2 = rawProps[key];
       let camelKey;
       if (options && hasOwn(options, camelKey = camelize(key))) {
         if (!needCastKeys || !needCastKeys.includes(camelKey)) {
-          props2[camelKey] = value;
+          props2[camelKey] = value2;
         } else {
-          (rawCastValues || (rawCastValues = {}))[camelKey] = value;
+          (rawCastValues || (rawCastValues = {}))[camelKey] = value2;
         }
       } else if (!isEmitListener(instance.emitsOptions, key)) {
-        if (!(key in attrs) || value !== attrs[key]) {
-          attrs[key] = value;
+        if (!(key in attrs) || value2 !== attrs[key]) {
+          attrs[key] = value2;
           hasAttrsChanged = true;
         }
       }
@@ -3555,26 +3555,26 @@ function setFullProps(instance, rawProps, props2, attrs) {
   }
   return hasAttrsChanged;
 }
-function resolvePropValue$1(options, props2, key, value, instance, isAbsent) {
+function resolvePropValue$1(options, props2, key, value2, instance, isAbsent) {
   const opt = options[key];
   if (opt != null) {
     const hasDefault = hasOwn(opt, "default");
-    if (hasDefault && value === void 0) {
+    if (hasDefault && value2 === void 0) {
       const defaultValue = opt.default;
       if (opt.type !== Function && !opt.skipFactory && isFunction(defaultValue)) {
         const { propsDefaults } = instance;
         if (key in propsDefaults) {
-          value = propsDefaults[key];
+          value2 = propsDefaults[key];
         } else {
           const reset = setCurrentInstance(instance);
-          value = propsDefaults[key] = defaultValue.call(
+          value2 = propsDefaults[key] = defaultValue.call(
             null,
             props2
           );
           reset();
         }
       } else {
-        value = defaultValue;
+        value2 = defaultValue;
       }
     }
     if (opt[
@@ -3582,16 +3582,16 @@ function resolvePropValue$1(options, props2, key, value, instance, isAbsent) {
       /* shouldCast */
     ]) {
       if (isAbsent && !hasDefault) {
-        value = false;
+        value2 = false;
       } else if (opt[
         1
         /* shouldCastTrue */
-      ] && (value === "" || value === hyphenate(key))) {
-        value = true;
+      ] && (value2 === "" || value2 === hyphenate(key))) {
+        value2 = true;
       }
     }
   }
-  return value;
+  return value2;
 }
 function normalizePropsOptions(comp, appContext, asMixin = false) {
   const cache = appContext.propsCache;
@@ -3717,13 +3717,13 @@ function validateProps(rawProps, props2, instance) {
     );
   }
 }
-function validateProp$1(name, value, prop, props2, isAbsent) {
+function validateProp$1(name, value2, prop, props2, isAbsent) {
   const { type: type2, required: required2, validator, skipCheck } = prop;
   if (required2 && isAbsent) {
     warn$1('Missing required prop: "' + name + '"');
     return;
   }
-  if (value == null && !required2) {
+  if (value2 == null && !required2) {
     return;
   }
   if (type2 != null && type2 !== true && !skipCheck) {
@@ -3731,54 +3731,54 @@ function validateProp$1(name, value, prop, props2, isAbsent) {
     const types2 = isArray$1(type2) ? type2 : [type2];
     const expectedTypes = [];
     for (let i = 0; i < types2.length && !isValid; i++) {
-      const { valid, expectedType } = assertType$1(value, types2[i]);
+      const { valid, expectedType } = assertType$1(value2, types2[i]);
       expectedTypes.push(expectedType || "");
       isValid = valid;
     }
     if (!isValid) {
-      warn$1(getInvalidTypeMessage$1(name, value, expectedTypes));
+      warn$1(getInvalidTypeMessage$1(name, value2, expectedTypes));
       return;
     }
   }
-  if (validator && !validator(value, props2)) {
+  if (validator && !validator(value2, props2)) {
     warn$1('Invalid prop: custom validator check failed for prop "' + name + '".');
   }
 }
 const isSimpleType$1 = /* @__PURE__ */ makeMap(
   "String,Number,Boolean,Function,Symbol,BigInt"
 );
-function assertType$1(value, type2) {
+function assertType$1(value2, type2) {
   let valid;
   const expectedType = getType$1(type2);
   if (isSimpleType$1(expectedType)) {
-    const t2 = typeof value;
+    const t2 = typeof value2;
     valid = t2 === expectedType.toLowerCase();
     if (!valid && t2 === "object") {
-      valid = value instanceof type2;
+      valid = value2 instanceof type2;
     }
   } else if (expectedType === "Object") {
-    valid = isObject$1(value);
+    valid = isObject$1(value2);
   } else if (expectedType === "Array") {
-    valid = isArray$1(value);
+    valid = isArray$1(value2);
   } else if (expectedType === "null") {
-    valid = value === null;
+    valid = value2 === null;
   } else {
-    valid = value instanceof type2;
+    valid = value2 instanceof type2;
   }
   return {
     valid,
     expectedType
   };
 }
-function getInvalidTypeMessage$1(name, value, expectedTypes) {
+function getInvalidTypeMessage$1(name, value2, expectedTypes) {
   if (expectedTypes.length === 0) {
     return `Prop type [] for prop "${name}" won't match anything. Did you mean to use type Array instead?`;
   }
   let message = `Invalid prop: type check failed for prop "${name}". Expected ${expectedTypes.map(capitalize).join(" | ")}`;
   const expectedType = expectedTypes[0];
-  const receivedType = toRawType(value);
-  const expectedValue = styleValue$1(value, expectedType);
-  const receivedValue = styleValue$1(value, receivedType);
+  const receivedType = toRawType(value2);
+  const expectedValue = styleValue$1(value2, expectedType);
+  const receivedValue = styleValue$1(value2, receivedType);
   if (expectedTypes.length === 1 && isExplicable$1(expectedType) && !isBoolean$1(expectedType, receivedType)) {
     message += ` with value ${expectedValue}`;
   }
@@ -3788,13 +3788,13 @@ function getInvalidTypeMessage$1(name, value, expectedTypes) {
   }
   return message;
 }
-function styleValue$1(value, type2) {
+function styleValue$1(value2, type2) {
   if (type2 === "String") {
-    return `"${value}"`;
+    return `"${value2}"`;
   } else if (type2 === "Number") {
-    return `${Number(value)}`;
+    return `${Number(value2)}`;
   } else {
-    return `${value}`;
+    return `${value2}`;
   }
 }
 function isExplicable$1(type2) {
@@ -3848,8 +3848,8 @@ const Fragment = Symbol.for("v-fgt");
 const Text = Symbol.for("v-txt");
 const Comment = Symbol.for("v-cmt");
 const Static = Symbol.for("v-stc");
-function isVNode(value) {
-  return value ? value.__v_isVNode === true : false;
+function isVNode(value2) {
+  return value2 ? value2.__v_isVNode === true : false;
 }
 const InternalObjectKey = `__vInternal`;
 function guardReactiveProps(props2) {
@@ -4556,11 +4556,11 @@ function setRef$1(instance, isUnmount = false) {
     nextTick(instance, doSet);
   }
 }
-function toSkip(value) {
-  if (isObject$1(value)) {
-    markRaw(value);
+function toSkip(value2) {
+  if (isObject$1(value2)) {
+    markRaw(value2);
   }
-  return value;
+  return value2;
 }
 function findComponentPublicInstance(mpComponents, id) {
   const mpInstance = mpComponents.find(
@@ -5140,11 +5140,11 @@ function getCreateApp() {
     return my[method3];
   }
 }
-function stringifyStyle(value) {
-  if (isString(value)) {
-    return value;
+function stringifyStyle(value2) {
+  if (isString(value2)) {
+    return value2;
   }
-  return stringify(normalizeStyle(value));
+  return stringify(normalizeStyle(value2));
 }
 function stringify(styles) {
   let ret = "";
@@ -5156,21 +5156,21 @@ function stringify(styles) {
   }
   return ret;
 }
-function vOn(value, key) {
+function vOn(value2, key) {
   const instance = getCurrentInstance();
   const ctx = instance.ctx;
   const extraKey = typeof key !== "undefined" && (ctx.$mpPlatform === "mp-weixin" || ctx.$mpPlatform === "mp-qq" || ctx.$mpPlatform === "mp-xhs") && (isString(key) || typeof key === "number") ? "_" + key : "";
   const name = "e" + instance.$ei++ + extraKey;
   const mpInstance = ctx.$scope;
-  if (!value) {
+  if (!value2) {
     delete mpInstance[name];
     return name;
   }
   const existingInvoker = mpInstance[name];
   if (existingInvoker) {
-    existingInvoker.value = value;
+    existingInvoker.value = value2;
   } else {
-    mpInstance[name] = createInvoker(value, instance);
+    mpInstance[name] = createInvoker(value2, instance);
   }
   return name;
 }
@@ -5238,16 +5238,16 @@ function patchMPEvent(event, instance) {
     }
   }
 }
-function patchStopImmediatePropagation(e2, value) {
-  if (isArray$1(value)) {
+function patchStopImmediatePropagation(e2, value2) {
+  if (isArray$1(value2)) {
     const originalStop = e2.stopImmediatePropagation;
     e2.stopImmediatePropagation = () => {
       originalStop && originalStop.call(e2);
       e2._stopped = true;
     };
-    return value.map((fn) => (e3) => !e3._stopped && fn(e3));
+    return value2.map((fn) => (e3) => !e3._stopped && fn(e3));
   } else {
-    return value;
+    return value2;
   }
 }
 function vFor(source, renderItem) {
@@ -5286,11 +5286,11 @@ function setRef(ref2, id, opts = {}) {
   const { $templateRefs } = getCurrentInstance();
   $templateRefs.push({ i: id, r: ref2, k: opts.k, f: opts.f });
 }
-const o = (value, key) => vOn(value, key);
+const o = (value2, key) => vOn(value2, key);
 const f = (source, renderItem) => vFor(source, renderItem);
-const s = (value) => stringifyStyle(value);
+const s = (value2) => stringifyStyle(value2);
 const e = (target, ...sources) => extend(target, ...sources);
-const n = (value) => normalizeClass(value);
+const n = (value2) => normalizeClass(value2);
 const t = (val) => toDisplayString(val);
 const p = (props2) => renderProps(props2);
 const sr = (ref2, id, opts) => setRef(ref2, id, opts);
@@ -5341,7 +5341,7 @@ function validateProtocols(name, args, protocol, onFail) {
     validateProtocol(name, data, { [opts.name]: opts }, onFail);
   }
 }
-function validateProp(name, value, prop, isAbsent) {
+function validateProp(name, value2, prop, isAbsent) {
   if (!isPlainObject$2(prop)) {
     prop = { type: prop };
   }
@@ -5349,7 +5349,7 @@ function validateProp(name, value, prop, isAbsent) {
   if (required2 && isAbsent) {
     return 'Missing required args: "' + name + '"';
   }
-  if (value == null && !required2) {
+  if (value2 == null && !required2) {
     return;
   }
   if (type2 != null) {
@@ -5357,35 +5357,35 @@ function validateProp(name, value, prop, isAbsent) {
     const types2 = isArray$1(type2) ? type2 : [type2];
     const expectedTypes = [];
     for (let i = 0; i < types2.length && !isValid; i++) {
-      const { valid, expectedType } = assertType(value, types2[i]);
+      const { valid, expectedType } = assertType(value2, types2[i]);
       expectedTypes.push(expectedType || "");
       isValid = valid;
     }
     if (!isValid) {
-      return getInvalidTypeMessage(name, value, expectedTypes);
+      return getInvalidTypeMessage(name, value2, expectedTypes);
     }
   }
   if (validator) {
-    return validator(value);
+    return validator(value2);
   }
 }
 const isSimpleType = /* @__PURE__ */ makeMap("String,Number,Boolean,Function,Symbol");
-function assertType(value, type2) {
+function assertType(value2, type2) {
   let valid;
   const expectedType = getType(type2);
   if (isSimpleType(expectedType)) {
-    const t2 = typeof value;
+    const t2 = typeof value2;
     valid = t2 === expectedType.toLowerCase();
     if (!valid && t2 === "object") {
-      valid = value instanceof type2;
+      valid = value2 instanceof type2;
     }
   } else if (expectedType === "Object") {
-    valid = isObject$1(value);
+    valid = isObject$1(value2);
   } else if (expectedType === "Array") {
-    valid = isArray$1(value);
+    valid = isArray$1(value2);
   } else {
     {
-      valid = value instanceof type2;
+      valid = value2 instanceof type2;
     }
   }
   return {
@@ -5393,12 +5393,12 @@ function assertType(value, type2) {
     expectedType
   };
 }
-function getInvalidTypeMessage(name, value, expectedTypes) {
+function getInvalidTypeMessage(name, value2, expectedTypes) {
   let message = `Invalid args: type check failed for args "${name}". Expected ${expectedTypes.map(capitalize).join(", ")}`;
   const expectedType = expectedTypes[0];
-  const receivedType = toRawType(value);
-  const expectedValue = styleValue(value, expectedType);
-  const receivedValue = styleValue(value, receivedType);
+  const receivedType = toRawType(value2);
+  const expectedValue = styleValue(value2, expectedType);
+  const receivedValue = styleValue(value2, receivedType);
   if (expectedTypes.length === 1 && isExplicable(expectedType) && !isBoolean(expectedType, receivedType)) {
     message += ` with value ${expectedValue}`;
   }
@@ -5412,13 +5412,13 @@ function getType(ctor) {
   const match = ctor && ctor.toString().match(/^\s*function (\w+)/);
   return match ? match[1] : "";
 }
-function styleValue(value, type2) {
+function styleValue(value2, type2) {
   if (type2 === "String") {
-    return `"${value}"`;
+    return `"${value2}"`;
   } else if (type2 === "Number") {
-    return `${Number(value)}`;
+    return `${Number(value2)}`;
   } else {
-    return `${value}`;
+    return `${value2}`;
   }
 }
 function isExplicable(type2) {
@@ -5999,7 +5999,7 @@ function shouldPromise(name) {
 if (!Promise.prototype.finally) {
   Promise.prototype.finally = function(onfinally) {
     const promise2 = this.constructor;
-    return this.then((value) => promise2.resolve(onfinally && onfinally()).then(() => value), (reason) => promise2.resolve(onfinally && onfinally()).then(() => {
+    return this.then((value2) => promise2.resolve(onfinally && onfinally()).then(() => value2), (reason) => promise2.resolve(onfinally && onfinally()).then(() => {
       throw reason;
     }));
   };
@@ -6701,10 +6701,10 @@ ${err.stack}`;
     }, errorExtra)));
   }
 }
-function setSendError(value, extra = {}) {
-  sendError = value;
+function setSendError(value2, extra = {}) {
+  sendError = value2;
   Object.assign(errorExtra, extra);
-  if (value != null && errorQueue.size > 0) {
+  if (value2 != null && errorQueue.size > 0) {
     const errors = Array.from(errorQueue);
     errorQueue.clear();
     sendErrorMessages(errors);
@@ -6792,10 +6792,10 @@ function formatArg(arg, depth = 0) {
       return formatBigInt(arg);
   }
 }
-function formatFunction(value) {
+function formatFunction(value2) {
   return {
     type: "function",
-    value: `function ${value.name}() {}`
+    value: `function ${value2.name}() {}`
   };
 }
 function formatUndefined() {
@@ -6803,88 +6803,88 @@ function formatUndefined() {
     type: "undefined"
   };
 }
-function formatBoolean(value) {
+function formatBoolean(value2) {
   return {
     type: "boolean",
-    value: String(value)
+    value: String(value2)
   };
 }
-function formatNumber(value) {
+function formatNumber(value2) {
   return {
     type: "number",
-    value: String(value)
+    value: String(value2)
   };
 }
-function formatBigInt(value) {
+function formatBigInt(value2) {
   return {
     type: "bigint",
-    value: String(value)
+    value: String(value2)
   };
 }
-function formatString(value) {
+function formatString(value2) {
   return {
     type: "string",
-    value
+    value: value2
   };
 }
-function formatSymbol(value) {
+function formatSymbol(value2) {
   return {
     type: "symbol",
-    value: value.description
+    value: value2.description
   };
 }
-function formatObject(value, depth) {
-  if (value === null) {
+function formatObject(value2, depth) {
+  if (value2 === null) {
     return {
       type: "null"
     };
   }
   {
-    if (isComponentPublicInstance(value)) {
-      return formatComponentPublicInstance(value, depth);
+    if (isComponentPublicInstance(value2)) {
+      return formatComponentPublicInstance(value2, depth);
     }
-    if (isComponentInternalInstance(value)) {
-      return formatComponentInternalInstance(value, depth);
+    if (isComponentInternalInstance(value2)) {
+      return formatComponentInternalInstance(value2, depth);
     }
-    if (isUniElement(value)) {
-      return formatUniElement(value, depth);
+    if (isUniElement(value2)) {
+      return formatUniElement(value2, depth);
     }
-    if (isCSSStyleDeclaration(value)) {
-      return formatCSSStyleDeclaration(value, depth);
+    if (isCSSStyleDeclaration(value2)) {
+      return formatCSSStyleDeclaration(value2, depth);
     }
   }
-  if (Array.isArray(value)) {
+  if (Array.isArray(value2)) {
     return {
       type: "object",
       subType: "array",
       value: {
-        properties: value.map((v, i) => formatArrayElement(v, i, depth + 1))
+        properties: value2.map((v, i) => formatArrayElement(v, i, depth + 1))
       }
     };
   }
-  if (value instanceof Set) {
+  if (value2 instanceof Set) {
     return {
       type: "object",
       subType: "set",
       className: "Set",
-      description: `Set(${value.size})`,
+      description: `Set(${value2.size})`,
       value: {
-        entries: Array.from(value).map((v) => formatSetEntry(v, depth + 1))
+        entries: Array.from(value2).map((v) => formatSetEntry(v, depth + 1))
       }
     };
   }
-  if (value instanceof Map) {
+  if (value2 instanceof Map) {
     return {
       type: "object",
       subType: "map",
       className: "Map",
-      description: `Map(${value.size})`,
+      description: `Map(${value2.size})`,
       value: {
-        entries: Array.from(value.entries()).map((v) => formatMapEntry(v, depth + 1))
+        entries: Array.from(value2.entries()).map((v) => formatMapEntry(v, depth + 1))
       }
     };
   }
-  if (value instanceof Promise) {
+  if (value2 instanceof Promise) {
     return {
       type: "object",
       subType: "promise",
@@ -6893,41 +6893,41 @@ function formatObject(value, depth) {
       }
     };
   }
-  if (value instanceof RegExp) {
+  if (value2 instanceof RegExp) {
     return {
       type: "object",
       subType: "regexp",
-      value: String(value),
+      value: String(value2),
       className: "Regexp"
     };
   }
-  if (value instanceof Date) {
+  if (value2 instanceof Date) {
     return {
       type: "object",
       subType: "date",
-      value: String(value),
+      value: String(value2),
       className: "Date"
     };
   }
-  if (value instanceof Error) {
+  if (value2 instanceof Error) {
     return {
       type: "object",
       subType: "error",
-      value: value.message || String(value),
-      className: value.name || "Error"
+      value: value2.message || String(value2),
+      className: value2.name || "Error"
     };
   }
   let className = void 0;
   {
-    const constructor = value.constructor;
+    const constructor = value2.constructor;
     if (constructor) {
       if (constructor.get$UTSMetadata$) {
         className = constructor.get$UTSMetadata$().name;
       }
     }
   }
-  let entries = Object.entries(value);
-  if (isHarmonyBuilderParams(value)) {
+  let entries = Object.entries(value2);
+  if (isHarmonyBuilderParams(value2)) {
     entries = entries.filter(([key]) => key !== "modifier" && key !== "nodeContent");
   }
   return {
@@ -6938,43 +6938,43 @@ function formatObject(value, depth) {
     }
   };
 }
-function isHarmonyBuilderParams(value) {
-  return value.modifier && value.modifier._attribute && value.nodeContent;
+function isHarmonyBuilderParams(value2) {
+  return value2.modifier && value2.modifier._attribute && value2.nodeContent;
 }
-function isComponentPublicInstance(value) {
-  return value.$ && isComponentInternalInstance(value.$);
+function isComponentPublicInstance(value2) {
+  return value2.$ && isComponentInternalInstance(value2.$);
 }
-function isComponentInternalInstance(value) {
-  return value.type && value.uid != null && value.appContext;
+function isComponentInternalInstance(value2) {
+  return value2.type && value2.uid != null && value2.appContext;
 }
-function formatComponentPublicInstance(value, depth) {
+function formatComponentPublicInstance(value2, depth) {
   return {
     type: "object",
     className: "ComponentPublicInstance",
     value: {
-      properties: Object.entries(value.$.type).map(([name, value2]) => formatObjectProperty(name, value2, depth + 1))
+      properties: Object.entries(value2.$.type).map(([name, value22]) => formatObjectProperty(name, value22, depth + 1))
     }
   };
 }
-function formatComponentInternalInstance(value, depth) {
+function formatComponentInternalInstance(value2, depth) {
   return {
     type: "object",
     className: "ComponentInternalInstance",
     value: {
-      properties: Object.entries(value.type).map(([name, value2]) => formatObjectProperty(name, value2, depth + 1))
+      properties: Object.entries(value2.type).map(([name, value22]) => formatObjectProperty(name, value22, depth + 1))
     }
   };
 }
-function isUniElement(value) {
-  return value.style && value.tagName != null && value.nodeName != null;
+function isUniElement(value2) {
+  return value2.style && value2.tagName != null && value2.nodeName != null;
 }
-function formatUniElement(value, depth) {
+function formatUniElement(value2, depth) {
   return {
     type: "object",
     // 非 x 没有 UniElement 的概念
     // className: 'UniElement',
     value: {
-      properties: Object.entries(value).filter(([name]) => [
+      properties: Object.entries(value2).filter(([name]) => [
         "id",
         "tagName",
         "nodeName",
@@ -6982,40 +6982,40 @@ function formatUniElement(value, depth) {
         "offsetTop",
         "offsetLeft",
         "style"
-      ].includes(name)).map(([name, value2]) => formatObjectProperty(name, value2, depth + 1))
+      ].includes(name)).map(([name, value22]) => formatObjectProperty(name, value22, depth + 1))
     }
   };
 }
-function isCSSStyleDeclaration(value) {
-  return typeof value.getPropertyValue === "function" && typeof value.setProperty === "function" && value.$styles;
+function isCSSStyleDeclaration(value2) {
+  return typeof value2.getPropertyValue === "function" && typeof value2.setProperty === "function" && value2.$styles;
 }
 function formatCSSStyleDeclaration(style, depth) {
   return {
     type: "object",
     value: {
-      properties: Object.entries(style.$styles).map(([name, value]) => formatObjectProperty(name, value, depth + 1))
+      properties: Object.entries(style.$styles).map(([name, value2]) => formatObjectProperty(name, value2, depth + 1))
     }
   };
 }
-function formatObjectProperty(name, value, depth) {
-  const result = formatArg(value, depth);
+function formatObjectProperty(name, value2, depth) {
+  const result = formatArg(value2, depth);
   result.name = name;
   return result;
 }
-function formatArrayElement(value, index2, depth) {
-  const result = formatArg(value, depth);
+function formatArrayElement(value2, index2, depth) {
+  const result = formatArg(value2, depth);
   result.name = `${index2}`;
   return result;
 }
-function formatSetEntry(value, depth) {
+function formatSetEntry(value2, depth) {
   return {
-    value: formatArg(value, depth)
+    value: formatArg(value2, depth)
   };
 }
-function formatMapEntry(value, depth) {
+function formatMapEntry(value2, depth) {
   return {
-    key: formatArg(value[0], depth),
-    value: formatArg(value[1], depth)
+    key: formatArg(value2[0], depth),
+    value: formatArg(value2[1], depth)
   };
 }
 let sendConsole = null;
@@ -7033,10 +7033,10 @@ function sendConsoleMessages(messages3) {
     data: messages3
   }, messageExtra)));
 }
-function setSendConsole(value, extra = {}) {
-  sendConsole = value;
+function setSendConsole(value2, extra = {}) {
+  sendConsole = value2;
   Object.assign(messageExtra, extra);
-  if (value != null && messageQueue.length > 0) {
+  if (value2 != null && messageQueue.length > 0) {
     const messages3 = messageQueue.slice();
     messageQueue.length = 0;
     sendConsoleMessages(messages3);
@@ -7101,7 +7101,7 @@ function rewriteConsole() {
   };
 }
 function isConsoleWritable() {
-  const value = console.log;
+  const value2 = console.log;
   const sym = Symbol();
   try {
     console.log = sym;
@@ -7109,13 +7109,13 @@ function isConsoleWritable() {
     return false;
   }
   const isWritable = console.log === sym;
-  console.log = value;
+  console.log = value2;
   return isWritable;
 }
 function initRuntimeSocketService() {
   const hosts = "127.0.0.1,192.168.110.152";
   const port = "8090";
-  const id = "mp-weixin_u9e_U3";
+  const id = "mp-weixin_s6QL5G";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -7683,15 +7683,15 @@ function initPageProps({ properties }, rawProps) {
     Object.keys(rawProps).forEach((key) => {
       const opts = rawProps[key];
       if (isPlainObject$2(opts)) {
-        let value = opts.default;
-        if (isFunction(value)) {
-          value = value();
+        let value2 = opts.default;
+        if (isFunction(value2)) {
+          value2 = value2();
         }
         const type2 = opts.type;
         opts.type = normalizePropType(type2);
         properties[key] = {
           type: opts.type,
-          value
+          value: value2
         };
       } else {
         properties[key] = {
@@ -8250,7 +8250,7 @@ function triggerSubscriptions(subscriptions, ...args) {
 const fallbackRunWithContext = (fn) => fn();
 function mergeReactiveObjects(target, patchToApply) {
   if (target instanceof Map && patchToApply instanceof Map) {
-    patchToApply.forEach((value, key) => target.set(key, value));
+    patchToApply.forEach((value2, key) => target.set(key, value2));
   }
   if (target instanceof Set && patchToApply instanceof Set) {
     patchToApply.forEach(target.add, target);
@@ -8420,9 +8420,9 @@ function createSetupStore($id, setup, options = {}, pinia, hot, isOptionsStore) 
         throw error2;
       }
       if (ret instanceof Promise) {
-        return ret.then((value) => {
-          triggerSubscriptions(afterCallbackList, value);
-          return value;
+        return ret.then((value2) => {
+          triggerSubscriptions(afterCallbackList, value2);
+          return value2;
         }).catch((error2) => {
           triggerSubscriptions(onErrorCallbackList, error2);
           return Promise.reject(error2);
@@ -8745,8 +8745,8 @@ function mapWritableState(useStore, keysOrMapper) {
       get() {
         return useStore(this.$pinia)[key];
       },
-      set(value) {
-        return useStore(this.$pinia)[key] = value;
+      set(value2) {
+        return useStore(this.$pinia)[key] = value2;
       }
     };
     return reduced;
@@ -8755,8 +8755,8 @@ function mapWritableState(useStore, keysOrMapper) {
       get() {
         return useStore(this.$pinia)[keysOrMapper[key]];
       },
-      set(value) {
-        return useStore(this.$pinia)[keysOrMapper[key]] = value;
+      set(value2) {
+        return useStore(this.$pinia)[keysOrMapper[key]] = value2;
       }
     };
     return reduced;
@@ -8767,8 +8767,8 @@ function storeToRefs(store) {
     store = toRaw(store);
     const refs = {};
     for (const key in store) {
-      const value = store[key];
-      if (isRef(value) || isReactive(value)) {
+      const value2 = store[key];
+      if (isRef(value2) || isReactive(value2)) {
         refs[key] = // ---
         toRef(store, key);
       }
@@ -9183,8 +9183,8 @@ var clone = function() {
         child = new nativeSet();
       } else if (_instanceof(parent2, nativePromise)) {
         child = new nativePromise(function(resolve2, reject) {
-          parent2.then(function(value) {
-            resolve2(_clone(value, depth2 - 1));
+          parent2.then(function(value2) {
+            resolve2(_clone(value2, depth2 - 1));
           }, function(err) {
             reject(_clone(err, depth2 - 1));
           });
@@ -9225,15 +9225,15 @@ var clone = function() {
         allChildren.push(child);
       }
       if (_instanceof(parent2, nativeMap)) {
-        parent2.forEach(function(value, key) {
+        parent2.forEach(function(value2, key) {
           var keyChild = _clone(key, depth2 - 1);
-          var valueChild = _clone(value, depth2 - 1);
+          var valueChild = _clone(value2, depth2 - 1);
           child.set(keyChild, valueChild);
         });
       }
       if (_instanceof(parent2, nativeSet)) {
-        parent2.forEach(function(value) {
-          var entryChild = _clone(value, depth2 - 1);
+        parent2.forEach(function(value2) {
+          var entryChild = _clone(value2, depth2 - 1);
           child.add(entryChild);
         });
       }
@@ -9460,107 +9460,107 @@ class Request {
     return "3.1.0";
   }
 }
-function email(value) {
-  return /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(value);
+function email(value2) {
+  return /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(value2);
 }
-function mobile(value) {
-  return /^1([3589]\d|4[5-9]|6[1-2,4-7]|7[0-8])\d{8}$/.test(value);
+function mobile(value2) {
+  return /^1([3589]\d|4[5-9]|6[1-2,4-7]|7[0-8])\d{8}$/.test(value2);
 }
-function url(value) {
-  return /^((https|http|ftp|rtsp|mms):\/\/)(([0-9a-zA-Z_!~*'().&=+$%-]+: )?[0-9a-zA-Z_!~*'().&=+$%-]+@)?(([0-9]{1,3}.){3}[0-9]{1,3}|([0-9a-zA-Z_!~*'()-]+.)*([0-9a-zA-Z][0-9a-zA-Z-]{0,61})?[0-9a-zA-Z].[a-zA-Z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test(value);
+function url(value2) {
+  return /^((https|http|ftp|rtsp|mms):\/\/)(([0-9a-zA-Z_!~*'().&=+$%-]+: )?[0-9a-zA-Z_!~*'().&=+$%-]+@)?(([0-9]{1,3}.){3}[0-9]{1,3}|([0-9a-zA-Z_!~*'()-]+.)*([0-9a-zA-Z][0-9a-zA-Z-]{0,61})?[0-9a-zA-Z].[a-zA-Z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test(value2);
 }
-function date(value) {
-  if (!value)
+function date(value2) {
+  if (!value2)
     return false;
-  if (number(value))
-    value = +value;
-  return !/Invalid|NaN/.test(new Date(value).toString());
+  if (number(value2))
+    value2 = +value2;
+  return !/Invalid|NaN/.test(new Date(value2).toString());
 }
-function dateISO(value) {
-  return /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value);
+function dateISO(value2) {
+  return /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value2);
 }
-function number(value) {
-  return /^[\+-]?(\d+\.?\d*|\.\d+|\d\.\d+e\+\d+)$/.test(value);
+function number(value2) {
+  return /^[\+-]?(\d+\.?\d*|\.\d+|\d\.\d+e\+\d+)$/.test(value2);
 }
-function string$1(value) {
-  return typeof value === "string";
+function string$1(value2) {
+  return typeof value2 === "string";
 }
-function digits(value) {
-  return /^\d+$/.test(value);
+function digits(value2) {
+  return /^\d+$/.test(value2);
 }
-function idCard(value) {
+function idCard(value2) {
   return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(
-    value
+    value2
   );
 }
-function carNo(value) {
+function carNo(value2) {
   const xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
   const creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
-  if (value.length === 7) {
-    return creg.test(value);
+  if (value2.length === 7) {
+    return creg.test(value2);
   }
-  if (value.length === 8) {
-    return xreg.test(value);
+  if (value2.length === 8) {
+    return xreg.test(value2);
   }
   return false;
 }
-function amount(value) {
-  return /^[1-9]\d*(,\d{3})*(\.\d{1,2})?$|^0\.\d{1,2}$/.test(value);
+function amount(value2) {
+  return /^[1-9]\d*(,\d{3})*(\.\d{1,2})?$|^0\.\d{1,2}$/.test(value2);
 }
-function chinese(value) {
+function chinese(value2) {
   const reg = /^[\u4e00-\u9fa5]+$/gi;
-  return reg.test(value);
+  return reg.test(value2);
 }
-function letter(value) {
-  return /^[a-zA-Z]*$/.test(value);
+function letter(value2) {
+  return /^[a-zA-Z]*$/.test(value2);
 }
-function enOrNum(value) {
+function enOrNum(value2) {
   const reg = /^[0-9a-zA-Z]*$/g;
-  return reg.test(value);
+  return reg.test(value2);
 }
-function contains(value, param) {
-  return value.indexOf(param) >= 0;
+function contains(value2, param) {
+  return value2.indexOf(param) >= 0;
 }
-function range$2(value, param) {
-  return value >= param[0] && value <= param[1];
+function range$2(value2, param) {
+  return value2 >= param[0] && value2 <= param[1];
 }
-function rangeLength(value, param) {
-  return value.length >= param[0] && value.length <= param[1];
+function rangeLength(value2, param) {
+  return value2.length >= param[0] && value2.length <= param[1];
 }
-function landline(value) {
+function landline(value2) {
   const reg = /^\d{3,4}-\d{7,8}(-\d{3,4})?$/;
-  return reg.test(value);
+  return reg.test(value2);
 }
-function empty(value) {
-  switch (typeof value) {
+function empty(value2) {
+  switch (typeof value2) {
     case "undefined":
       return true;
     case "string":
-      if (value.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, "").length == 0)
+      if (value2.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, "").length == 0)
         return true;
       break;
     case "boolean":
-      if (!value)
+      if (!value2)
         return true;
       break;
     case "number":
-      if (value === 0 || isNaN(value))
+      if (value2 === 0 || isNaN(value2))
         return true;
       break;
     case "object":
-      if (value === null || value.length === 0)
+      if (value2 === null || value2.length === 0)
         return true;
-      for (const i in value) {
+      for (const i in value2) {
         return false;
       }
       return true;
   }
   return false;
 }
-function jsonString(value) {
-  if (typeof value === "string") {
+function jsonString(value2) {
+  if (typeof value2 === "string") {
     try {
-      const obj = JSON.parse(value);
+      const obj = JSON.parse(value2);
       if (typeof obj === "object" && obj) {
         return true;
       }
@@ -9571,32 +9571,32 @@ function jsonString(value) {
   }
   return false;
 }
-function array(value) {
+function array(value2) {
   if (typeof Array.isArray === "function") {
-    return Array.isArray(value);
+    return Array.isArray(value2);
   }
-  return Object.prototype.toString.call(value) === "[object Array]";
+  return Object.prototype.toString.call(value2) === "[object Array]";
 }
-function object(value) {
-  return Object.prototype.toString.call(value) === "[object Object]";
+function object(value2) {
+  return Object.prototype.toString.call(value2) === "[object Object]";
 }
-function code(value, len = 6) {
-  return new RegExp(`^\\d{${len}}$`).test(value);
+function code(value2, len = 6) {
+  return new RegExp(`^\\d{${len}}$`).test(value2);
 }
-function func(value) {
-  return typeof value === "function";
+function func(value2) {
+  return typeof value2 === "function";
 }
-function promise(value) {
-  return object(value) && func(value.then) && func(value.catch);
+function promise(value2) {
+  return object(value2) && func(value2.then) && func(value2.catch);
 }
-function image(value) {
-  const newValue = value.split("?")[0];
+function image(value2) {
+  const newValue = value2.split("?")[0];
   const IMAGE_REGEXP = /\.(jpeg|jpg|gif|png|svg|webp|jfif|bmp|dpg)/i;
   return IMAGE_REGEXP.test(newValue);
 }
-function video(value) {
+function video(value2) {
   const VIDEO_REGEXP = /\.(mp4|mpg|mpeg|dat|asf|avi|rm|rmvb|mov|wmv|flv|mkv|m3u8)/i;
-  return VIDEO_REGEXP.test(value);
+  return VIDEO_REGEXP.test(value2);
 }
 function regExp(o2) {
   return o2 && Object.prototype.toString.call(o2) === "[object RegExp]";
@@ -9693,23 +9693,23 @@ function round(num, ratio) {
   }
   return result;
 }
-function range$1(min = 0, max = 0, value = 0) {
-  return Math.max(min, Math.min(max, Number(value)));
+function range$1(min = 0, max = 0, value2 = 0) {
+  return Math.max(min, Math.min(max, Number(value2)));
 }
-function getPx(value, unit = false) {
-  if (number(value)) {
-    return unit ? `${value}px` : Number(value);
+function getPx(value2, unit = false) {
+  if (number(value2)) {
+    return unit ? `${value2}px` : Number(value2);
   }
-  if (/(rpx|upx)$/.test(value)) {
-    return unit ? `${index$1.upx2px(parseInt(value))}px` : Number(index$1.upx2px(parseInt(value)));
+  if (/(rpx|upx)$/.test(value2)) {
+    return unit ? `${index$1.upx2px(parseInt(value2))}px` : Number(index$1.upx2px(parseInt(value2)));
   }
-  return unit ? `${parseInt(value)}px` : parseInt(value);
+  return unit ? `${parseInt(value2)}px` : parseInt(value2);
 }
-function sleep(value = 30) {
+function sleep(value2 = 30) {
   return new Promise((resolve2) => {
     setTimeout(() => {
       resolve2();
-    }, value);
+    }, value2);
   });
 }
 function os() {
@@ -9783,9 +9783,9 @@ function addStyle(customStyle, target = "object") {
   }
   return trim(string2);
 }
-function addUnit(value = "auto", unit = ((_b) => (_b = ((_a) => (_a = index$1 == null ? void 0 : index$1.$uv) == null ? void 0 : _a.config)()) == null ? void 0 : _b.unit)() ? ((_d) => (_d = ((_c) => (_c = index$1 == null ? void 0 : index$1.$uv) == null ? void 0 : _c.config)()) == null ? void 0 : _d.unit)() : "px") {
-  value = String(value);
-  return number(value) ? `${value}${unit}` : value;
+function addUnit(value2 = "auto", unit = ((_b) => (_b = ((_a) => (_a = index$1 == null ? void 0 : index$1.$uv) == null ? void 0 : _a.config)()) == null ? void 0 : _b.unit)() ? ((_d) => (_d = ((_c) => (_c = index$1 == null ? void 0 : index$1.$uv) == null ? void 0 : _c.config)()) == null ? void 0 : _d.unit)() : "px") {
+  value2 = String(value2);
+  return number(value2) ? `${value2}${unit}` : value2;
 }
 function deepClone(obj, cache = /* @__PURE__ */ new WeakMap()) {
   if (obj === null || typeof obj !== "object")
@@ -9798,16 +9798,16 @@ function deepClone(obj, cache = /* @__PURE__ */ new WeakMap()) {
   } else if (obj instanceof RegExp) {
     clone2 = new RegExp(obj);
   } else if (obj instanceof Map) {
-    clone2 = new Map(Array.from(obj, ([key, value]) => [key, deepClone(value, cache)]));
+    clone2 = new Map(Array.from(obj, ([key, value2]) => [key, deepClone(value2, cache)]));
   } else if (obj instanceof Set) {
-    clone2 = new Set(Array.from(obj, (value) => deepClone(value, cache)));
+    clone2 = new Set(Array.from(obj, (value2) => deepClone(value2, cache)));
   } else if (Array.isArray(obj)) {
-    clone2 = obj.map((value) => deepClone(value, cache));
+    clone2 = obj.map((value2) => deepClone(value2, cache));
   } else if (Object.prototype.toString.call(obj) === "[object Object]") {
     clone2 = Object.create(Object.getPrototypeOf(obj));
     cache.set(obj, clone2);
-    for (const [key, value] of Object.entries(obj)) {
-      clone2[key] = deepClone(value, cache);
+    for (const [key, value2] of Object.entries(obj)) {
+      clone2[key] = deepClone(value2, cache);
     }
   } else {
     clone2 = Object.assign({}, obj);
@@ -9964,41 +9964,41 @@ function queryParams(data = {}, isPrefix = true, arrayFormat = "brackets") {
   if (["indices", "brackets", "repeat", "comma"].indexOf(arrayFormat) == -1)
     arrayFormat = "brackets";
   for (const key in data) {
-    const value = data[key];
-    if (["", void 0, null].indexOf(value) >= 0) {
+    const value2 = data[key];
+    if (["", void 0, null].indexOf(value2) >= 0) {
       continue;
     }
-    if (value.constructor === Array) {
+    if (value2.constructor === Array) {
       switch (arrayFormat) {
         case "indices":
-          for (let i = 0; i < value.length; i++) {
-            _result.push(`${key}[${i}]=${value[i]}`);
+          for (let i = 0; i < value2.length; i++) {
+            _result.push(`${key}[${i}]=${value2[i]}`);
           }
           break;
         case "brackets":
-          value.forEach((_value) => {
+          value2.forEach((_value) => {
             _result.push(`${key}[]=${_value}`);
           });
           break;
         case "repeat":
-          value.forEach((_value) => {
+          value2.forEach((_value) => {
             _result.push(`${key}=${_value}`);
           });
           break;
         case "comma":
           let commaStr = "";
-          value.forEach((_value) => {
+          value2.forEach((_value) => {
             commaStr += (commaStr ? "," : "") + _value;
           });
           _result.push(`${key}=${commaStr}`);
           break;
         default:
-          value.forEach((_value) => {
+          value2.forEach((_value) => {
             _result.push(`${key}[]=${_value}`);
           });
       }
     } else {
-      _result.push(`${key}=${value}`);
+      _result.push(`${key}=${value2}`);
     }
   }
   return _result.length ? prefix + _result.join("&") : "";
@@ -10055,21 +10055,21 @@ function priceFormat(number23, decimals = 0, decimalPoint = ".", thousandsSepara
   }
   return s2.join(dec);
 }
-function getDuration(value, unit = true) {
-  const valueNum = parseInt(value);
+function getDuration(value2, unit = true) {
+  const valueNum = parseInt(value2);
   if (unit) {
-    if (/s$/.test(value))
-      return value;
-    return value > 30 ? `${value}ms` : `${value}s`;
+    if (/s$/.test(value2))
+      return value2;
+    return value2 > 30 ? `${value2}ms` : `${value2}s`;
   }
-  if (/ms$/.test(value))
+  if (/ms$/.test(value2))
     return valueNum;
-  if (/s$/.test(value))
+  if (/s$/.test(value2))
     return valueNum > 30 ? valueNum : valueNum * 1e3;
   return valueNum;
 }
-function padZero(value) {
-  return `00${value}`.slice(-2);
+function padZero(value2) {
+  return `00${value2}`.slice(-2);
 }
 function formValidate(instance, event) {
   const formItem = $parent.call(instance, "uv-form-item");
@@ -10098,7 +10098,7 @@ function getProperty(obj, key) {
   }
   return obj[key];
 }
-function setProperty(obj, key, value) {
+function setProperty(obj, key, value2) {
   if (!obj) {
     return;
   }
@@ -10120,9 +10120,9 @@ function setProperty(obj, key, value) {
     ;
   else if (key.indexOf(".") !== -1) {
     const keys = key.split(".");
-    inFn(obj, keys, value);
+    inFn(obj, keys, value2);
   } else {
-    obj[key] = value;
+    obj[key] = value2;
   }
 }
 function page() {
@@ -11243,6 +11243,216 @@ const require$$1 = /* @__PURE__ */ getAugmentedNamespace(__viteBrowserExternal$1
 })(md5$1);
 var md5Exports = md5$1.exports;
 const md5 = /* @__PURE__ */ getDefaultExportFromCjs(md5Exports);
+const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
+  !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
+};
+const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
+const props$r = {
+  props: {
+    value: {
+      type: [String, Number],
+      default: ""
+    },
+    modelValue: {
+      type: [String, Number],
+      default: ""
+    },
+    // 搜索框形状，round-圆形，square-方形
+    shape: {
+      type: String,
+      default: "round"
+    },
+    // 搜索框背景色，默认值#f2f2f2
+    bgColor: {
+      type: String,
+      default: "#f2f2f2"
+    },
+    // 占位提示文字
+    placeholder: {
+      type: String,
+      default: "请输入关键字"
+    },
+    // 是否启用清除控件
+    clearabled: {
+      type: Boolean,
+      default: true
+    },
+    // 是否自动聚焦
+    focus: {
+      type: Boolean,
+      default: false
+    },
+    // 是否在搜索框右侧显示取消按钮
+    showAction: {
+      type: Boolean,
+      default: true
+    },
+    // 右边控件的样式
+    actionStyle: {
+      type: Object,
+      default: () => ({})
+    },
+    // 取消按钮文字
+    actionText: {
+      type: String,
+      default: "搜索"
+    },
+    // 输入框内容对齐方式，可选值为 left|center|right
+    inputAlign: {
+      type: String,
+      default: "left"
+    },
+    // input输入框的样式，可以定义文字颜色，大小等，对象形式
+    inputStyle: {
+      type: Object,
+      default: () => ({})
+    },
+    // 是否禁用输入框
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 边框颜色
+    borderColor: {
+      type: String,
+      default: "transparent"
+    },
+    // 搜索图标的颜色，默认同输入框字体颜色
+    searchIconColor: {
+      type: String,
+      default: "#909399"
+    },
+    // 输入框字体颜色
+    color: {
+      type: String,
+      default: "#606266"
+    },
+    // placeholder的颜色
+    placeholderColor: {
+      type: String,
+      default: "#909399"
+    },
+    // 左边输入框的图标，可以为uvui图标名称或图片路径
+    searchIcon: {
+      type: String,
+      default: "search"
+    },
+    searchIconSize: {
+      type: [Number, String],
+      default: 22
+    },
+    // 组件与其他上下左右元素之间的距离，带单位的字符串形式，如"30px"、"30px 20px"等写法
+    margin: {
+      type: String,
+      default: "0"
+    },
+    // 开启showAction时，是否在input获取焦点时才显示
+    animation: {
+      type: Boolean,
+      default: false
+    },
+    // 输入框最大能输入的长度，-1为不限制长度(来自uniapp文档)
+    maxlength: {
+      type: [String, Number],
+      default: -1
+    },
+    // 搜索框高度，单位px
+    height: {
+      type: [String, Number],
+      default: 32
+    },
+    // 搜索框左侧文本
+    label: {
+      type: [String, Number, null],
+      default: null
+    },
+    // 搜索框扩展样式
+    boxStyle: {
+      type: [String, Object],
+      default: () => ({})
+    },
+    ...(_f = (_e = index$1.$uv) == null ? void 0 : _e.props) == null ? void 0 : _f.search
+  }
+};
+const props$q = {
+  props: {
+    // 头像图片路径(不能为相对路径)
+    src: {
+      type: String,
+      default: ""
+    },
+    // 头像形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: "circle"
+    },
+    // 头像尺寸
+    size: {
+      type: [String, Number],
+      default: 40
+    },
+    // 裁剪模式
+    mode: {
+      type: String,
+      default: "scaleToFill"
+    },
+    // 显示的文字
+    text: {
+      type: String,
+      default: ""
+    },
+    // 背景色
+    bgColor: {
+      type: String,
+      default: "#c0c4cc"
+    },
+    // 文字颜色
+    color: {
+      type: String,
+      default: "#fff"
+    },
+    // 文字大小
+    fontSize: {
+      type: [String, Number],
+      default: 18
+    },
+    // 显示的图标
+    icon: {
+      type: String,
+      default: ""
+    },
+    // 显示小程序头像，只对百度，微信，QQ小程序有效
+    mpAvatar: {
+      type: Boolean,
+      default: false
+    },
+    // 是否使用随机背景色
+    randomBgColor: {
+      type: Boolean,
+      default: false
+    },
+    // 加载失败的默认头像(组件有内置默认图片)
+    defaultUrl: {
+      type: String,
+      default: ""
+    },
+    // 如果配置了randomBgColor为true，且配置了此值，则从默认的背景色数组中取出对应索引的颜色值，取值0-19之间
+    colorIndex: {
+      type: [String, Number],
+      // 校验参数规则，索引在0-19之间
+      validator(n2) {
+        return range$2(n2, [0, 19]) || n2 === "";
+      },
+      default: ""
+    },
+    // 组件标识符
+    name: {
+      type: String,
+      default: ""
+    },
+    ...(_h = (_g = index$1.$uv) == null ? void 0 : _g.props) == null ? void 0 : _h.avatar
+  }
+};
 const icons = {
   "uvicon-level": "e68f",
   "uvicon-checkbox-mark": "e659",
@@ -11403,7 +11613,7 @@ const icons = {
   "uvicon-twitte": "e607",
   "uvicon-twitter-circle-fill": "e6cf"
 };
-const props$i = {
+const props$p = {
   props: {
     // 图标类名
     name: {
@@ -11490,10 +11700,10 @@ const props$i = {
       type: Boolean,
       default: false
     },
-    ...(_f = (_e = index$1.$uv) == null ? void 0 : _e.props) == null ? void 0 : _f.icon
+    ...(_j = (_i = index$1.$uv) == null ? void 0 : _i.props) == null ? void 0 : _j.icon
   }
 };
-const props$h = {
+const props$o = {
   props: {
     // 宫格的name
     name: {
@@ -11505,10 +11715,10 @@ const props$h = {
       type: String,
       default: "transparent"
     },
-    ...(_h = (_g = index$1.$uv) == null ? void 0 : _g.props) == null ? void 0 : _h.gridItem
+    ...(_l = (_k = index$1.$uv) == null ? void 0 : _k.props) == null ? void 0 : _l.gridItem
   }
 };
-const props$g = {
+const props$n = {
   props: {
     // 分成几列
     col: {
@@ -11525,10 +11735,10 @@ const props$g = {
       type: String,
       default: "left"
     },
-    ...(_j = (_i = index$1.$uv) == null ? void 0 : _i.props) == null ? void 0 : _j.grid
+    ...(_n = (_m = index$1.$uv) == null ? void 0 : _m.props) == null ? void 0 : _n.grid
   }
 };
-const props$f = {
+const props$m = {
   props: {
     value: {
       type: [String, Number],
@@ -11700,10 +11910,10 @@ const props$f = {
       type: Boolean,
       default: true
     },
-    ...(_l = (_k = index$1.$uv) == null ? void 0 : _k.props) == null ? void 0 : _l.input
+    ...(_p = (_o = index$1.$uv) == null ? void 0 : _o.props) == null ? void 0 : _p.input
   }
 };
-const props$e = {
+const props$l = {
   props: {
     // input的label提示语
     label: {
@@ -11749,10 +11959,10 @@ const props$e = {
       type: [String, Object],
       default: ""
     },
-    ...(_n = (_m = index$1.$uv) == null ? void 0 : _m.props) == null ? void 0 : _n.formItem
+    ...(_r = (_q = index$1.$uv) == null ? void 0 : _q.props) == null ? void 0 : _r.formItem
   }
 };
-const props$d = {
+const props$k = {
   props: {
     // 当前form的需要验证字段的集合
     model: {
@@ -11795,7 +12005,7 @@ const props$d = {
       type: Object,
       default: () => ({})
     },
-    ...(_p = (_o = index$1.$uv) == null ? void 0 : _o.props) == null ? void 0 : _p.form
+    ...(_t = (_s = index$1.$uv) == null ? void 0 : _s.props) == null ? void 0 : _t.form
   }
 };
 const formatRegExp = /%[sdj%]/g;
@@ -11865,14 +12075,14 @@ function format() {
 function isNativeStringType(type2) {
   return type2 === "string" || type2 === "url" || type2 === "hex" || type2 === "email" || type2 === "pattern";
 }
-function isEmptyValue(value, type2) {
-  if (value === void 0 || value === null) {
+function isEmptyValue(value2, type2) {
+  if (value2 === void 0 || value2 === null) {
     return true;
   }
-  if (type2 === "array" && Array.isArray(value) && !value.length) {
+  if (type2 === "array" && Array.isArray(value2) && !value2.length) {
     return true;
   }
-  if (isNativeStringType(type2) && typeof value === "string" && !value) {
+  if (isNativeStringType(type2) && typeof value2 === "string" && !value2) {
     return true;
   }
   return false;
@@ -11985,24 +12195,24 @@ function deepMerge(target, source) {
   if (source) {
     for (const s2 in source) {
       if (source.hasOwnProperty(s2)) {
-        const value = source[s2];
-        if (typeof value === "object" && typeof target[s2] === "object") {
-          target[s2] = { ...target[s2], ...value };
+        const value2 = source[s2];
+        if (typeof value2 === "object" && typeof target[s2] === "object") {
+          target[s2] = { ...target[s2], ...value2 };
         } else {
-          target[s2] = value;
+          target[s2] = value2;
         }
       }
     }
   }
   return target;
 }
-function required(rule, value, source, errors, options, type2) {
-  if (rule.required && (!source.hasOwnProperty(rule.field) || isEmptyValue(value, type2 || rule.type))) {
+function required(rule, value2, source, errors, options, type2) {
+  if (rule.required && (!source.hasOwnProperty(rule.field) || isEmptyValue(value2, type2 || rule.type))) {
     errors.push(format(options.messages.required, rule.fullField));
   }
 }
-function whitespace(rule, value, source, errors, options) {
-  if (/^\s+$/.test(value) || value === "") {
+function whitespace(rule, value2, source, errors, options) {
+  if (/^\s+$/.test(value2) || value2 === "") {
     errors.push(format(options.messages.whitespace, rule.fullField));
   }
 }
@@ -12016,75 +12226,75 @@ const pattern = {
   hex: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i
 };
 var types = {
-  integer: function integer(value) {
-    return /^(-)?\d+$/.test(value);
+  integer: function integer(value2) {
+    return /^(-)?\d+$/.test(value2);
   },
-  float: function float(value) {
-    return /^(-)?\d+(\.\d+)?$/.test(value);
+  float: function float(value2) {
+    return /^(-)?\d+(\.\d+)?$/.test(value2);
   },
-  array: function array2(value) {
-    return Array.isArray(value);
+  array: function array2(value2) {
+    return Array.isArray(value2);
   },
-  regexp: function regexp(value) {
-    if (value instanceof RegExp) {
+  regexp: function regexp(value2) {
+    if (value2 instanceof RegExp) {
       return true;
     }
     try {
-      return !!new RegExp(value);
+      return !!new RegExp(value2);
     } catch (e2) {
       return false;
     }
   },
-  date: function date2(value) {
-    return typeof value.getTime === "function" && typeof value.getMonth === "function" && typeof value.getYear === "function";
+  date: function date2(value2) {
+    return typeof value2.getTime === "function" && typeof value2.getMonth === "function" && typeof value2.getYear === "function";
   },
-  number: function number2(value) {
-    if (isNaN(value)) {
+  number: function number2(value2) {
+    if (isNaN(value2)) {
       return false;
     }
-    return typeof +value === "number";
+    return typeof +value2 === "number";
   },
-  object: function object2(value) {
-    return typeof value === "object" && !types.array(value);
+  object: function object2(value2) {
+    return typeof value2 === "object" && !types.array(value2);
   },
-  method: function method(value) {
-    return typeof value === "function";
+  method: function method(value2) {
+    return typeof value2 === "function";
   },
-  email: function email2(value) {
-    return typeof value === "string" && !!value.match(pattern.email) && value.length < 255;
+  email: function email2(value2) {
+    return typeof value2 === "string" && !!value2.match(pattern.email) && value2.length < 255;
   },
-  url: function url2(value) {
-    return typeof value === "string" && !!value.match(pattern.url);
+  url: function url2(value2) {
+    return typeof value2 === "string" && !!value2.match(pattern.url);
   },
-  hex: function hex(value) {
-    return typeof value === "string" && !!value.match(pattern.hex);
+  hex: function hex(value2) {
+    return typeof value2 === "string" && !!value2.match(pattern.hex);
   }
 };
-function type(rule, value, source, errors, options) {
-  if (rule.required && value === void 0) {
-    required(rule, value, source, errors, options);
+function type(rule, value2, source, errors, options) {
+  if (rule.required && value2 === void 0) {
+    required(rule, value2, source, errors, options);
     return;
   }
   const custom = ["integer", "float", "array", "regexp", "object", "method", "email", "number", "date", "url", "hex"];
   const ruleType = rule.type;
   if (custom.indexOf(ruleType) > -1) {
-    if (!types[ruleType](value)) {
+    if (!types[ruleType](value2)) {
       errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
     }
-  } else if (ruleType && typeof value !== rule.type) {
+  } else if (ruleType && typeof value2 !== rule.type) {
     errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
   }
 }
-function range(rule, value, source, errors, options) {
+function range(rule, value2, source, errors, options) {
   const len = typeof rule.len === "number";
   const min = typeof rule.min === "number";
   const max = typeof rule.max === "number";
   const spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-  let val = value;
+  let val = value2;
   let key = null;
-  const num = typeof value === "number";
-  const str = typeof value === "string";
-  const arr = Array.isArray(value);
+  const num = typeof value2 === "number";
+  const str = typeof value2 === "string";
+  const arr = Array.isArray(value2);
   if (num) {
     key = "number";
   } else if (str) {
@@ -12096,10 +12306,10 @@ function range(rule, value, source, errors, options) {
     return false;
   }
   if (arr) {
-    val = value.length;
+    val = value2.length;
   }
   if (str) {
-    val = value.replace(spRegexp, "_").length;
+    val = value2.replace(spRegexp, "_").length;
   }
   if (len) {
     if (val !== rule.len) {
@@ -12114,23 +12324,23 @@ function range(rule, value, source, errors, options) {
   }
 }
 const ENUM = "enum";
-function enumerable(rule, value, source, errors, options) {
+function enumerable(rule, value2, source, errors, options) {
   rule[ENUM] = Array.isArray(rule[ENUM]) ? rule[ENUM] : [];
-  if (rule[ENUM].indexOf(value) === -1) {
+  if (rule[ENUM].indexOf(value2) === -1) {
     errors.push(format(options.messages[ENUM], rule.fullField, rule[ENUM].join(", ")));
   }
 }
-function pattern$1(rule, value, source, errors, options) {
+function pattern$1(rule, value2, source, errors, options) {
   if (rule.pattern) {
     if (rule.pattern instanceof RegExp) {
       rule.pattern.lastIndex = 0;
-      if (!rule.pattern.test(value)) {
-        errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
+      if (!rule.pattern.test(value2)) {
+        errors.push(format(options.messages.pattern.mismatch, rule.fullField, value2, rule.pattern));
       }
     } else if (typeof rule.pattern === "string") {
       const _pattern = new RegExp(rule.pattern);
-      if (!_pattern.test(value)) {
-        errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
+      if (!_pattern.test(value2)) {
+        errors.push(format(options.messages.pattern.mismatch, rule.fullField, value2, rule.pattern));
       }
     }
   }
@@ -12143,187 +12353,187 @@ const rules = {
   enum: enumerable,
   pattern: pattern$1
 };
-function string(rule, value, callback, source, options) {
+function string(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value, "string") && !rule.required) {
+    if (isEmptyValue(value2, "string") && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options, "string");
-    if (!isEmptyValue(value, "string")) {
-      rules.type(rule, value, source, errors, options);
-      rules.range(rule, value, source, errors, options);
-      rules.pattern(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options, "string");
+    if (!isEmptyValue(value2, "string")) {
+      rules.type(rule, value2, source, errors, options);
+      rules.range(rule, value2, source, errors, options);
+      rules.pattern(rule, value2, source, errors, options);
       if (rule.whitespace === true) {
-        rules.whitespace(rule, value, source, errors, options);
+        rules.whitespace(rule, value2, source, errors, options);
       }
     }
   }
   callback(errors);
 }
-function method2(rule, value, callback, source, options) {
+function method2(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules.type(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules.type(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function number22(rule, value, callback, source, options) {
+function number22(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (value === "") {
-      value = void 0;
+    if (value2 === "") {
+      value2 = void 0;
     }
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules.type(rule, value, source, errors, options);
-      rules.range(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules.type(rule, value2, source, errors, options);
+      rules.range(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function _boolean(rule, value, callback, source, options) {
+function _boolean(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules.type(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules.type(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function regexp2(rule, value, callback, source, options) {
+function regexp2(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (!isEmptyValue(value)) {
-      rules.type(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (!isEmptyValue(value2)) {
+      rules.type(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function integer2(rule, value, callback, source, options) {
+function integer2(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules.type(rule, value, source, errors, options);
-      rules.range(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules.type(rule, value2, source, errors, options);
+      rules.range(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function floatFn(rule, value, callback, source, options) {
+function floatFn(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules.type(rule, value, source, errors, options);
-      rules.range(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules.type(rule, value2, source, errors, options);
+      rules.range(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function array22(rule, value, callback, source, options) {
+function array22(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value, "array") && !rule.required) {
+    if (isEmptyValue(value2, "array") && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options, "array");
-    if (!isEmptyValue(value, "array")) {
-      rules.type(rule, value, source, errors, options);
-      rules.range(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options, "array");
+    if (!isEmptyValue(value2, "array")) {
+      rules.type(rule, value2, source, errors, options);
+      rules.range(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function object22(rule, value, callback, source, options) {
+function object22(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules.type(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules.type(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
 const ENUM$1 = "enum";
-function enumerable$1(rule, value, callback, source, options) {
+function enumerable$1(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (value !== void 0) {
-      rules[ENUM$1](rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (value2 !== void 0) {
+      rules[ENUM$1](rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function pattern$2(rule, value, callback, source, options) {
+function pattern$2(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value, "string") && !rule.required) {
+    if (isEmptyValue(value2, "string") && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (!isEmptyValue(value, "string")) {
-      rules.pattern(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
+    if (!isEmptyValue(value2, "string")) {
+      rules.pattern(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function date22(rule, value, callback, source, options) {
+function date22(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
-    if (!isEmptyValue(value)) {
+    rules.required(rule, value2, source, errors, options);
+    if (!isEmptyValue(value2)) {
       let dateObject;
-      if (typeof value === "number") {
-        dateObject = new Date(value);
+      if (typeof value2 === "number") {
+        dateObject = new Date(value2);
       } else {
-        dateObject = value;
+        dateObject = value2;
       }
       rules.type(rule, dateObject, source, errors, options);
       if (dateObject) {
@@ -12333,35 +12543,35 @@ function date22(rule, value, callback, source, options) {
   }
   callback(errors);
 }
-function required$1(rule, value, callback, source, options) {
+function required$1(rule, value2, callback, source, options) {
   const errors = [];
-  const type2 = Array.isArray(value) ? "array" : typeof value;
-  rules.required(rule, value, source, errors, options, type2);
+  const type2 = Array.isArray(value2) ? "array" : typeof value2;
+  rules.required(rule, value2, source, errors, options, type2);
   callback(errors);
 }
-function type$1(rule, value, callback, source, options) {
+function type$1(rule, value2, callback, source, options) {
   const ruleType = rule.type;
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value, ruleType) && !rule.required) {
+    if (isEmptyValue(value2, ruleType) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options, ruleType);
-    if (!isEmptyValue(value, ruleType)) {
-      rules.type(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options, ruleType);
+    if (!isEmptyValue(value2, ruleType)) {
+      rules.type(rule, value2, source, errors, options);
     }
   }
   callback(errors);
 }
-function any(rule, value, callback, source, options) {
+function any(rule, value2, callback, source, options) {
   const errors = [];
   const validate2 = rule.required || !rule.required && source.hasOwnProperty(rule.field);
   if (validate2) {
-    if (isEmptyValue(value) && !rule.required) {
+    if (isEmptyValue(value2) && !rule.required) {
       return callback();
     }
-    rules.required(rule, value, source, errors, options);
+    rules.required(rule, value2, source, errors, options);
   }
   callback(errors);
 }
@@ -12524,19 +12734,19 @@ Schema.prototype = {
       options.messages = this.messages();
     }
     let arr;
-    let value;
+    let value2;
     const series = {};
     const keys = options.keys || Object.keys(this.rules);
     keys.forEach((z) => {
       arr = _this.rules[z];
-      value = source[z];
+      value2 = source[z];
       arr.forEach((r) => {
         let rule = r;
         if (typeof rule.transform === "function") {
           if (source === source_) {
             source = { ...source };
           }
-          value = source[z] = rule.transform(value);
+          value2 = source[z] = rule.transform(value2);
         }
         if (typeof rule === "function") {
           rule = {
@@ -12555,7 +12765,7 @@ Schema.prototype = {
         series[z] = series[z] || [];
         series[z].push({
           rule,
-          value,
+          value: value2,
           source,
           field: z
         });
@@ -12749,7 +12959,7 @@ const openType = {
     }
   }
 };
-const props$c = {
+const props$j = {
   props: {
     // 是否细边框
     hairline: {
@@ -12909,10 +13119,10 @@ const props$c = {
       type: [Object, String],
       default: ""
     },
-    ...(_r = (_q = index$1.$uv) == null ? void 0 : _q.props) == null ? void 0 : _r.button
+    ...(_v = (_u = index$1.$uv) == null ? void 0 : _u.props) == null ? void 0 : _v.button
   }
 };
-const props$b = {
+const props$i = {
   props: {
     // checkbox的名称
     name: {
@@ -12979,10 +13189,10 @@ const props$b = {
       type: [String, Boolean],
       default: ""
     },
-    ...(_t = (_s = index$1.$uv) == null ? void 0 : _s.props) == null ? void 0 : _t.checkbox
+    ...(_x = (_w = index$1.$uv) == null ? void 0 : _w.props) == null ? void 0 : _x.checkbox
   }
 };
-const props$a = {
+const props$h = {
   props: {
     // 绑定的值
     value: {
@@ -13063,10 +13273,386 @@ const props$a = {
       type: Boolean,
       default: false
     },
-    ...(_v = (_u = index$1.$uv) == null ? void 0 : _u.props) == null ? void 0 : _v.checkboxGroup
+    ...(_z = (_y = index$1.$uv) == null ? void 0 : _y.props) == null ? void 0 : _z.checkboxGroup
   }
 };
-const props$9 = {
+const props$g = {
+  props: {
+    // 列表数组，元素可为字符串，如为对象可通过keyName指定目标属性名
+    list: {
+      type: Array,
+      default: () => []
+    },
+    // 是否显示面板指示器
+    indicator: {
+      type: Boolean,
+      default: false
+    },
+    // 指示器非激活颜色
+    indicatorActiveColor: {
+      type: String,
+      default: "#fff"
+    },
+    // 指示器的激活颜色
+    indicatorInactiveColor: {
+      type: String,
+      default: "rgba(255, 255, 255, 0.35)"
+    },
+    // 指示器样式，可通过bottom，left，right进行定位
+    indicatorStyle: {
+      type: [String, Object],
+      default: ""
+    },
+    // 指示器模式，line-线型，dot-点型
+    indicatorMode: {
+      type: String,
+      default: "line"
+    },
+    // 是否自动切换
+    autoplay: {
+      type: Boolean,
+      default: true
+    },
+    // 当前所在滑块的 index
+    current: {
+      type: [String, Number],
+      default: 0
+    },
+    // 当前所在滑块的 item-id ，不能与 current 被同时指定
+    currentItemId: {
+      type: String,
+      default: ""
+    },
+    // 滑块自动切换时间间隔
+    interval: {
+      type: [String, Number],
+      default: 3e3
+    },
+    // 滑块切换过程所需时间
+    duration: {
+      type: [String, Number],
+      default: 300
+    },
+    // 播放到末尾后是否重新回到开头
+    circular: {
+      type: Boolean,
+      default: false
+    },
+    // 滑动方向是否为纵向
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    // 前边距，可用于露出前一项的一小部分，nvue和支付宝不支持
+    previousMargin: {
+      type: [String, Number],
+      default: 0
+    },
+    // 后边距，可用于露出后一项的一小部分，nvue和支付宝不支持
+    nextMargin: {
+      type: [String, Number],
+      default: 0
+    },
+    // 当开启时，会根据滑动速度，连续滑动多屏，支付宝不支持
+    acceleration: {
+      type: Boolean,
+      default: false
+    },
+    // 同时显示的滑块数量，nvue、支付宝小程序不支持
+    displayMultipleItems: {
+      type: Number,
+      default: 1
+    },
+    // 指定swiper切换缓动动画类型，有效值：default、linear、easeInCubic、easeOutCubic、easeInOutCubic
+    // 只对微信小程序有效
+    easingFunction: {
+      type: String,
+      default: "default"
+    },
+    // list数组中指定对象的目标属性名
+    keyName: {
+      type: String,
+      default: "url"
+    },
+    // 图片的裁剪模式
+    imgMode: {
+      type: String,
+      default: "aspectFill"
+    },
+    // 组件高度
+    height: {
+      type: [String, Number],
+      default: 130
+    },
+    // 背景颜色
+    bgColor: {
+      type: String,
+      default: "#f3f4f6"
+    },
+    // 组件圆角，数值或带单位的字符串
+    radius: {
+      type: [String, Number],
+      default: 4
+    },
+    // 是否加载中
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示标题，要求数组对象中有title属性
+    showTitle: {
+      type: Boolean,
+      default: false
+    },
+    // 显示的标题样式
+    titleStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    ...(_B = (_A = index$1.$uv) == null ? void 0 : _A.props) == null ? void 0 : _B.swiper
+  }
+};
+const props$f = {
+  props: {
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: true
+    },
+    // 颜色
+    color: {
+      type: String,
+      default: "#909193"
+    },
+    // 提示文字颜色
+    textColor: {
+      type: String,
+      default: "#909193"
+    },
+    // 文字和图标是否垂直排列
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
+    mode: {
+      type: String,
+      default: "spinner"
+    },
+    // 图标大小，单位默认px
+    size: {
+      type: [String, Number],
+      default: 24
+    },
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: 15
+    },
+    // 文字样式
+    textStyle: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
+    // 文字内容
+    text: {
+      type: [String, Number],
+      default: ""
+    },
+    // 动画模式 https://www.runoob.com/cssref/css3-pr-animation-timing-function.html
+    timingFunction: {
+      type: String,
+      default: "linear"
+    },
+    // 动画执行周期时间
+    duration: {
+      type: [String, Number],
+      default: 1200
+    },
+    // mode=circle时的暗边颜色
+    inactiveColor: {
+      type: String,
+      default: ""
+    },
+    ...(_D = (_C = index$1.$uv) == null ? void 0 : _C.props) == null ? void 0 : _D.loadingIcon
+  }
+};
+const props$e = {
+  props: {
+    value: {
+      type: [String, Number],
+      default: 0
+    },
+    modelValue: {
+      type: [String, Number],
+      default: 0
+    },
+    // 步进器标识符，在change回调返回
+    name: {
+      type: [String, Number],
+      default: ""
+    },
+    // 最小值
+    min: {
+      type: [String, Number],
+      default: 1
+    },
+    // 最大值
+    max: {
+      type: [String, Number],
+      default: Number.MAX_SAFE_INTEGER
+    },
+    // 加减的步长，可为小数
+    step: {
+      type: [String, Number],
+      default: 1
+    },
+    // 是否只允许输入整数
+    integer: {
+      type: Boolean,
+      default: false
+    },
+    // 是否禁用，包括输入框，加减按钮
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 是否禁用输入框
+    disabledInput: {
+      type: Boolean,
+      default: false
+    },
+    // 是否开启异步变更，开启后需要手动控制输入值
+    asyncChange: {
+      type: Boolean,
+      default: false
+    },
+    // 输入框宽度，单位为px
+    inputWidth: {
+      type: [String, Number],
+      default: 35
+    },
+    // 是否显示减少按钮
+    showMinus: {
+      type: Boolean,
+      default: true
+    },
+    // 是否显示增加按钮
+    showPlus: {
+      type: Boolean,
+      default: true
+    },
+    // 显示的小数位数
+    decimalLength: {
+      type: [String, Number, null],
+      default: null
+    },
+    // 是否开启长按加减手势
+    longPress: {
+      type: Boolean,
+      default: true
+    },
+    // 输入框文字和加减按钮图标的颜色
+    color: {
+      type: String,
+      default: "#323233"
+    },
+    // 按钮大小，宽高等于此值，单位px，输入框高度和此值保持一致
+    buttonSize: {
+      type: [String, Number],
+      default: 30
+    },
+    // 输入框和按钮的背景颜色
+    bgColor: {
+      type: String,
+      default: "#EBECEE"
+    },
+    // 指定光标于键盘的距离，避免键盘遮挡输入框，单位px
+    cursorSpacing: {
+      type: [String, Number],
+      default: 100
+    },
+    // 是否禁用增加按钮
+    disablePlus: {
+      type: Boolean,
+      default: false
+    },
+    // 是否禁用减少按钮
+    disableMinus: {
+      type: Boolean,
+      default: false
+    },
+    // 加减按钮图标的样式
+    iconStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    ...(_F = (_E = index$1.$uv) == null ? void 0 : _E.props) == null ? void 0 : _F.numberBox
+  }
+};
+const props$d = {
+  props: {
+    // 内置图标名称，或图片路径，建议绝对路径
+    icon: {
+      type: String,
+      default: ""
+    },
+    // 提示文字
+    text: {
+      type: String,
+      default: ""
+    },
+    // 文字颜色
+    textColor: {
+      type: String,
+      default: "#c0c4cc"
+    },
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: 14
+    },
+    // 图标的颜色
+    iconColor: {
+      type: String,
+      default: "#c0c4cc"
+    },
+    // 图标的大小
+    iconSize: {
+      type: [String, Number],
+      default: 90
+    },
+    // 选择预置的图标类型
+    mode: {
+      type: String,
+      default: "data"
+    },
+    //  图标宽度，单位px
+    width: {
+      type: [String, Number],
+      default: 160
+    },
+    // 图标高度，单位px
+    height: {
+      type: [String, Number],
+      default: 160
+    },
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: true
+    },
+    // 组件距离上一个元素之间的距离，默认px单位
+    marginTop: {
+      type: [String, Number],
+      default: 0
+    },
+    ...(_H = (_G = index$1.$uv) == null ? void 0 : _G.props) == null ? void 0 : _H.empty
+  }
+};
+const props$c = {
   props: {
     // 是否显示圆点
     isDot: {
@@ -13136,10 +13722,10 @@ const props$9 = {
       type: Boolean,
       default: false
     },
-    ...(_x = (_w = index$1.$uv) == null ? void 0 : _w.props) == null ? void 0 : _x.badge
+    ...(_J = (_I = index$1.$uv) == null ? void 0 : _I.props) == null ? void 0 : _J.badge
   }
 };
-const props$8 = {
+const props$b = {
   props: {
     // 列表数据
     list: {
@@ -13218,7 +13804,7 @@ const props$8 = {
     }
   }
 };
-const props$7 = {
+const props$a = {
   props: {
     // item标签的名称，作为与uv-tabbar的value参数匹配的标识符
     name: {
@@ -13255,10 +13841,10 @@ const props$7 = {
       type: [Object, String],
       default: "top: 6px;right:2px;"
     },
-    ...(_z = (_y = index$1.$uv) == null ? void 0 : _y.props) == null ? void 0 : _z.tabbarItem
+    ...(_L = (_K = index$1.$uv) == null ? void 0 : _K.props) == null ? void 0 : _L.tabbarItem
   }
 };
-const props$6 = {
+const props$9 = {
   props: {
     // 当前匹配项的name
     value: {
@@ -13305,10 +13891,10 @@ const props$6 = {
       type: [String, Number],
       default: 20
     },
-    ...(_B = (_A = index$1.$uv) == null ? void 0 : _A.props) == null ? void 0 : _B.tabbar
+    ...(_N = (_M = index$1.$uv) == null ? void 0 : _M.props) == null ? void 0 : _N.tabbar
   }
 };
-const props$5 = {
+const props$8 = {
   props: {
     color: {
       type: String,
@@ -13339,10 +13925,10 @@ const props$5 = {
       type: Boolean,
       default: false
     },
-    ...(_D = (_C = index$1.$uv) == null ? void 0 : _C.props) == null ? void 0 : _D.line
+    ...(_P = (_O = index$1.$uv) == null ? void 0 : _O.props) == null ? void 0 : _P.line
   }
 };
-const props$4 = {
+const props$7 = {
   props: {
     // 是否开启顶部安全区适配
     safeAreaInsetTop: {
@@ -13428,7 +14014,40 @@ const props$4 = {
       type: [String, Object],
       default: ""
     },
-    ...(_F = (_E = index$1.$uv) == null ? void 0 : _E.props) == null ? void 0 : _F.navbar
+    ...(_R = (_Q = index$1.$uv) == null ? void 0 : _Q.props) == null ? void 0 : _R.navbar
+  }
+};
+const props$6 = {
+  props: {
+    // 是否显示遮罩
+    show: {
+      type: Boolean,
+      default: false
+    },
+    // 层级z-index
+    zIndex: {
+      type: [String, Number],
+      default: 10070
+    },
+    // 遮罩的过渡时间，单位为ms
+    duration: {
+      type: [String, Number],
+      default: 300
+    },
+    // 不透明度值，当做rgba的第四个参数
+    opacity: {
+      type: [String, Number],
+      default: 0.5
+    },
+    ...(_T = (_S = index$1.$uv) == null ? void 0 : _S.props) == null ? void 0 : _T.overlay
+  }
+};
+const props$5 = {
+  props: {
+    bgColor: {
+      type: String,
+      default: "transparent"
+    }
   }
 };
 class MPAnimation {
@@ -13543,79 +14162,316 @@ function createAnimation(option, _this) {
   clearTimeout(_this.timer);
   return new MPAnimation(option, _this);
 }
-const props$3 = {
+const value = {
+  computed: {
+    // 经处理后需要显示的值
+    value() {
+      const {
+        text,
+        mode,
+        format: format2,
+        href
+      } = this;
+      if (mode === "price") {
+        if (!/^\d+(\.\d+)?$/.test(text)) {
+          error("金额模式下，text参数需要为金额格式");
+        }
+        if (func(format2)) {
+          return format2(text);
+        }
+        return priceFormat(text, 2);
+      }
+      if (mode === "date") {
+        !date(text) && error("日期模式下，text参数需要为日期或时间戳格式");
+        if (func(format2)) {
+          return format2(text);
+        }
+        if (format2) {
+          return timeFormat(text, format2);
+        }
+        return timeFormat(text, "yyyy-mm-dd");
+      }
+      if (mode === "phone") {
+        if (func(format2)) {
+          return format2(text);
+        }
+        if (format2 === "encrypt") {
+          return `${text.substr(0, 3)}****${text.substr(7)}`;
+        }
+        return text;
+      }
+      if (mode === "name") {
+        !(typeof text === "string") && error("姓名模式下，text参数需要为字符串格式");
+        if (func(format2)) {
+          return format2(text);
+        }
+        if (format2 === "encrypt") {
+          return this.formatName(text);
+        }
+        return text;
+      }
+      if (mode === "link") {
+        !url(href) && error("超链接模式下，href参数需要为URL格式");
+        return text;
+      }
+      return text;
+    }
+  },
+  methods: {
+    // 默认的姓名脱敏规则
+    formatName(name) {
+      let value2 = "";
+      if (name.length === 2) {
+        value2 = name.substr(0, 1) + "*";
+      } else if (name.length > 2) {
+        let char = "";
+        for (let i = 0, len = name.length - 2; i < len; i++) {
+          char += "*";
+        }
+        value2 = name.substr(0, 1) + char + name.substr(-1, 1);
+      } else {
+        value2 = name;
+      }
+      return value2;
+    }
+  }
+};
+const props$4 = {
   props: {
-    // 是否显示组件
+    // 主题颜色
+    type: {
+      type: String,
+      default: ""
+    },
+    // 是否显示
     show: {
       type: Boolean,
       default: true
     },
-    // 颜色
-    color: {
-      type: String,
-      default: "#909193"
-    },
-    // 提示文字颜色
-    textColor: {
-      type: String,
-      default: "#909193"
-    },
-    // 文字和图标是否垂直排列
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
-    mode: {
-      type: String,
-      default: "spinner"
-    },
-    // 图标大小，单位默认px
-    size: {
-      type: [String, Number],
-      default: 24
-    },
-    // 文字大小
-    textSize: {
-      type: [String, Number],
-      default: 15
-    },
-    // 文字样式
-    textStyle: {
-      type: Object,
-      default() {
-        return {};
-      }
-    },
-    // 文字内容
+    // 显示的值
     text: {
       type: [String, Number],
       default: ""
     },
-    // 动画模式 https://www.runoob.com/cssref/css3-pr-animation-timing-function.html
-    timingFunction: {
-      type: String,
-      default: "linear"
-    },
-    // 动画执行周期时间
-    duration: {
-      type: [String, Number],
-      default: 1200
-    },
-    // mode=circle时的暗边颜色
-    inactiveColor: {
+    // 前置图标
+    prefixIcon: {
       type: String,
       default: ""
     },
-    ...(_H = (_G = index$1.$uv) == null ? void 0 : _G.props) == null ? void 0 : _H.loadingIcon
+    // 后置图标
+    suffixIcon: {
+      type: String,
+      default: ""
+    },
+    // 文本处理的匹配模式
+    // text-普通文本，price-价格，phone-手机号，name-姓名，date-日期，link-超链接
+    mode: {
+      type: String,
+      default: ""
+    },
+    // mode=link下，配置的链接
+    href: {
+      type: String,
+      default: ""
+    },
+    // 格式化规则
+    format: {
+      type: [String, Function],
+      default: ""
+    },
+    // mode=phone时，点击文本是否拨打电话
+    call: {
+      type: Boolean,
+      default: true
+    },
+    // 小程序的打开方式
+    openType: {
+      type: String,
+      default: ""
+    },
+    // 是否粗体，默认normal
+    bold: {
+      type: Boolean,
+      default: false
+    },
+    // 是否块状
+    block: {
+      type: Boolean,
+      default: false
+    },
+    // 文本显示的行数，如果设置，超出此行数，将会显示省略号
+    lines: {
+      type: [String, Number],
+      default: ""
+    },
+    // 文本颜色
+    color: {
+      type: String,
+      default: "#303133"
+    },
+    // 字体大小
+    size: {
+      type: [String, Number],
+      default: 15
+    },
+    // 图标的样式
+    iconStyle: {
+      type: [Object, String],
+      default: () => ({
+        fontSize: "15px"
+      })
+    },
+    // 文字装饰，下划线，中划线等，可选值 none|underline|line-through
+    decoration: {
+      type: String,
+      default: "none"
+    },
+    // 外边距，对象、字符串，数值形式均可
+    margin: {
+      type: [Object, String, Number],
+      default: 0
+    },
+    // 文本行高
+    lineHeight: {
+      type: [String, Number],
+      default: ""
+    },
+    // 文本对齐方式，可选值left|center|right
+    align: {
+      type: String,
+      default: "left"
+    },
+    // 文字换行，可选值break-word|normal|anywhere
+    wordWrap: {
+      type: String,
+      default: "normal"
+    },
+    ...(_V = (_U = index$1.$uv) == null ? void 0 : _U.props) == null ? void 0 : _V.text
+  }
+};
+const props$3 = {
+  props: {
+    // 轮播的长度
+    length: {
+      type: [String, Number],
+      default: 0
+    },
+    // 当前处于活动状态的轮播的索引
+    current: {
+      type: [String, Number],
+      default: 0
+    },
+    // 指示器非激活颜色
+    indicatorActiveColor: {
+      type: String,
+      default: ""
+    },
+    // 指示器的激活颜色
+    indicatorInactiveColor: {
+      type: String,
+      default: ""
+    },
+    // 指示器模式，line-线型，dot-点型
+    indicatorMode: {
+      type: String,
+      default: ""
+    },
+    ...(_X = (_W = index$1.$uv) == null ? void 0 : _W.props) == null ? void 0 : _X.swiperIndicator
   }
 };
 const props$2 = {
   props: {
+    // 图片地址
+    src: {
+      type: String,
+      default: ""
+    },
+    // 裁剪模式
+    mode: {
+      type: String,
+      default: "aspectFill"
+    },
+    // 宽度，单位任意
+    width: {
+      type: [String, Number],
+      default: "300"
+    },
+    // 高度，单位任意
+    height: {
+      type: [String, Number],
+      default: "225"
+    },
+    // 图片形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: "square"
+    },
+    // 圆角，单位任意
+    radius: {
+      type: [String, Number],
+      default: 0
+    },
+    // 是否懒加载，微信小程序、App、百度小程序、字节跳动小程序
+    lazyLoad: {
+      type: Boolean,
+      default: true
+    },
+    // 是否开启observer懒加载，nvue不生效
+    observeLazyLoad: {
+      type: Boolean,
+      default: false
+    },
+    // 开启长按图片显示识别微信小程序码菜单
+    showMenuByLongpress: {
+      type: Boolean,
+      default: true
+    },
+    // 加载中的图标，或者小图片
+    loadingIcon: {
+      type: String,
+      default: "photo"
+    },
+    // 加载失败的图标，或者小图片
+    errorIcon: {
+      type: String,
+      default: "error-circle"
+    },
+    // 是否显示加载中的图标或者自定义的slot
+    showLoading: {
+      type: Boolean,
+      default: true
+    },
+    // 是否显示加载错误的图标或者自定义的slot
+    showError: {
+      type: Boolean,
+      default: true
+    },
+    // 是否需要淡入效果
+    fade: {
+      type: Boolean,
+      default: true
+    },
+    // 只支持网络资源，只对微信小程序有效
+    webp: {
+      type: Boolean,
+      default: false
+    },
+    // 过渡时间，单位ms
+    duration: {
+      type: [String, Number],
+      default: 500
+    },
+    // 背景颜色，用于深色页面加载图片时，为了和背景色融合
     bgColor: {
       type: String,
-      default: "transparent"
-    }
+      default: "#f3f4f6"
+    },
+    // nvue模式下 是否直接显示，在uv-list等cell下面使用就需要设置
+    cellChild: {
+      type: Boolean,
+      default: false
+    },
+    ...(_Z = (_Y = index$1.$uv) == null ? void 0 : _Y.props) == null ? void 0 : _Z.image
   }
 };
 const props$1 = {
@@ -13640,32 +14496,47 @@ const props$1 = {
       type: [String, Number],
       default: 0
     },
-    ...(_J = (_I = index$1.$uv) == null ? void 0 : _I.props) == null ? void 0 : _J.gap
+    ...(_$ = (__ = index$1.$uv) == null ? void 0 : __.props) == null ? void 0 : _$.gap
   }
 };
 const props = {
   props: {
-    // 是否显示遮罩
-    show: {
+    // 文字颜色
+    color: {
+      type: String,
+      default: ""
+    },
+    // 字体大小，单位px
+    fontSize: {
+      type: [String, Number],
+      default: 14
+    },
+    // 是否显示下划线
+    underLine: {
       type: Boolean,
       default: false
     },
-    // 层级z-index
-    zIndex: {
-      type: [String, Number],
-      default: 10070
+    // 要跳转的链接
+    href: {
+      type: String,
+      default: ""
     },
-    // 遮罩的过渡时间，单位为ms
-    duration: {
-      type: [String, Number],
-      default: 300
+    // 小程序中复制到粘贴板的提示语
+    mpTips: {
+      type: String,
+      default: "链接已复制，请在浏览器打开"
     },
-    // 不透明度值，当做rgba的第四个参数
-    opacity: {
-      type: [String, Number],
-      default: 0.5
+    // 下划线颜色
+    lineColor: {
+      type: String,
+      default: ""
     },
-    ...(_L = (_K = index$1.$uv) == null ? void 0 : _K.props) == null ? void 0 : _L.overlay
+    // 超链接的问题，不使用slot形式传入，是因为nvue下无法修改颜色
+    text: {
+      type: String,
+      default: ""
+    },
+    ...(_ba = (_aa = index$1.$uv) == null ? void 0 : _aa.props) == null ? void 0 : _ba.link
   }
 };
 exports.Pinia = Pinia;
@@ -13681,36 +14552,48 @@ exports.debounce = debounce;
 exports.defineStore = defineStore;
 exports.e = e;
 exports.f = f;
+exports.getCurrentInstance = getCurrentInstance;
 exports.icons = icons;
 exports.index = index$1;
+exports.isRef = isRef;
 exports.md5 = md5;
 exports.mixin = mixin;
 exports.mpMixin = mpMixin;
 exports.n = n;
 exports.o = o;
+exports.onLoad = onLoad;
 exports.onMounted = onMounted;
 exports.onUnmounted = onUnmounted;
 exports.openType = openType;
 exports.p = p;
-exports.props = props$i;
-exports.props$1 = props$h;
-exports.props$10 = props$9;
-exports.props$11 = props$7;
-exports.props$12 = props$6;
-exports.props$13 = props$5;
-exports.props$14 = props$4;
-exports.props$15 = props$3;
-exports.props$16 = props$2;
-exports.props$17 = props$1;
-exports.props$18 = props;
-exports.props$2 = props$g;
-exports.props$3 = props$f;
-exports.props$4 = props$e;
-exports.props$5 = props$d;
-exports.props$6 = props$c;
-exports.props$7 = props$b;
-exports.props$8 = props$a;
-exports.props$9 = props$8;
+exports.props = props$r;
+exports.props$1 = props$q;
+exports.props$10 = props$h;
+exports.props$11 = props$g;
+exports.props$12 = props$f;
+exports.props$13 = props$e;
+exports.props$14 = props$d;
+exports.props$15 = props$b;
+exports.props$16 = props$c;
+exports.props$17 = props$a;
+exports.props$18 = props$9;
+exports.props$19 = props$8;
+exports.props$2 = props$p;
+exports.props$20 = props$7;
+exports.props$21 = props$6;
+exports.props$22 = props$5;
+exports.props$23 = props$4;
+exports.props$24 = props$3;
+exports.props$25 = props$2;
+exports.props$26 = props$1;
+exports.props$27 = props;
+exports.props$3 = props$o;
+exports.props$4 = props$n;
+exports.props$5 = props$m;
+exports.props$6 = props$l;
+exports.props$7 = props$k;
+exports.props$8 = props$j;
+exports.props$9 = props$i;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
@@ -13719,4 +14602,6 @@ exports.t = t;
 exports.throttle = throttle;
 exports.unref = unref;
 exports.uvUI = uvUI;
+exports.value = value;
+exports.watch = watch;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

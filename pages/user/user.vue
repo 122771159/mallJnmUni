@@ -8,7 +8,12 @@
     >
       <view class="user-header-card">
         <view class="user-info">
-          <image class="avatar" :src="avatarUrl" mode="aspectFill"></image>
+          <uv-avatar
+            :text="username.slice(0, 1)"
+            fontSize="18"
+            randomBgColor
+            customStyle="margin-right: 10px"
+          ></uv-avatar>
           <view class="username">{{ username }}</view>
           <view class="user-type">
             <uv-icon name="level" size="14" color="#f9ae3d"></uv-icon>
@@ -257,7 +262,6 @@ const goToUpgrade = () => {
   height: 60px;
   border-radius: 50%;
   margin-right: 15px;
-  background-color: #eee; // 头像加载前的占位符颜色
 }
 
 .username {

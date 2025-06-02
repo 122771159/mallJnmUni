@@ -2,22 +2,23 @@
 const common_vendor = require("../../common/vendor.js");
 const stores_index = require("../../stores/index.js");
 if (!Array) {
+  const _easycom_uv_avatar2 = common_vendor.resolveComponent("uv-avatar");
   const _easycom_uv_icon2 = common_vendor.resolveComponent("uv-icon");
   const _easycom_uv_grid_item2 = common_vendor.resolveComponent("uv-grid-item");
   const _easycom_uv_grid2 = common_vendor.resolveComponent("uv-grid");
   const _easycom_layout2 = common_vendor.resolveComponent("layout");
   const _easycom_my_tabber2 = common_vendor.resolveComponent("my-tabber");
-  (_easycom_uv_icon2 + _easycom_uv_grid_item2 + _easycom_uv_grid2 + _easycom_layout2 + _easycom_my_tabber2)();
+  (_easycom_uv_avatar2 + _easycom_uv_icon2 + _easycom_uv_grid_item2 + _easycom_uv_grid2 + _easycom_layout2 + _easycom_my_tabber2)();
 }
+const _easycom_uv_avatar = () => "../../node-modules/@climblee/uv-ui/components/uv-avatar/uv-avatar.js";
 const _easycom_uv_icon = () => "../../node-modules/@climblee/uv-ui/components/uv-icon/uv-icon.js";
 const _easycom_uv_grid_item = () => "../../node-modules/@climblee/uv-ui/components/uv-grid-item/uv-grid-item.js";
 const _easycom_uv_grid = () => "../../node-modules/@climblee/uv-ui/components/uv-grid/uv-grid.js";
 const _easycom_layout = () => "../../layout/index.js";
 const _easycom_my_tabber = () => "../../components/tabber/tabber.js";
 if (!Math) {
-  (_easycom_uv_icon + _easycom_uv_grid_item + _easycom_uv_grid + _easycom_layout + _easycom_my_tabber)();
+  (_easycom_uv_avatar + _easycom_uv_icon + _easycom_uv_grid_item + _easycom_uv_grid + _easycom_layout + _easycom_my_tabber)();
 }
-const avatarUrl = "/static/images/default-avatar.png";
 const _sfc_main = {
   __name: "user",
   setup(__props) {
@@ -85,7 +86,12 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: avatarUrl,
+        a: common_vendor.p({
+          text: username.value.slice(0, 1),
+          fontSize: "18",
+          randomBgColor: true,
+          customStyle: "margin-right: 10px"
+        }),
         b: common_vendor.t(username.value),
         c: common_vendor.p({
           name: "level",
@@ -119,7 +125,7 @@ const _sfc_main = {
         l: common_vendor.o(goToUpgrade),
         m: common_vendor.f(paymentActions.value, (item, index, i0) => {
           return {
-            a: "0f7520f0-7-" + i0 + "," + ("0f7520f0-6-" + i0),
+            a: "0f7520f0-8-" + i0 + "," + ("0f7520f0-7-" + i0),
             b: common_vendor.p({
               name: item.icon,
               ["custom-prefix"]: item.customPrefix,
@@ -129,7 +135,7 @@ const _sfc_main = {
             c: common_vendor.t(item.text),
             d: index,
             e: common_vendor.o(($event) => handleActionClick(item), index),
-            f: "0f7520f0-6-" + i0 + ",0f7520f0-5"
+            f: "0f7520f0-7-" + i0 + ",0f7520f0-6"
           };
         }),
         n: common_vendor.p({

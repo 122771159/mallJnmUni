@@ -1,29 +1,32 @@
 <template>
-  <view class="content" :style="{ height: tabberHeight }">
+  <view class="content" :style="{ height: tabberFreeHeight - 44 + 'px' }">
     <uv-vtabs
       :chain="chain"
       :list="list"
       :barItemBadgeStyle="{ right: '20px', top: '12px' }"
-      :height="tabberFreeHeight"
+      :height="tabberFreeHeight - 44"
       @change="change"
       keyName="categoryName"
     >
       <uv-vtabs-item>
         <view class="item" v-for="(item2, index2) in list2" :key="index2">
-          <view class="item-title">
-            <text class="text">{{ item2.name }}</text>
-          </view>
-          <view class="item-content">
-            <text class="text">{{ item2.desc }}</text>
+          <my-BaseImage
+            :src="item2.mainImage"
+            width="200rpx"
+            height="170rpx"
+          ></my-BaseImage>
+          <view style="width: 100%">
+            <my-ShopInfo :product="item2"></my-ShopInfo>
           </view>
         </view>
+        <view class="bottom-end"></view>
       </uv-vtabs-item>
     </uv-vtabs>
   </view>
 </template>
 
 <script setup>
-const { tabberHeight, tabberFreeHeight } = uni.$com.getHeight();
+const { tabberFreeHeight } = uni.$com.getHeight();
 
 const list = ref([]);
 const chain = ref(false);
@@ -35,7 +38,6 @@ const list2 = computed(() => {
 });
 
 const change = (index) => {
-  console.log("选项改变：", index);
   value.value = index;
 };
 
@@ -58,26 +60,24 @@ onMounted(async () => {
 }
 .item {
   padding: 10rpx 20rpx;
+  padding-top: 0;
+  display: flex;
+  gap: 8px;
+  height: 170rpx;
   &-title {
     .text {
       font-weight: 700;
       font-size: 32rpx;
       color: #111;
-    }
-  }
-  &-content {
-    padding: 20rpx 0;
-    .text {
-      line-height: 48rpx;
-      font-size: 30rpx;
-      color: #111;
-      /* #ifndef APP-NVUE */
       word-break: break-all;
-      /* #endif */
     }
   }
 }
 .gap {
   padding: 0 30rpx;
+}
+.bottom-end {
+  width: 100%;
+  height: 65px;
 }
 </style>

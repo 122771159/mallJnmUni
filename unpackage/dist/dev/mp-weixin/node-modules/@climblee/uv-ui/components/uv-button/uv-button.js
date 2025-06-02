@@ -2,7 +2,7 @@
 const common_vendor = require("../../../../../common/vendor.js");
 const _sfc_main = {
   name: "uv-button",
-  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.button, common_vendor.openType, common_vendor.props$6],
+  mixins: [common_vendor.mpMixin, common_vendor.mixin, common_vendor.button, common_vendor.openType, common_vendor.props$8],
   emits: ["click"],
   data() {
     return {};

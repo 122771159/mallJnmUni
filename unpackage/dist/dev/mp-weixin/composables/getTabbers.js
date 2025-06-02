@@ -30,6 +30,18 @@ const pages = [
     style: {
       navigationBarTitleText: "用户服务协议"
     }
+  },
+  {
+    path: "pages/product/product",
+    style: {
+      navigationBarTitleText: "商品详细展示"
+    }
+  },
+  {
+    path: "pages/search/search",
+    style: {
+      navigationBarTitleText: ""
+    }
   }
 ];
 const globalStyle = {
@@ -37,7 +49,11 @@ const globalStyle = {
   navigationBarTextStyle: "black",
   navigationBarTitleText: "uni-app",
   navigationBarBackgroundColor: "#F8F8F8",
-  backgroundColor: "#F8F8F8"
+  backgroundColor: "#F8F8F8",
+  usingComponents: {
+    towxml: "/wxcomponents/towxml/towxml",
+    decode: "/wxcomponents/towxml/decode"
+  }
 };
 const uniIdRouter = {};
 const tabBar = {
@@ -91,9 +107,9 @@ function getTabbers() {
   });
   return res;
 }
-const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   getTabbers
 }, Symbol.toStringTag, { value: "Module" }));
-exports.__vite_glob_0_2 = __vite_glob_0_2;
+exports.__vite_glob_0_3 = __vite_glob_0_3;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/composables/getTabbers.js.map

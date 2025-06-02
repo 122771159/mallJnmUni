@@ -107,7 +107,7 @@ const handleWeChatLogin = async () => {
     provider: "weixin",
     success: async function (loginRes) {
       const { data: openId } = await uni.$http.get(
-        `/wx/login/${loginRes.code}`
+        `/wx/getOpenid/${loginRes.code}`
       );
       uni.$http
         .post("/login", {
@@ -207,6 +207,8 @@ const saveToken = (res) => {
   useUserStore().setToken(res.data.token);
   useUserStore().setUserInfo(res.data.user);
   useUserStore().setRoles(res.data.roles);
+  useUserStore().setTokenExpiresIn(res.data.tokenExpiresIn);
+  useUserStore().setTokenTimestamp(Date.now());
 };
 </script>
 

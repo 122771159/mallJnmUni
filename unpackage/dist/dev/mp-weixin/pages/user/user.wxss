@@ -56,7 +56,6 @@
   height: 60px;
   border-radius: 50%;
   margin-right: 15px;
-  background-color: #eee;
 }
 .username.data-v-0f7520f0 {
   font-size: 20px;

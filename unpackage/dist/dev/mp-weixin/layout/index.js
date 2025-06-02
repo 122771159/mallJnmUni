@@ -96,11 +96,15 @@ const _sfc_main = {
           size: "24"
         })
       } : {}) : {}, {
-        j: common_vendor.p({
+        j: __props.title
+      }, __props.title ? {
+        k: common_vendor.t(__props.title)
+      } : {}, {
+        l: common_vendor.p({
           title: __props.title,
           placeholder: true
         }),
-        k: common_vendor.sr(toastRef, "0d580bf3-4", {
+        m: common_vendor.sr(toastRef, "0d580bf3-4", {
           "k": "toastRef"
         })
       });

@@ -1,4 +1,6 @@
 <script>
+// import "@/utils/requestInterceptor.js";
+
 export default {
   onLaunch: function () {
     console.log("App Launch");

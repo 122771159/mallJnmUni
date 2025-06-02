@@ -2,27 +2,36 @@
   <view>
     <uv-navbar :title="title" :placeholder="true">
       <template v-slot:left>
-        <view class="uv-nav-slot" v-if="!hiddenLeft">
-          <uv-icon
-            name="arrow-left"
-            size="24"
-            @click="leftClick"
-            v-if="!hiddenLeftArrow"
-          ></uv-icon>
-          <uv-line
-            direction="column"
-            :hairline="false"
-            length="20"
-            margin="0 8px"
-            v-if="!hiddenLeftArrow && !hiddenLeftHome"
-          ></uv-line>
-          <uv-icon
-            name="home"
-            size="24"
-            @click="bacHome"
-            v-if="!hiddenLeftHome"
-          ></uv-icon>
-        </view>
+        <slot name="layout-left">
+          <view class="uv-nav-slot" v-if="!hiddenLeft">
+            <uv-icon
+              name="arrow-left"
+              size="24"
+              @click="leftClick"
+              v-if="!hiddenLeftArrow"
+            ></uv-icon>
+            <uv-line
+              direction="column"
+              :hairline="false"
+              length="20"
+              margin="0 8px"
+              v-if="!hiddenLeftArrow && !hiddenLeftHome"
+            ></uv-line>
+            <uv-icon
+              name="home"
+              size="24"
+              @click="bacHome"
+              v-if="!hiddenLeftHome"
+            ></uv-icon>
+          </view>
+        </slot>
+      </template>
+      <template v-slot:center>
+        <slot name="layout-center">
+          <text style="font-size: 16px; font-weight: bold" v-if="title">{{
+            title
+          }}</text>
+        </slot>
       </template>
     </uv-navbar>
     <uv-toast ref="toastRef"></uv-toast>

@@ -4,8 +4,14 @@
     "pages/user/user",
     "pages/login/login",
     "pages/policy/privacy",
-    "pages/policy/service"
+    "pages/policy/service",
+    "pages/product/product",
+    "pages/search/search"
   ],
+  "usingComponents": {
+    "towxml": "/wxcomponents/towxml/towxml",
+    "decode": "/wxcomponents/towxml/decode"
+  },
   "window": {
     "navigationStyle": "custom",
     "navigationBarTextStyle": "black",
@@ -33,6 +39,5 @@
         "icon": "account"
       }
     ]
-  },
-  "usingComponents": {}
+  }
 }
