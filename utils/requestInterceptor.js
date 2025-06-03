@@ -30,7 +30,7 @@ uni.addInterceptor("request", {
     const token = store.token;
     const tokenTimestamp = store.tokenTimestamp;
     const tokenExpiresIn = store.tokenExpiresIn; // 假设存的是毫秒
-    const publicApis = ["/login", "/getOpenid", "/image"];
+    const publicApis = ["/login", "/getOpenid", "/image", "/wxlogin"];
     args.header = args.header || {};
     args.header["Authorization"] = `${token}`;
     if (publicApis.some((apiPath) => args.url.includes(apiPath))) {
@@ -41,8 +41,12 @@ uni.addInterceptor("request", {
       // 如果登录了
       const currentTime = Date.now();
       const fifteenMinutes = 15 * 60 * 1000; // 15分钟容错时长
-      const tokenExpiryTime = tokenTimestamp + tokenExpiresIn;
+      // 计算token过期时间
+      const tokenExpiryTime =
+        parseInt(tokenTimestamp) + parseInt(tokenExpiresIn);
+      // 计算token剩余时间
       const FreeTime = tokenExpiryTime - currentTime;
+
       if (FreeTime <= fifteenMinutes && FreeTime > 0) {
         // 如果快过期了
         console.log("Token 即将过期", args.url);
@@ -50,12 +54,12 @@ uni.addInterceptor("request", {
         // Token 即将过期
         if (!isRefreshingToken) {
           console.log("Token 正在刷新");
-
+          args.header.refreshToken_ = true;
           isRefreshingToken = true;
           return args; // 继续当前请求
         } else {
           console.log("Token 正在刷新，将当前请求加入队列", args.url);
-          // Token 正在刷新，将当前请求加入队列
+          // Token 正在刷新，将当前请求加入队列+++˘
           // 返回一个Promise，这个Promise会在token刷新后被resolve或reject
           return new Promise((resolveRequest, rejectRequest) => {
             pendingRequests.push({
@@ -75,7 +79,10 @@ uni.addInterceptor("request", {
       } else if (FreeTime <= 0) {
         // 过期了
         if (!isLoseToken) {
+          console.log("Token 过期，开始微信登录");
+
           await store.wxlogin();
+          args.header.silentLogin_ = true;
           return args;
         } else {
           console.log("正在等待一键微信登录", args.url);
@@ -103,6 +110,7 @@ uni.addInterceptor("request", {
     const store = useUserStore();
     // 检查响应头中是否有后端返回的新token (通常在请求本身就会刷新token时使用)
     const { data, header: responseHeaders } = response;
+    const { header: requestHeader } = requestArgs;
     // 登录失效处理 (code: 104)
     if (data.code === 104) {
       if (!isNavigatingToLogin) {
@@ -134,22 +142,25 @@ uni.addInterceptor("request", {
       // 中断promise链，无论是否是第一个触发的，后续的业务逻辑都不应该执行
       return Promise.reject(new Error(data.msg || "登录失效(104)"));
     }
-    // 响应头中如果存在新的token，则更新
+    // 判断是不是刷新token的请求
+    if (requestHeader.refreshToken_) {
+      console.log("发现刷新token的请求头");
 
-    const new_token =
-      responseHeaders.Authorization || responseHeaders.authorization;
-    const expiresIn =
-      responseHeaders.Tokenexpiresin || responseHeaders.tokenExpiresIn;
-    if (new_token) {
-      console.log("成功刷新TOken", new_token);
-
-      store.setToken(new_token);
-      store.setTokenTimestamp(Date.now());
-      store.setTokenExpiresIn(expiresIn);
-      processPendingRequests(null);
+      const new_token =
+        responseHeaders.Authorization || responseHeaders.authorization;
+      const expiresIn =
+        responseHeaders.Tokenexpiresin || responseHeaders.tokenExpiresIn;
+      if (new_token) {
+        store.setToken(new_token);
+        store.setTokenTimestamp(Date.now());
+        store.setTokenExpiresIn(expiresIn);
+        processPendingRequests(null);
+      }
     }
-    if (requestArgs.url.includes("/login")) {
-      // 如果静默登录，无论有没有队列，都执行一下
+    // 判断是否有静默登录的请求头
+    if (requestHeader.silentLogin_) {
+      console.log("发现静默登录的请求头");
+
       processPendingRequests(null);
     }
     if (data.success !== undefined && !data.success) {

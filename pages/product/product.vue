@@ -1,5 +1,5 @@
 <template>
-  <layout title="商品详情" hiddenLeftHome>
+  <layout title="商品详情" hiddenLeftHome needLogin>
     <view
       class="product-detail-page"
       v-if="product"
@@ -26,7 +26,7 @@
       <view class="product-info-card">
         <view class="price-section">
           <text class="current-price">
-            <text class="currency-symbol">¥</text>{{ product.price }}
+            <text class="currency-symbol">¥</text>{{ product.displayPrice }}
           </text>
         </view>
         <text class="product-name">{{ product.name }}</text>
@@ -74,7 +74,9 @@
             class="popup-product-image"
           ></my-BaseImage>
           <view class="popup-product-info">
-            <text class="popup-price">¥{{ product && product.price }}</text>
+            <text class="popup-price"
+              >¥{{ product && product.displayPrice }}</text
+            >
             <text class="popup-stock"
               >库存: {{ product && product.stock }}件</text
             >

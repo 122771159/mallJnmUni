@@ -1,5 +1,5 @@
 <template>
-  <layout title="首页" hiddenAllStrong>
+  <layout title="首页" hiddenAllStrong needLogin>
     <uv-search
       placeholder="请输入搜索内容"
       :showAction="false"
@@ -9,18 +9,18 @@
     ></uv-search>
     <my-ShopList></my-ShopList>
     <my-tabber></my-tabber>
+    <my-CartFloat @openPopup="openPopup"></my-CartFloat>
+    <uv-popup
+      ref="popup"
+      mode="bottom"
+      customStyle="min-height:300px;max-height:60vh"
+    >
+      <view>
+        <my-CartShow></my-CartShow>
+        <my-CartSummaryBar></my-CartSummaryBar>
+      </view>
+    </uv-popup>
   </layout>
-  <my-CartFloat @openPopup="openPopup"></my-CartFloat>
-  <uv-popup
-    ref="popup"
-    mode="bottom"
-    customStyle="min-height:300px;max-height:60vh"
-  >
-    <view>
-      <my-CartShow></my-CartShow>
-      <my-CartSummaryBar></my-CartSummaryBar>
-    </view>
-  </uv-popup>
 </template>
 
 <script setup>

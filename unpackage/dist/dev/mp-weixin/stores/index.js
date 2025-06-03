@@ -91,29 +91,22 @@ const useUserStore = common_vendor.defineStore("user", () => {
   }
   function wxlogin() {
     return new Promise((resolve, reject) => {
-      common_vendor.index.login({
-        provider: "weixin",
-        success: async function(loginRes) {
-          const { data: openId } = await common_vendor.index.$http.get(
-            `/wx/getOpenid/${loginRes.code}`
-          );
-          common_vendor.index.$http.post("/login", {
-            userType: "CUSTOMER",
-            openId
-          }).then((res) => {
-            setToken(res.data.token);
-            setUserInfo(res.data.user);
-            setRoles(res.data.roles);
-            setTokenExpiresIn(res.data.tokenExpiresIn);
-            setTokenTimestamp(Date.now());
-            resolve("success");
-          }).catch(() => {
-            reject(new Error("微信一键登录失败"));
-          });
-        },
-        fail: function() {
-          reject(new Error("微信一键登录失败"));
-        }
+      common_vendor.index.$com.getOpenId().then((openId) => {
+        common_vendor.index.$http.post("/wxlogin", {
+          userType: roles.value,
+          openId
+        }).then((res) => {
+          setToken(res.data.token);
+          setUserInfo(res.data.user);
+          setRoles(res.data.roles);
+          setTokenExpiresIn(res.data.tokenExpiresIn);
+          setTokenTimestamp(Date.now());
+          resolve(res.data);
+        }).catch((err) => {
+          reject(new Error(`微信登录请求失败: ${err.message}`));
+        });
+      }).catch((err) => {
+        reject(new Error(`获取 openId 失败: ${err.message}`));
       });
     });
   }

@@ -1,5 +1,5 @@
 <template>
-  <layout>
+  <layout needLogin>
     <template v-slot:layout-left>
       <view class="search-container">
         <uv-icon name="arrow-left" size="24" @click="leftClick"></uv-icon>

@@ -4,9 +4,10 @@ const common_vendor = require("./common/vendor.js");
 const utils_request = require("./utils/request.js");
 const composables_index = require("./composables/index.js");
 require("./utils/requestInterceptor.js");
+require("./utils/routeInterceptor.js");
 if (!Math) {
-  "./pages/index/index.js";
   "./pages/user/user.js";
+  "./pages/index/index.js";
   "./pages/login/login.js";
   "./pages/policy/privacy.js";
   "./pages/policy/service.js";
@@ -15,13 +16,10 @@ if (!Math) {
 }
 const _sfc_main = {
   onLaunch: function() {
-    common_vendor.index.__f__("log", "at App.vue:6", "App Launch");
   },
   onShow: function() {
-    common_vendor.index.__f__("log", "at App.vue:9", "App Show");
   },
   onHide: function() {
-    common_vendor.index.__f__("log", "at App.vue:12", "App Hide");
   }
 };
 const towxml = require("./wxcomponents/towxml/index");

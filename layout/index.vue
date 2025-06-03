@@ -35,7 +35,29 @@
       </template>
     </uv-navbar>
     <uv-toast ref="toastRef"></uv-toast>
-    <slot></slot>
+    <template v-if="needLogin && !isLogin">
+      <view :style="{ height: navHeight }" class="need-login-view">
+        <image
+          class="icon-image"
+          src="/static/images/noLogin.png"
+          mode="aspectFit"
+          style="width: 500rpx; height: 500rpx"
+        ></image>
+        <text class="tip-text">您当前尚未登录</text>
+        <text class="sub-tip-text">登录后即可体验更完整的功能服务</text>
+        <uv-button
+          type="primary"
+          text="去登录"
+          @click="goToLogin"
+          class="login-button"
+          size="large"
+          shape="circle"
+        ></uv-button>
+      </view>
+    </template>
+    <template v-else>
+      <slot></slot>
+    </template>
   </view>
 </template>
 
@@ -64,9 +86,35 @@ const prop = defineProps({
     type: Boolean,
     default: false,
   },
+  needLogin: {
+    type: Boolean,
+    default: false,
+  },
 });
 const navigationSource = ref();
-
+const { navHeight } = uni.$com.getHeight();
+const store = uni.$com.getStore();
+const isLogin = ref(store.isLogin);
+watch(
+  () => store.isLogin,
+  (newVal) => {
+    if (!prop.needLogin) return;
+    isLogin.value = newVal;
+    // if (!isLogin.value) {
+    //   uni.showModal({
+    //     title: "提示",
+    //     content: "请登录",
+    //     showCancel: false,
+    //     success: ({ confirm, cancel }) => {
+    //       if (confirm) {
+    //         uni.navigateTo({ url: "/pages/login/login" });
+    //       }
+    //     },
+    //   });
+    // }
+  },
+  { immediate: true }
+);
 // false 代表隐藏
 const getIsHiidenLeft = () => {
   if (prop.hiddenAllStrong) return false;
@@ -83,6 +131,9 @@ const getIsHiidenCenter = () => {
   if (getIsHiidenLeft() && getIsHiidenRight()) return true;
   return false;
 };
+const goToLogin = () => {
+  uni.navigateTo({ url: "/pages/login/login" });
+};
 const toastRef = ref(null);
 const handleShowToast = (params) => {
   if (toastRef.value) {
@@ -97,9 +148,13 @@ const hide = () => {
   }
 };
 const bacHome = () => {
-  uni.reLaunch({
-    url: "/pages/user/user",
-  });
+  if (store.isLogin) {
+    uni.reLaunch({
+      url: "/pages/index/index",
+    });
+  } else {
+    uni.reLaunch({ url: "/pages/user/user" });
+  }
 };
 onLoad(() => {
   const pages = getCurrentPages();
@@ -150,5 +205,48 @@ onUnmounted(() => {
   border-color: #dadbde;
   padding: 3px 7px;
   opacity: 0.8;
+}
+.need-login-view {
+  @include flex;
+  align-items: center;
+  flex-direction: column;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  background-color: #ffffff; // 卡片式背景
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // 轻微阴影效果
+}
+
+.icon-image {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  // 确保您的 /static/images/unlogin_icon.png 路径下有对应的图标文件
+  // 如果没有，可以暂时移除此行，或替换为 uv-icon 等其他图标方案
+}
+
+.tip-text {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sub-tip-text {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 30px;
+}
+
+.login-button {
+  width: 100%; // 按钮宽度充满内容区域
+  max-width: 280px; // 给按钮一个最大宽度，避免在大屏上过宽
+  // uv-button 已经有很多内置样式，这里可以按需调整
+  // 例如，如果想自定义按钮颜色，可以在 uv-button 上设置 customStyle
 }
 </style>

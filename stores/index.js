@@ -101,33 +101,32 @@ export const useUserStore = defineStore("user", () => {
   }
   function wxlogin() {
     return new Promise((resolve, reject) => {
-      uni.login({
-        provider: "weixin",
-        success: async function (loginRes) {
-          const { data: openId } = await uni.$http.get(
-            `/wx/getOpenid/${loginRes.code}`
-          );
+      // 1. 获取 openId
+      uni.$com
+        .getOpenId()
+        .then((openId) => {
+          // 2. 发起登录请求
           uni.$http
-            .post("/login", {
-              userType: "CUSTOMER",
+            .post("/wxlogin", {
+              userType: roles.value,
               openId,
             })
             .then((res) => {
+              // 3. 存储登录状态
               setToken(res.data.token);
               setUserInfo(res.data.user);
               setRoles(res.data.roles);
               setTokenExpiresIn(res.data.tokenExpiresIn);
               setTokenTimestamp(Date.now());
-              resolve("success");
+              resolve(res.data); // 返回完整数据，方便调用方使用
             })
-            .catch(() => {
-              reject(new Error("微信一键登录失败"));
+            .catch((err) => {
+              reject(new Error(`微信登录请求失败: ${err.message}`));
             });
-        },
-        fail: function () {
-          reject(new Error("微信一键登录失败"));
-        },
-      });
+        })
+        .catch((err) => {
+          reject(new Error(`获取 openId 失败: ${err.message}`));
+        });
     });
   }
   const isLogin = computed(() => token.value !== ""); // 是否登录

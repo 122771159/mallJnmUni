@@ -6,10 +6,10 @@ function toast(params) {
 function toastHide() {
   common_vendor.index.$emit("hide-toast");
 }
-const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   toast,
   toastHide
 }, Symbol.toStringTag, { value: "Module" }));
-exports.__vite_glob_0_4 = __vite_glob_0_4;
+exports.__vite_glob_0_5 = __vite_glob_0_5;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/composables/useToast.js.map

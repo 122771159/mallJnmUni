@@ -4,10 +4,10 @@
     "uv-search": "../../node-modules/@climblee/uv-ui/components/uv-search/uv-search",
     "my-shop-list": "../../components/ShopList/ShopList",
     "my-tabber": "../../components/tabber/tabber",
-    "layout": "../../layout/index",
     "my-cart-float": "../../components/CartFloat/CartFloat",
     "my-cart-show": "../../components/CartShow/CartShow",
     "my-cart-summary-bar": "../../components/CartSummaryBar/CartSummaryBar",
-    "uv-popup": "../../node-modules/@climblee/uv-ui/components/uv-popup/uv-popup"
+    "uv-popup": "../../node-modules/@climblee/uv-ui/components/uv-popup/uv-popup",
+    "layout": "../../layout/index"
   }
 }

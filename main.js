@@ -8,6 +8,7 @@ const towxml = require("./wxcomponents/towxml/index");
 uni.$http = http;
 uni.$com = myComposable;
 import "@/utils/requestInterceptor.js";
+import "@/utils/routeInterceptor.js";
 export function createApp() {
   const app = createSSRApp(App);
   app.config.globalProperties.$towxml = towxml;

@@ -35,3 +35,39 @@
   padding: 3px 7px;
   opacity: 0.8;
 }
+.need-login-view.data-v-0d580bf3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
+}
+.content.data-v-0d580bf3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.icon-image.data-v-0d580bf3 {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+.tip-text.data-v-0d580bf3 {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.sub-tip-text.data-v-0d580bf3 {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 30px;
+}
+.login-button.data-v-0d580bf3 {
+  width: 100%;
+  max-width: 280px;
+}

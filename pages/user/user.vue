@@ -104,7 +104,7 @@ const bottomHeight = uni.$com.getHeight().bottomHeight;
 
 const username = computed(() => {
   if (isLoggedIn.value) {
-    return currentUser.value?.name || "未登录"; // 对接Pinia后使用
+    return currentUser.value?.username || "未登录"; // 对接Pinia后使用
   }
   return "未登录";
 });
@@ -120,7 +120,6 @@ const userType = computed(() => {
   }
   return "请先登录";
 });
-const avatarUrl = "/static/images/default-avatar.png";
 // --- 临时状态结束 ---
 
 // const stats = ref([

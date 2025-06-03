@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 require("../stores/index.js");
-const BASE_URL = "http://192.168.1.118:8080";
+const BASE_URL = "http://192.168.110.152:8080";
 const request = (options) => {
   return new Promise((resolve, reject) => {
     const header = {

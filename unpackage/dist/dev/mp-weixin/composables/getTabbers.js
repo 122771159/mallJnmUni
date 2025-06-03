@@ -2,15 +2,15 @@
 const common_vendor = require("../common/vendor.js");
 const pages = [
   {
-    path: "pages/index/index",
-    style: {
-      navigationBarTitleText: "首页"
-    }
-  },
-  {
     path: "pages/user/user",
     style: {
       navigationBarTitleText: "我的"
+    }
+  },
+  {
+    path: "pages/index/index",
+    style: {
+      navigationBarTitleText: "首页"
     }
   },
   {
@@ -65,7 +65,7 @@ const tabBar = {
   list: [
     {
       pagePath: "pages/index/index",
-      text: "首页",
+      text: "购物中心",
       name: "home",
       icon: "home"
     },
@@ -107,9 +107,9 @@ function getTabbers() {
   });
   return res;
 }
-const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   getTabbers
 }, Symbol.toStringTag, { value: "Module" }));
-exports.__vite_glob_0_3 = __vite_glob_0_3;
+exports.__vite_glob_0_4 = __vite_glob_0_4;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/composables/getTabbers.js.map

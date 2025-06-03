@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/user/user",
+    "pages/index/index",
     "pages/login/login",
     "pages/policy/privacy",
     "pages/policy/service",
@@ -28,7 +28,7 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
+        "text": "购物中心",
         "name": "home",
         "icon": "home"
       },

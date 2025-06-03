@@ -1,18 +1,21 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
+const common_assets = require("../common/assets.js");
 if (!Array) {
   const _easycom_uv_icon2 = common_vendor.resolveComponent("uv-icon");
   const _easycom_uv_line2 = common_vendor.resolveComponent("uv-line");
   const _easycom_uv_navbar2 = common_vendor.resolveComponent("uv-navbar");
   const _easycom_uv_toast2 = common_vendor.resolveComponent("uv-toast");
-  (_easycom_uv_icon2 + _easycom_uv_line2 + _easycom_uv_navbar2 + _easycom_uv_toast2)();
+  const _easycom_uv_button2 = common_vendor.resolveComponent("uv-button");
+  (_easycom_uv_icon2 + _easycom_uv_line2 + _easycom_uv_navbar2 + _easycom_uv_toast2 + _easycom_uv_button2)();
 }
 const _easycom_uv_icon = () => "../node-modules/@climblee/uv-ui/components/uv-icon/uv-icon.js";
 const _easycom_uv_line = () => "../node-modules/@climblee/uv-ui/components/uv-line/uv-line.js";
 const _easycom_uv_navbar = () => "../node-modules/@climblee/uv-ui/components/uv-navbar/uv-navbar.js";
 const _easycom_uv_toast = () => "../node-modules/@climblee/uv-ui/components/uv-toast/uv-toast.js";
+const _easycom_uv_button = () => "../node-modules/@climblee/uv-ui/components/uv-button/uv-button.js";
 if (!Math) {
-  (_easycom_uv_icon + _easycom_uv_line + _easycom_uv_navbar + _easycom_uv_toast)();
+  (_easycom_uv_icon + _easycom_uv_line + _easycom_uv_navbar + _easycom_uv_toast + _easycom_uv_button)();
 }
 const _sfc_main = {
   __name: "index",
@@ -38,11 +41,27 @@ const _sfc_main = {
     hiddenAllStrong: {
       type: Boolean,
       default: false
+    },
+    needLogin: {
+      type: Boolean,
+      default: false
     }
   },
   setup(__props) {
     const prop = __props;
     const navigationSource = common_vendor.ref();
+    const { navHeight } = common_vendor.index.$com.getHeight();
+    const store = common_vendor.index.$com.getStore();
+    const isLogin = common_vendor.ref(store.isLogin);
+    common_vendor.watch(
+      () => store.isLogin,
+      (newVal) => {
+        if (!prop.needLogin)
+          return;
+        isLogin.value = newVal;
+      },
+      { immediate: true }
+    );
     const getIsHiidenLeft = () => {
       if (prop.hiddenAllStrong)
         return false;
@@ -64,6 +83,9 @@ const _sfc_main = {
         return true;
       return false;
     };
+    const goToLogin = () => {
+      common_vendor.index.navigateTo({ url: "/pages/login/login" });
+    };
     const toastRef = common_vendor.ref(null);
     const handleShowToast = (params) => {
       if (toastRef.value) {
@@ -78,22 +100,26 @@ const _sfc_main = {
       }
     };
     const bacHome = () => {
-      common_vendor.index.reLaunch({
-        url: "/pages/user/user"
-      });
+      if (store.isLogin) {
+        common_vendor.index.reLaunch({
+          url: "/pages/index/index"
+        });
+      } else {
+        common_vendor.index.reLaunch({ url: "/pages/user/user" });
+      }
     };
     common_vendor.onLoad(() => {
       const pages = getCurrentPages();
       const pageStackLength = pages.length;
-      common_vendor.index.__f__("log", "at layout/index.vue:107", "当前页面栈层级:", pageStackLength);
+      common_vendor.index.__f__("log", "at layout/index.vue:162", "当前页面栈层级:", pageStackLength);
       if (pageStackLength === 1) {
         navigationSource.value = "reLaunch";
-        common_vendor.index.__f__("log", "at layout/index.vue:112", "此页面可能是通过 uni.reLaunch 打开，或者是应用的初始启动页。");
+        common_vendor.index.__f__("log", "at layout/index.vue:167", "此页面可能是通过 uni.reLaunch 打开，或者是应用的初始启动页。");
       } else if (pageStackLength > 1) {
         navigationSource.value = "navigateTo";
-        common_vendor.index.__f__("log", "at layout/index.vue:117", "此页面可能是通过 uni.navigateTo 打开。");
+        common_vendor.index.__f__("log", "at layout/index.vue:172", "此页面可能是通过 uni.navigateTo 打开。");
       } else {
-        common_vendor.index.__f__("warn", "at layout/index.vue:122", "获取页面栈层级异常!");
+        common_vendor.index.__f__("warn", "at layout/index.vue:177", "获取页面栈层级异常!");
       }
     });
     common_vendor.onMounted(() => {
@@ -143,8 +169,19 @@ const _sfc_main = {
         }),
         m: common_vendor.sr(toastRef, "0d580bf3-4", {
           "k": "toastRef"
-        })
-      });
+        }),
+        n: __props.needLogin && !isLogin.value
+      }, __props.needLogin && !isLogin.value ? {
+        o: common_assets._imports_0$1,
+        p: common_vendor.o(goToLogin),
+        q: common_vendor.p({
+          type: "primary",
+          text: "去登录",
+          size: "large",
+          shape: "circle"
+        }),
+        r: common_vendor.unref(navHeight)
+      } : {});
     };
   }
 };

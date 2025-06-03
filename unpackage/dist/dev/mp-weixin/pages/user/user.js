@@ -31,7 +31,7 @@ const _sfc_main = {
     const username = common_vendor.computed(() => {
       var _a;
       if (isLoggedIn.value) {
-        return ((_a = currentUser.value) == null ? void 0 : _a.name) || "未登录";
+        return ((_a = currentUser.value) == null ? void 0 : _a.username) || "未登录";
       }
       return "未登录";
     });

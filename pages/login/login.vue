@@ -17,6 +17,7 @@
               v-model="form.username"
               placeholder="请输入账号"
               prefixIcon="account-fill"
+              border="bottom"
               clearable
             >
             </uv-input>
@@ -27,8 +28,34 @@
               type="password"
               placeholder="请输入密码"
               prefixIcon="lock-fill"
+              border="bottom"
               clearable
             >
+            </uv-input>
+          </uv-form-item>
+          <uv-form-item prop="verifyCode">
+            <uv-input
+              placeholder="请输入验证码"
+              v-model="form.verifyCode"
+              clearable
+              maxlength="4"
+              border="bottom"
+            >
+              <template v-slot:prefix>
+                <uv-icon
+                  name="key"
+                  custom-prefix="custom-icon"
+                  size="18"
+                ></uv-icon>
+              </template>
+              <template v-slot:suffix>
+                <image
+                  @click="getVerifyCode"
+                  :src="verifyImage"
+                  mode="scaleToFill"
+                  style="width: 85px; height: 35px"
+                />
+              </template>
             </uv-input>
           </uv-form-item>
         </uv-form>
@@ -44,13 +71,8 @@
           ></uv-icon>
           微信登录
         </uv-button> -->
-        <uv-button
-          type="default"
-          shape="circle"
-          @click="handleAccountLogin"
-          customStyle="margin-top: 15px;"
-        >
-          账号登录
+        <uv-button type="default" shape="square" @click="handleAccountLogin">
+          登录
         </uv-button>
       </view>
 
@@ -77,119 +99,157 @@ import { ref } from "vue";
 import md5 from "js-md5";
 import { useUserStore } from "@/stores";
 const SITE_NAME = uni.$com.env().SITE_NAME;
-console.log(SITE_NAME);
 // 表单数据
 const form = ref({
   username: "",
   password: "",
+  verifyCode: "",
+  verifyKey: "",
 });
-
+const verifyImage = ref("");
 // 协议勾选状态
 const agreementChecked = ref([]);
 
 // 微信登录处理
-const handleWeChatLogin = async () => {
-  if (!agreementChecked.value.includes("agree")) {
-    uni.$com.toast({
-      type: "error",
-      icon: true,
-      message: "请先阅读并同意用户协议",
-    });
-    return;
-  }
-  // 登录中
-  uni.$com.toast({
-    type: "loading",
-    title: "登录中",
-    message: "登录中",
-  });
-  uni.login({
-    provider: "weixin",
-    success: async function (loginRes) {
-      const { data: openId } = await uni.$http.get(
-        `/wx/getOpenid/${loginRes.code}`
-      );
-      uni.$http
-        .post("/login", {
-          userType: "CUSTOMER",
-          openId,
-        })
-        .then((res) => {
-          saveToken(res);
-          uni.$com.toastHide();
-          uni.$com.toast({
-            type: "success",
-            message: "登录成功",
-          });
-          setTimeout(() => {
-            uni.reLaunch({
-              url: "/pages/user/user",
-            });
-          }, 1000);
-        })
-        .catch(() => {
-          uni.$com.toastHide();
-        });
-    },
-    fail: function () {
-      uni.$com.toastHide();
-      uni.$com.toast({
-        type: "error",
-        message: "登录失败",
-      });
-    },
-  });
-  // if (loginErr) {
-  //   uni.$com.toast({
-  //     type: "error",
-  //     icon: true,
-  //     message: "微信登录失败",
-  //   });
-  // }
-  // console.log(loginRes);
-  // const [getUserInfoErr, getUserInfoRes] = await uni.getUserProfile({
-  //   desc: "获取用户信息",
-  // });
-  // if (getUserInfoErr) {
-  //   uni.$com.toast({
-  //     type: "error",
-  //     icon: true,
-  //     message: "获取用户信息失败",
-  //   });
-  // }
+// const handleWeChatLogin = async () => {
+//   if (!agreementChecked.value.includes("agree")) {
+//     uni.$com.toast({
+//       type: "error",
+//       icon: true,
+//       message: "请先阅读并同意用户协议",
+//     });
+//     return;
+//   }
+//   // 登录中
+//   uni.$com.toast({
+//     type: "loading",
+//     title: "登录中",
+//     message: "登录中",
+//   });
+//   uni.login({
+//     provider: "weixin",
+//     success: async function (loginRes) {
+//       const { data: openId } = await uni.$http.get(
+//         `/wx/getOpenid/${loginRes.code}`
+//       );
+//       uni.$http
+//         .post("/login", {
+//           userType: "CUSTOMER",
+//           openId,
+//         })
+//         .then((res) => {
+//           saveToken(res);
+//           uni.$com.toastHide();
+//           uni.$com.toast({
+//             type: "success",
+//             message: "登录成功",
+//           });
+//           setTimeout(() => {
+//             uni.reLaunch({
+//               url: "/pages/user/user",
+//             });
+//           }, 1000);
+//         })
+//         .catch(() => {
+//           uni.$com.toastHide();
+//         });
+//     },
+//     fail: function () {
+//       uni.$com.toastHide();
+//       uni.$com.toast({
+//         type: "error",
+//         message: "登录失败",
+//       });
+//     },
+//   });
+// if (loginErr) {
+//   uni.$com.toast({
+//     type: "error",
+//     icon: true,
+//     message: "微信登录失败",
+//   });
+// }
+// console.log(loginRes);
+// const [getUserInfoErr, getUserInfoRes] = await uni.getUserProfile({
+//   desc: "获取用户信息",
+// });
+// if (getUserInfoErr) {
+//   uni.$com.toast({
+//     type: "error",
+//     icon: true,
+//     message: "获取用户信息失败",
+//   });
+// }
 
-  // console.log(getUserInfoRes);
+// console.log(getUserInfoRes);
+// };
+const getVerifyCode = async () => {
+  const res = await uni.$http.get("/verify");
+  verifyImage.value = res.data.image;
+  form.value.verifyKey = res.data.key;
 };
-
 // 账号登录处理
-const handleAccountLogin = () => {
+const handleAccountLogin = async () => {
   if (!agreementChecked.value.includes("agree")) {
+    const flag = await showPolicy();
+    if (!flag) {
+      return;
+    }
+  }
+  if (!form.value.verifyCode) {
     uni.$com.toast({
       type: "error",
-      icon: true,
-      message: "请先阅读并同意用户协议",
+      icon: false,
+      message: "验证码不能为空",
     });
     return;
   }
-  uni.$http
-    .post("/login", {
+  if (!form.value.username) {
+    uni.$com.toast({
+      type: "error",
+      icon: false,
+      message: "账号不能为空",
+    });
+    return;
+  }
+  if (!form.value.password) {
+    uni.$com.toast({
+      type: "error",
+      icon: false,
+      message: "密码不能为空",
+    });
+    return;
+  }
+
+  try {
+    const openId = await uni.$com.getOpenId();
+    const res = await uni.$http.post("/login", {
       ...form.value,
       userType: "CUSTOMER",
       password: md5(form.value.password),
-    })
-    .then((res) => {
-      saveToken(res);
-      uni.$com.toast({
-        type: "success",
-        icon: true,
-        message: "登录成功",
-      });
-      setTimeout(() => {
-        uni.reLaunch({
-          url: "/pages/user/user",
-        });
-      }, 1000);
+      openId,
     });
+    saveToken(res);
+    uni.showToast({
+      title: "登录成功",
+      icon: "success",
+      mask: true,
+    });
+    setTimeout(() => {
+      const redirect = uni.getStorageSync("redirect");
+      uni.removeStorageSync("redirect");
+      if (redirect) {
+        uni.reLaunch({
+          url: redirect,
+        });
+      } else {
+        uni.navigateBack();
+      }
+    }, 1000);
+  } catch (error) {
+    console.log(error);
+    getVerifyCode();
+  }
 };
 
 const openPolicy = () => {
@@ -203,6 +263,24 @@ const openServiceAgreement = () => {
     url: "/pages/policy/service",
   });
 };
+const showPolicy = () => {
+  return new Promise((resolve) => {
+    uni.showModal({
+      title: "用户协议",
+      content: "未登录用户请先阅读并同意用户协议,是否阅读并同意",
+      confirmText: "同意",
+      confirmColor: "#2aac4a",
+      success: (res) => {
+        if (res.confirm) {
+          agreementChecked.value.push("agree");
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      },
+    });
+  });
+};
 const saveToken = (res) => {
   useUserStore().setToken(res.data.token);
   useUserStore().setUserInfo(res.data.user);
@@ -210,6 +288,9 @@ const saveToken = (res) => {
   useUserStore().setTokenExpiresIn(res.data.tokenExpiresIn);
   useUserStore().setTokenTimestamp(Date.now());
 };
+onMounted(() => {
+  getVerifyCode();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -219,7 +300,7 @@ const saveToken = (res) => {
   flex-direction: column;
   align-items: center;
   justify-content: center; // 尝试让内容在垂直方向上更居中
-  padding: 40px; // 内边距，避免内容贴边
+  padding: 28px; // 内边距，避免内容贴边
   padding-top: 20px; // 考虑到 Navbar,适当减少顶部内边距
   box-sizing: border-box;
   // min-height: calc(100vh - var(--status-bar-height) - 44px); // 减去navbar高度，如果layout内部已处理则不需要
@@ -251,15 +332,14 @@ const saveToken = (res) => {
 .form-section {
   width: 100%;
   max-width: 380px; // 限制表单最大宽度，使其在大屏幕上不会过宽
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   .uv-form-item {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   ::v-deep .uv-input {
     background-color: #ffffff;
-    border-radius: 22px;
   }
   ::v-deep .uv-input__content__prefix-icon {
     margin-right: 5px;
@@ -288,27 +368,26 @@ const saveToken = (res) => {
   font-size: 12px;
   color: #888;
   width: 100%;
-  max-width: 380px; // 限制协议区域最大宽度
   justify-content: center;
   text-align: center; // 确保换行时也居中
 
-  .uv-checkbox-group {
-    margin-right: 5px;
-    // flex-shrink: 0; // 防止checkbox被压缩
-  }
+  // .uv-checkbox-group {
+  //   margin-right: 5px;
+  //   // flex-shrink: 0; // 防止checkbox被压缩
+  // }
 }
 
 .agreement-text {
+  width: 100%;
   line-height: 1.5;
   display: flex; // 改为flex布局以更好地控制换行和对齐
-  flex-wrap: wrap; // 允许换行
+  // flex-wrap: wrap; // 允许换行
   justify-content: center; // 文本内容居中
   align-items: center;
 
   .link {
     color: #2a79ff;
     text-decoration: none;
-    padding: 0 2px; // 给链接之间一些空间
   }
 }
 </style>

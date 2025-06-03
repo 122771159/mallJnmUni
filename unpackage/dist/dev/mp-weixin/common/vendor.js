@@ -7113,9 +7113,9 @@ function isConsoleWritable() {
   return isWritable;
 }
 function initRuntimeSocketService() {
-  const hosts = "127.0.0.1,192.168.1.118";
+  const hosts = "127.0.0.1,192.168.110.152";
   const port = "8090";
-  const id = "mp-weixin_FeYrBG";
+  const id = "mp-weixin_85eMXM";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -11249,133 +11249,6 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 const props$r = {
   props: {
-    value: {
-      type: [String, Number],
-      default: ""
-    },
-    modelValue: {
-      type: [String, Number],
-      default: ""
-    },
-    // 搜索框形状，round-圆形，square-方形
-    shape: {
-      type: String,
-      default: "round"
-    },
-    // 搜索框背景色，默认值#f2f2f2
-    bgColor: {
-      type: String,
-      default: "#f2f2f2"
-    },
-    // 占位提示文字
-    placeholder: {
-      type: String,
-      default: "请输入关键字"
-    },
-    // 是否启用清除控件
-    clearabled: {
-      type: Boolean,
-      default: true
-    },
-    // 是否自动聚焦
-    focus: {
-      type: Boolean,
-      default: false
-    },
-    // 是否在搜索框右侧显示取消按钮
-    showAction: {
-      type: Boolean,
-      default: true
-    },
-    // 右边控件的样式
-    actionStyle: {
-      type: Object,
-      default: () => ({})
-    },
-    // 取消按钮文字
-    actionText: {
-      type: String,
-      default: "搜索"
-    },
-    // 输入框内容对齐方式，可选值为 left|center|right
-    inputAlign: {
-      type: String,
-      default: "left"
-    },
-    // input输入框的样式，可以定义文字颜色，大小等，对象形式
-    inputStyle: {
-      type: Object,
-      default: () => ({})
-    },
-    // 是否禁用输入框
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    // 边框颜色
-    borderColor: {
-      type: String,
-      default: "transparent"
-    },
-    // 搜索图标的颜色，默认同输入框字体颜色
-    searchIconColor: {
-      type: String,
-      default: "#909399"
-    },
-    // 输入框字体颜色
-    color: {
-      type: String,
-      default: "#606266"
-    },
-    // placeholder的颜色
-    placeholderColor: {
-      type: String,
-      default: "#909399"
-    },
-    // 左边输入框的图标，可以为uvui图标名称或图片路径
-    searchIcon: {
-      type: String,
-      default: "search"
-    },
-    searchIconSize: {
-      type: [Number, String],
-      default: 22
-    },
-    // 组件与其他上下左右元素之间的距离，带单位的字符串形式，如"30px"、"30px 20px"等写法
-    margin: {
-      type: String,
-      default: "0"
-    },
-    // 开启showAction时，是否在input获取焦点时才显示
-    animation: {
-      type: Boolean,
-      default: false
-    },
-    // 输入框最大能输入的长度，-1为不限制长度(来自uniapp文档)
-    maxlength: {
-      type: [String, Number],
-      default: -1
-    },
-    // 搜索框高度，单位px
-    height: {
-      type: [String, Number],
-      default: 32
-    },
-    // 搜索框左侧文本
-    label: {
-      type: [String, Number, null],
-      default: null
-    },
-    // 搜索框扩展样式
-    boxStyle: {
-      type: [String, Object],
-      default: () => ({})
-    },
-    ...(_f = (_e = index$1.$uv) == null ? void 0 : _e.props) == null ? void 0 : _f.search
-  }
-};
-const props$q = {
-  props: {
     // 头像图片路径(不能为相对路径)
     src: {
       type: String,
@@ -11450,7 +11323,7 @@ const props$q = {
       type: String,
       default: ""
     },
-    ...(_h = (_g = index$1.$uv) == null ? void 0 : _g.props) == null ? void 0 : _h.avatar
+    ...(_f = (_e = index$1.$uv) == null ? void 0 : _e.props) == null ? void 0 : _f.avatar
   }
 };
 const icons = {
@@ -11613,7 +11486,7 @@ const icons = {
   "uvicon-twitte": "e607",
   "uvicon-twitter-circle-fill": "e6cf"
 };
-const props$p = {
+const props$q = {
   props: {
     // 图标类名
     name: {
@@ -11700,10 +11573,10 @@ const props$p = {
       type: Boolean,
       default: false
     },
-    ...(_j = (_i = index$1.$uv) == null ? void 0 : _i.props) == null ? void 0 : _j.icon
+    ...(_h = (_g = index$1.$uv) == null ? void 0 : _g.props) == null ? void 0 : _h.icon
   }
 };
-const props$o = {
+const props$p = {
   props: {
     // 宫格的name
     name: {
@@ -11715,10 +11588,10 @@ const props$o = {
       type: String,
       default: "transparent"
     },
-    ...(_l = (_k = index$1.$uv) == null ? void 0 : _k.props) == null ? void 0 : _l.gridItem
+    ...(_j = (_i = index$1.$uv) == null ? void 0 : _i.props) == null ? void 0 : _j.gridItem
   }
 };
-const props$n = {
+const props$o = {
   props: {
     // 分成几列
     col: {
@@ -11735,7 +11608,134 @@ const props$n = {
       type: String,
       default: "left"
     },
-    ...(_n = (_m = index$1.$uv) == null ? void 0 : _m.props) == null ? void 0 : _n.grid
+    ...(_l = (_k = index$1.$uv) == null ? void 0 : _k.props) == null ? void 0 : _l.grid
+  }
+};
+const props$n = {
+  props: {
+    value: {
+      type: [String, Number],
+      default: ""
+    },
+    modelValue: {
+      type: [String, Number],
+      default: ""
+    },
+    // 搜索框形状，round-圆形，square-方形
+    shape: {
+      type: String,
+      default: "round"
+    },
+    // 搜索框背景色，默认值#f2f2f2
+    bgColor: {
+      type: String,
+      default: "#f2f2f2"
+    },
+    // 占位提示文字
+    placeholder: {
+      type: String,
+      default: "请输入关键字"
+    },
+    // 是否启用清除控件
+    clearabled: {
+      type: Boolean,
+      default: true
+    },
+    // 是否自动聚焦
+    focus: {
+      type: Boolean,
+      default: false
+    },
+    // 是否在搜索框右侧显示取消按钮
+    showAction: {
+      type: Boolean,
+      default: true
+    },
+    // 右边控件的样式
+    actionStyle: {
+      type: Object,
+      default: () => ({})
+    },
+    // 取消按钮文字
+    actionText: {
+      type: String,
+      default: "搜索"
+    },
+    // 输入框内容对齐方式，可选值为 left|center|right
+    inputAlign: {
+      type: String,
+      default: "left"
+    },
+    // input输入框的样式，可以定义文字颜色，大小等，对象形式
+    inputStyle: {
+      type: Object,
+      default: () => ({})
+    },
+    // 是否禁用输入框
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 边框颜色
+    borderColor: {
+      type: String,
+      default: "transparent"
+    },
+    // 搜索图标的颜色，默认同输入框字体颜色
+    searchIconColor: {
+      type: String,
+      default: "#909399"
+    },
+    // 输入框字体颜色
+    color: {
+      type: String,
+      default: "#606266"
+    },
+    // placeholder的颜色
+    placeholderColor: {
+      type: String,
+      default: "#909399"
+    },
+    // 左边输入框的图标，可以为uvui图标名称或图片路径
+    searchIcon: {
+      type: String,
+      default: "search"
+    },
+    searchIconSize: {
+      type: [Number, String],
+      default: 22
+    },
+    // 组件与其他上下左右元素之间的距离，带单位的字符串形式，如"30px"、"30px 20px"等写法
+    margin: {
+      type: String,
+      default: "0"
+    },
+    // 开启showAction时，是否在input获取焦点时才显示
+    animation: {
+      type: Boolean,
+      default: false
+    },
+    // 输入框最大能输入的长度，-1为不限制长度(来自uniapp文档)
+    maxlength: {
+      type: [String, Number],
+      default: -1
+    },
+    // 搜索框高度，单位px
+    height: {
+      type: [String, Number],
+      default: 32
+    },
+    // 搜索框左侧文本
+    label: {
+      type: [String, Number, null],
+      default: null
+    },
+    // 搜索框扩展样式
+    boxStyle: {
+      type: [String, Object],
+      default: () => ({})
+    },
+    ...(_n = (_m = index$1.$uv) == null ? void 0 : _m.props) == null ? void 0 : _n.search
   }
 };
 const props$m = {
@@ -13652,16 +13652,85 @@ const props$d = {
     ...(_H = (_G = index$1.$uv) == null ? void 0 : _G.props) == null ? void 0 : _H.empty
   }
 };
+const value = {
+  computed: {
+    // 经处理后需要显示的值
+    value() {
+      const {
+        text,
+        mode,
+        format: format2,
+        href
+      } = this;
+      if (mode === "price") {
+        if (!/^\d+(\.\d+)?$/.test(text)) {
+          error("金额模式下，text参数需要为金额格式");
+        }
+        if (func(format2)) {
+          return format2(text);
+        }
+        return priceFormat(text, 2);
+      }
+      if (mode === "date") {
+        !date(text) && error("日期模式下，text参数需要为日期或时间戳格式");
+        if (func(format2)) {
+          return format2(text);
+        }
+        if (format2) {
+          return timeFormat(text, format2);
+        }
+        return timeFormat(text, "yyyy-mm-dd");
+      }
+      if (mode === "phone") {
+        if (func(format2)) {
+          return format2(text);
+        }
+        if (format2 === "encrypt") {
+          return `${text.substr(0, 3)}****${text.substr(7)}`;
+        }
+        return text;
+      }
+      if (mode === "name") {
+        !(typeof text === "string") && error("姓名模式下，text参数需要为字符串格式");
+        if (func(format2)) {
+          return format2(text);
+        }
+        if (format2 === "encrypt") {
+          return this.formatName(text);
+        }
+        return text;
+      }
+      if (mode === "link") {
+        !url(href) && error("超链接模式下，href参数需要为URL格式");
+        return text;
+      }
+      return text;
+    }
+  },
+  methods: {
+    // 默认的姓名脱敏规则
+    formatName(name) {
+      let value2 = "";
+      if (name.length === 2) {
+        value2 = name.substr(0, 1) + "*";
+      } else if (name.length > 2) {
+        let char = "";
+        for (let i = 0, len = name.length - 2; i < len; i++) {
+          char += "*";
+        }
+        value2 = name.substr(0, 1) + char + name.substr(-1, 1);
+      } else {
+        value2 = name;
+      }
+      return value2;
+    }
+  }
+};
 const props$c = {
   props: {
-    // 是否显示圆点
-    isDot: {
-      type: Boolean,
-      default: false
-    },
-    // 显示的内容
-    value: {
-      type: [Number, String],
+    // 主题颜色
+    type: {
+      type: String,
       default: ""
     },
     // 是否显示
@@ -13669,232 +13738,108 @@ const props$c = {
       type: Boolean,
       default: true
     },
-    // 最大值，超过最大值会显示 '{max}+'
-    max: {
-      type: [Number, String],
-      default: 999
+    // 显示的值
+    text: {
+      type: [String, Number],
+      default: ""
     },
-    // 主题类型，error|warning|success|primary
-    type: {
-      type: [String, void 0, null],
-      default: "error"
+    // 前置图标
+    prefixIcon: {
+      type: String,
+      default: ""
     },
-    // 当数值为 0 时，是否展示 Badge
-    showZero: {
+    // 后置图标
+    suffixIcon: {
+      type: String,
+      default: ""
+    },
+    // 文本处理的匹配模式
+    // text-普通文本，price-价格，phone-手机号，name-姓名，date-日期，link-超链接
+    mode: {
+      type: String,
+      default: ""
+    },
+    // mode=link下，配置的链接
+    href: {
+      type: String,
+      default: ""
+    },
+    // 格式化规则
+    format: {
+      type: [String, Function],
+      default: ""
+    },
+    // mode=phone时，点击文本是否拨打电话
+    call: {
+      type: Boolean,
+      default: true
+    },
+    // 小程序的打开方式
+    openType: {
+      type: String,
+      default: ""
+    },
+    // 是否粗体，默认normal
+    bold: {
       type: Boolean,
       default: false
     },
-    // 背景颜色，优先级比type高，如设置，type参数会失效
-    bgColor: {
-      type: [String, null],
-      default: null
+    // 是否块状
+    block: {
+      type: Boolean,
+      default: false
     },
-    // 字体颜色
+    // 文本显示的行数，如果设置，超出此行数，将会显示省略号
+    lines: {
+      type: [String, Number],
+      default: ""
+    },
+    // 文本颜色
     color: {
-      type: [String, null],
-      default: null
+      type: String,
+      default: "#303133"
     },
-    // 徽标形状，circle-四角均为圆角，horn-左下角为直角
-    shape: {
-      type: [String, void 0, null],
-      default: "circle"
+    // 字体大小
+    size: {
+      type: [String, Number],
+      default: 15
     },
-    // 设置数字的显示方式，overflow|ellipsis|limit
-    // overflow会根据max字段判断，超出显示`${max}+`
-    // ellipsis会根据max判断，超出显示`${max}...`
-    // limit会依据1000作为判断条件，超出1000，显示`${value/1000}K`，比如2.2k、3.34w，最多保留2位小数
-    numberType: {
-      type: [String, void 0, null],
-      default: "overflow"
+    // 图标的样式
+    iconStyle: {
+      type: [Object, String],
+      default: () => ({
+        fontSize: "15px"
+      })
     },
-    // 设置badge的位置偏移，格式为 [x, y]，也即设置的为top和right的值，absolute为true时有效
-    offset: {
-      type: Array,
-      default: () => []
+    // 文字装饰，下划线，中划线等，可选值 none|underline|line-through
+    decoration: {
+      type: String,
+      default: "none"
     },
-    // 是否反转背景和字体颜色
-    inverted: {
-      type: Boolean,
-      default: false
+    // 外边距，对象、字符串，数值形式均可
+    margin: {
+      type: [Object, String, Number],
+      default: 0
     },
-    // 是否绝对定位
-    absolute: {
-      type: Boolean,
-      default: false
+    // 文本行高
+    lineHeight: {
+      type: [String, Number],
+      default: ""
     },
-    ...(_J = (_I = index$1.$uv) == null ? void 0 : _I.props) == null ? void 0 : _J.badge
+    // 文本对齐方式，可选值left|center|right
+    align: {
+      type: String,
+      default: "left"
+    },
+    // 文字换行，可选值break-word|normal|anywhere
+    wordWrap: {
+      type: String,
+      default: "normal"
+    },
+    ...(_J = (_I = index$1.$uv) == null ? void 0 : _I.props) == null ? void 0 : _J.text
   }
 };
 const props$b = {
-  props: {
-    // 列表数据
-    list: {
-      type: Array,
-      default: () => []
-    },
-    // 从list元素对象中读取的键名，默认name
-    keyName: {
-      type: String,
-      default: "name"
-    },
-    // 当前选中项
-    current: {
-      type: [Number, String],
-      default: 0
-    },
-    // 头部内容的高度
-    hdHeight: {
-      type: [Number, String],
-      default: 0
-    },
-    // 是否联动，默认开启联动
-    chain: {
-      type: Boolean,
-      default: true
-    },
-    // 整个列表的高度，默认auto屏幕高度
-    height: {
-      type: [Number, String],
-      default: "auto"
-    },
-    // 左边列表的宽度，默认200rpx
-    barWidth: {
-      type: [Number, String],
-      default: "180rpx"
-    },
-    // 左边列表是否允许滚动
-    barScrollable: {
-      type: Boolean,
-      default: true
-    },
-    // 背景颜色 默认主题颜色 $bg-color
-    barBgColor: {
-      type: String,
-      default: ""
-    },
-    // 左边列表的自定义样式
-    barStyle: {
-      type: [Object, String],
-      default: ""
-    },
-    // 左边列表项的自定义样式
-    barItemStyle: {
-      type: [Object, String],
-      default: ""
-    },
-    // 左边选择项激活时的自定义样式
-    barItemActiveStyle: {
-      type: [Object, String],
-      default: ""
-    },
-    // 左边选择项激活时的左边线条自定义样式
-    barItemActiveLineStyle: {
-      type: [Object, String],
-      default: ""
-    },
-    // 菜单项中的徽标自定义样式，比如定位位置
-    barItemBadgeStyle: {
-      type: [Object, String],
-      default: ""
-    },
-    // 右边区域自定义样式
-    contentStyle: {
-      type: [Object, String],
-      default: ""
-    }
-  }
-};
-const props$a = {
-  props: {
-    // item标签的名称，作为与uv-tabbar的value参数匹配的标识符
-    name: {
-      type: [String, Number, null],
-      default: null
-    },
-    // uv-ui内置图标或者绝对路径的图片
-    icon: {
-      icon: String,
-      default: ""
-    },
-    // 图标大小，默认uv-tabbar的iconSize=20
-    iconSize: {
-      type: [String, Number],
-      default: ""
-    },
-    // 右上角的角标提示信息
-    badge: {
-      type: [String, Number, null],
-      default: null
-    },
-    // 是否显示圆点，将会覆盖badge参数
-    dot: {
-      type: Boolean,
-      default: false
-    },
-    // 描述文本
-    text: {
-      type: String,
-      default: ""
-    },
-    // 控制徽标的位置，对象或者字符串形式，可以设置top和right属性
-    badgeStyle: {
-      type: [Object, String],
-      default: "top: 6px;right:2px;"
-    },
-    ...(_L = (_K = index$1.$uv) == null ? void 0 : _K.props) == null ? void 0 : _L.tabbarItem
-  }
-};
-const props$9 = {
-  props: {
-    // 当前匹配项的name
-    value: {
-      type: [String, Number, null],
-      default: null
-    },
-    // 是否为iPhoneX留出底部安全距离
-    safeAreaInsetBottom: {
-      type: Boolean,
-      default: true
-    },
-    // 是否显示上方边框
-    border: {
-      type: Boolean,
-      default: true
-    },
-    // 元素层级z-index
-    zIndex: {
-      type: [String, Number],
-      default: 9
-    },
-    // 选中标签的颜色
-    activeColor: {
-      type: String,
-      default: "#1989fa"
-    },
-    // 未选中标签的颜色
-    inactiveColor: {
-      type: String,
-      default: "#7d7e80"
-    },
-    // 是否固定在底部
-    fixed: {
-      type: Boolean,
-      default: true
-    },
-    // fixed定位固定在底部时，是否生成一个等高元素防止塌陷
-    placeholder: {
-      type: Boolean,
-      default: true
-    },
-    // 图标大小
-    iconSize: {
-      type: [String, Number],
-      default: 20
-    },
-    ...(_N = (_M = index$1.$uv) == null ? void 0 : _M.props) == null ? void 0 : _N.tabbar
-  }
-};
-const props$8 = {
   props: {
     color: {
       type: String,
@@ -13925,10 +13870,10 @@ const props$8 = {
       type: Boolean,
       default: false
     },
-    ...(_P = (_O = index$1.$uv) == null ? void 0 : _O.props) == null ? void 0 : _P.line
+    ...(_L = (_K = index$1.$uv) == null ? void 0 : _K.props) == null ? void 0 : _L.line
   }
 };
-const props$7 = {
+const props$a = {
   props: {
     // 是否开启顶部安全区适配
     safeAreaInsetTop: {
@@ -14014,10 +13959,252 @@ const props$7 = {
       type: [String, Object],
       default: ""
     },
-    ...(_R = (_Q = index$1.$uv) == null ? void 0 : _Q.props) == null ? void 0 : _R.navbar
+    ...(_N = (_M = index$1.$uv) == null ? void 0 : _M.props) == null ? void 0 : _N.navbar
+  }
+};
+const props$9 = {
+  props: {
+    // item标签的名称，作为与uv-tabbar的value参数匹配的标识符
+    name: {
+      type: [String, Number, null],
+      default: null
+    },
+    // uv-ui内置图标或者绝对路径的图片
+    icon: {
+      icon: String,
+      default: ""
+    },
+    // 图标大小，默认uv-tabbar的iconSize=20
+    iconSize: {
+      type: [String, Number],
+      default: ""
+    },
+    // 右上角的角标提示信息
+    badge: {
+      type: [String, Number, null],
+      default: null
+    },
+    // 是否显示圆点，将会覆盖badge参数
+    dot: {
+      type: Boolean,
+      default: false
+    },
+    // 描述文本
+    text: {
+      type: String,
+      default: ""
+    },
+    // 控制徽标的位置，对象或者字符串形式，可以设置top和right属性
+    badgeStyle: {
+      type: [Object, String],
+      default: "top: 6px;right:2px;"
+    },
+    ...(_P = (_O = index$1.$uv) == null ? void 0 : _O.props) == null ? void 0 : _P.tabbarItem
+  }
+};
+const props$8 = {
+  props: {
+    // 当前匹配项的name
+    value: {
+      type: [String, Number, null],
+      default: null
+    },
+    // 是否为iPhoneX留出底部安全距离
+    safeAreaInsetBottom: {
+      type: Boolean,
+      default: true
+    },
+    // 是否显示上方边框
+    border: {
+      type: Boolean,
+      default: true
+    },
+    // 元素层级z-index
+    zIndex: {
+      type: [String, Number],
+      default: 9
+    },
+    // 选中标签的颜色
+    activeColor: {
+      type: String,
+      default: "#1989fa"
+    },
+    // 未选中标签的颜色
+    inactiveColor: {
+      type: String,
+      default: "#7d7e80"
+    },
+    // 是否固定在底部
+    fixed: {
+      type: Boolean,
+      default: true
+    },
+    // fixed定位固定在底部时，是否生成一个等高元素防止塌陷
+    placeholder: {
+      type: Boolean,
+      default: true
+    },
+    // 图标大小
+    iconSize: {
+      type: [String, Number],
+      default: 20
+    },
+    ...(_R = (_Q = index$1.$uv) == null ? void 0 : _Q.props) == null ? void 0 : _R.tabbar
+  }
+};
+const props$7 = {
+  props: {
+    // 是否显示圆点
+    isDot: {
+      type: Boolean,
+      default: false
+    },
+    // 显示的内容
+    value: {
+      type: [Number, String],
+      default: ""
+    },
+    // 是否显示
+    show: {
+      type: Boolean,
+      default: true
+    },
+    // 最大值，超过最大值会显示 '{max}+'
+    max: {
+      type: [Number, String],
+      default: 999
+    },
+    // 主题类型，error|warning|success|primary
+    type: {
+      type: [String, void 0, null],
+      default: "error"
+    },
+    // 当数值为 0 时，是否展示 Badge
+    showZero: {
+      type: Boolean,
+      default: false
+    },
+    // 背景颜色，优先级比type高，如设置，type参数会失效
+    bgColor: {
+      type: [String, null],
+      default: null
+    },
+    // 字体颜色
+    color: {
+      type: [String, null],
+      default: null
+    },
+    // 徽标形状，circle-四角均为圆角，horn-左下角为直角
+    shape: {
+      type: [String, void 0, null],
+      default: "circle"
+    },
+    // 设置数字的显示方式，overflow|ellipsis|limit
+    // overflow会根据max字段判断，超出显示`${max}+`
+    // ellipsis会根据max判断，超出显示`${max}...`
+    // limit会依据1000作为判断条件，超出1000，显示`${value/1000}K`，比如2.2k、3.34w，最多保留2位小数
+    numberType: {
+      type: [String, void 0, null],
+      default: "overflow"
+    },
+    // 设置badge的位置偏移，格式为 [x, y]，也即设置的为top和right的值，absolute为true时有效
+    offset: {
+      type: Array,
+      default: () => []
+    },
+    // 是否反转背景和字体颜色
+    inverted: {
+      type: Boolean,
+      default: false
+    },
+    // 是否绝对定位
+    absolute: {
+      type: Boolean,
+      default: false
+    },
+    ...(_T = (_S = index$1.$uv) == null ? void 0 : _S.props) == null ? void 0 : _T.badge
   }
 };
 const props$6 = {
+  props: {
+    // 列表数据
+    list: {
+      type: Array,
+      default: () => []
+    },
+    // 从list元素对象中读取的键名，默认name
+    keyName: {
+      type: String,
+      default: "name"
+    },
+    // 当前选中项
+    current: {
+      type: [Number, String],
+      default: 0
+    },
+    // 头部内容的高度
+    hdHeight: {
+      type: [Number, String],
+      default: 0
+    },
+    // 是否联动，默认开启联动
+    chain: {
+      type: Boolean,
+      default: true
+    },
+    // 整个列表的高度，默认auto屏幕高度
+    height: {
+      type: [Number, String],
+      default: "auto"
+    },
+    // 左边列表的宽度，默认200rpx
+    barWidth: {
+      type: [Number, String],
+      default: "180rpx"
+    },
+    // 左边列表是否允许滚动
+    barScrollable: {
+      type: Boolean,
+      default: true
+    },
+    // 背景颜色 默认主题颜色 $bg-color
+    barBgColor: {
+      type: String,
+      default: ""
+    },
+    // 左边列表的自定义样式
+    barStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    // 左边列表项的自定义样式
+    barItemStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    // 左边选择项激活时的自定义样式
+    barItemActiveStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    // 左边选择项激活时的左边线条自定义样式
+    barItemActiveLineStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    // 菜单项中的徽标自定义样式，比如定位位置
+    barItemBadgeStyle: {
+      type: [Object, String],
+      default: ""
+    },
+    // 右边区域自定义样式
+    contentStyle: {
+      type: [Object, String],
+      default: ""
+    }
+  }
+};
+const props$5 = {
   props: {
     // 是否显示遮罩
     show: {
@@ -14039,10 +14226,10 @@ const props$6 = {
       type: [String, Number],
       default: 0.5
     },
-    ...(_T = (_S = index$1.$uv) == null ? void 0 : _S.props) == null ? void 0 : _T.overlay
+    ...(_V = (_U = index$1.$uv) == null ? void 0 : _U.props) == null ? void 0 : _V.overlay
   }
 };
-const props$5 = {
+const props$4 = {
   props: {
     bgColor: {
       type: String,
@@ -14162,193 +14349,6 @@ function createAnimation(option, _this) {
   clearTimeout(_this.timer);
   return new MPAnimation(option, _this);
 }
-const value = {
-  computed: {
-    // 经处理后需要显示的值
-    value() {
-      const {
-        text,
-        mode,
-        format: format2,
-        href
-      } = this;
-      if (mode === "price") {
-        if (!/^\d+(\.\d+)?$/.test(text)) {
-          error("金额模式下，text参数需要为金额格式");
-        }
-        if (func(format2)) {
-          return format2(text);
-        }
-        return priceFormat(text, 2);
-      }
-      if (mode === "date") {
-        !date(text) && error("日期模式下，text参数需要为日期或时间戳格式");
-        if (func(format2)) {
-          return format2(text);
-        }
-        if (format2) {
-          return timeFormat(text, format2);
-        }
-        return timeFormat(text, "yyyy-mm-dd");
-      }
-      if (mode === "phone") {
-        if (func(format2)) {
-          return format2(text);
-        }
-        if (format2 === "encrypt") {
-          return `${text.substr(0, 3)}****${text.substr(7)}`;
-        }
-        return text;
-      }
-      if (mode === "name") {
-        !(typeof text === "string") && error("姓名模式下，text参数需要为字符串格式");
-        if (func(format2)) {
-          return format2(text);
-        }
-        if (format2 === "encrypt") {
-          return this.formatName(text);
-        }
-        return text;
-      }
-      if (mode === "link") {
-        !url(href) && error("超链接模式下，href参数需要为URL格式");
-        return text;
-      }
-      return text;
-    }
-  },
-  methods: {
-    // 默认的姓名脱敏规则
-    formatName(name) {
-      let value2 = "";
-      if (name.length === 2) {
-        value2 = name.substr(0, 1) + "*";
-      } else if (name.length > 2) {
-        let char = "";
-        for (let i = 0, len = name.length - 2; i < len; i++) {
-          char += "*";
-        }
-        value2 = name.substr(0, 1) + char + name.substr(-1, 1);
-      } else {
-        value2 = name;
-      }
-      return value2;
-    }
-  }
-};
-const props$4 = {
-  props: {
-    // 主题颜色
-    type: {
-      type: String,
-      default: ""
-    },
-    // 是否显示
-    show: {
-      type: Boolean,
-      default: true
-    },
-    // 显示的值
-    text: {
-      type: [String, Number],
-      default: ""
-    },
-    // 前置图标
-    prefixIcon: {
-      type: String,
-      default: ""
-    },
-    // 后置图标
-    suffixIcon: {
-      type: String,
-      default: ""
-    },
-    // 文本处理的匹配模式
-    // text-普通文本，price-价格，phone-手机号，name-姓名，date-日期，link-超链接
-    mode: {
-      type: String,
-      default: ""
-    },
-    // mode=link下，配置的链接
-    href: {
-      type: String,
-      default: ""
-    },
-    // 格式化规则
-    format: {
-      type: [String, Function],
-      default: ""
-    },
-    // mode=phone时，点击文本是否拨打电话
-    call: {
-      type: Boolean,
-      default: true
-    },
-    // 小程序的打开方式
-    openType: {
-      type: String,
-      default: ""
-    },
-    // 是否粗体，默认normal
-    bold: {
-      type: Boolean,
-      default: false
-    },
-    // 是否块状
-    block: {
-      type: Boolean,
-      default: false
-    },
-    // 文本显示的行数，如果设置，超出此行数，将会显示省略号
-    lines: {
-      type: [String, Number],
-      default: ""
-    },
-    // 文本颜色
-    color: {
-      type: String,
-      default: "#303133"
-    },
-    // 字体大小
-    size: {
-      type: [String, Number],
-      default: 15
-    },
-    // 图标的样式
-    iconStyle: {
-      type: [Object, String],
-      default: () => ({
-        fontSize: "15px"
-      })
-    },
-    // 文字装饰，下划线，中划线等，可选值 none|underline|line-through
-    decoration: {
-      type: String,
-      default: "none"
-    },
-    // 外边距，对象、字符串，数值形式均可
-    margin: {
-      type: [Object, String, Number],
-      default: 0
-    },
-    // 文本行高
-    lineHeight: {
-      type: [String, Number],
-      default: ""
-    },
-    // 文本对齐方式，可选值left|center|right
-    align: {
-      type: String,
-      default: "left"
-    },
-    // 文字换行，可选值break-word|normal|anywhere
-    wordWrap: {
-      type: String,
-      default: "normal"
-    },
-    ...(_V = (_U = index$1.$uv) == null ? void 0 : _U.props) == null ? void 0 : _V.text
-  }
-};
 const props$3 = {
   props: {
     // 轮播的长度
@@ -14476,31 +14476,6 @@ const props$2 = {
 };
 const props$1 = {
   props: {
-    // 背景颜色（默认transparent）
-    bgColor: {
-      type: String,
-      default: "transparent"
-    },
-    // 分割槽高度，单位px（默认20）
-    height: {
-      type: [String, Number],
-      default: 20
-    },
-    // 与上一个组件的距离
-    marginTop: {
-      type: [String, Number],
-      default: 0
-    },
-    // 与下一个组件的距离
-    marginBottom: {
-      type: [String, Number],
-      default: 0
-    },
-    ...(_$ = (__ = index$1.$uv) == null ? void 0 : __.props) == null ? void 0 : _$.gap
-  }
-};
-const props = {
-  props: {
     // 文字颜色
     color: {
       type: String,
@@ -14536,7 +14511,32 @@ const props = {
       type: String,
       default: ""
     },
-    ...(_ba = (_aa = index$1.$uv) == null ? void 0 : _aa.props) == null ? void 0 : _ba.link
+    ...(_$ = (__ = index$1.$uv) == null ? void 0 : __.props) == null ? void 0 : _$.link
+  }
+};
+const props = {
+  props: {
+    // 背景颜色（默认transparent）
+    bgColor: {
+      type: String,
+      default: "transparent"
+    },
+    // 分割槽高度，单位px（默认20）
+    height: {
+      type: [String, Number],
+      default: 20
+    },
+    // 与上一个组件的距离
+    marginTop: {
+      type: [String, Number],
+      default: 0
+    },
+    // 与下一个组件的距离
+    marginBottom: {
+      type: [String, Number],
+      default: 0
+    },
+    ...(_ba = (_aa = index$1.$uv) == null ? void 0 : _aa.props) == null ? void 0 : _ba.gap
   }
 };
 exports.Pinia = Pinia;
@@ -14573,14 +14573,14 @@ exports.props$11 = props$g;
 exports.props$12 = props$f;
 exports.props$13 = props$e;
 exports.props$14 = props$d;
-exports.props$15 = props$b;
-exports.props$16 = props$c;
+exports.props$15 = props$c;
+exports.props$16 = props$b;
 exports.props$17 = props$a;
 exports.props$18 = props$9;
 exports.props$19 = props$8;
 exports.props$2 = props$p;
-exports.props$20 = props$7;
-exports.props$21 = props$6;
+exports.props$20 = props$6;
+exports.props$21 = props$7;
 exports.props$22 = props$5;
 exports.props$23 = props$4;
 exports.props$24 = props$3;
