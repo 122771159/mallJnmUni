@@ -3,10 +3,17 @@ export function getOpenId() {
     uni.login({
       provider: "weixin",
       success: async function (loginRes) {
-        const { data: openId } = await uni.$http.get(
-          `/wx/getOpenid/${loginRes.code}`
-        );
-        resolve(openId);
+        try {
+          const { data: openId } = await uni.$http.get(
+            `/wx/getOpenid/${loginRes.code}`
+          );
+          console.log("openId", openId);
+          resolve(openId);
+        } catch (error) {
+          console.log("error", error);
+
+          reject(error);
+        }
       },
       fail: function () {
         reject(new Error("获取微信openId失败"));

@@ -6,7 +6,10 @@
       :barItemBadgeStyle="{ right: '20px', top: '12px' }"
       :height="tabberFreeHeight - 44"
       @change="change"
+      barWidth="165rpx"
       keyName="categoryName"
+      :barItemStyle="{ textAlign: 'center' }"
+      :barItemActiveStyle="{ textAlign: 'center' }"
     >
       <uv-vtabs-item>
         <view class="item" v-for="(item2, index2) in list2" :key="index2">
@@ -14,6 +17,7 @@
             :src="item2.mainImage"
             width="200rpx"
             height="170rpx"
+            @click="handleClick(item2)"
           ></my-BaseImage>
           <view style="width: 100%">
             <my-ShopInfo :product="item2"></my-ShopInfo>
@@ -51,6 +55,11 @@ onMounted(async () => {
     uni.hideLoading();
   }, 200);
 });
+const handleClick = (item) => {
+  uni.navigateTo({
+    url: `/pages/product/product?id=${item.id}&name=${item.name}`,
+  });
+};
 </script>
 <style scoped lang="scss">
 .header {

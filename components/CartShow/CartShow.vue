@@ -1,7 +1,9 @@
 <template>
   <view class="main-container">
     <view class="selected-header-container">
-      <view class="selected-info"> </view>
+      <view class="selected-info">
+        <text class="info-text">中裕内部商场系统</text>
+      </view>
       <view class="clear-action" @click="handleClearCart">
         <uv-icon name="trash" color="#909399" size="16"></uv-icon>
         <text class="clear-text">清空购物车</text>
@@ -65,11 +67,11 @@ const handleClearCart = () => {
   }
 }
 .selected-header-container {
-  height: 24px;
+  height: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 7px 15px;
   background-color: #ffffff; // 通常背景是白色，具体根据您的页面背景
   border-bottom: 1px solid #f0f0f0; // 图片底部有一条细线
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,

@@ -1,7 +1,7 @@
 <template>
   <view
     class="float"
-    :style="{ bottom: bottomHeight + 10 + 'px' }"
+    :style="{ bottom: bottomHeight + 10 + 'px', right: right + 'px' }"
     @click="openPopup"
   >
     <view class="cart-float-content">
@@ -10,13 +10,30 @@
           <image src="/static/images/cart.gif" />
         </view>
       </view>
+      <uv-badge
+        type="error"
+        :value="totalCount"
+        :is-dot="false"
+        :absolute="true"
+        :offset="[-2, -2]"
+        class="cart-badge"
+        v-if="totalCount > 0"
+      ></uv-badge>
     </view>
   </view>
 </template>
 
 <script setup>
+const props = defineProps({
+  right: {
+    type: Number,
+    default: 20,
+  },
+});
 const { bottomHeight } = uni.$com.getHeight();
 const emit = defineEmits(["openPopup"]);
+const store = uni.$com.getStore();
+const totalCount = computed(() => store.totalCount);
 const openPopup = () => {
   emit("openPopup");
 };
@@ -25,7 +42,6 @@ const openPopup = () => {
 <style lang="scss" scoped>
 .float {
   position: fixed;
-  right: 20px;
 
   z-index: 999;
 

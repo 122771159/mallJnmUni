@@ -31,11 +31,27 @@
         </view>
       </view>
       <my-DianDi></my-DianDi>
+      <my-CartFloat @openPopup="openPopup" :right="30"></my-CartFloat>
+      <uv-popup
+        ref="popup"
+        mode="bottom"
+        customStyle="min-height:300px;max-height:60vh"
+      >
+        <view>
+          <my-CartShow></my-CartShow>
+          <my-CartSummaryBar></my-CartSummaryBar>
+        </view>
+      </uv-popup>
     </view>
   </layout>
 </template>
 
 <script setup>
+const popup = ref(null);
+
+const openPopup = () => {
+  popup.value.open();
+};
 const keyword = ref("");
 const navHeight = uni.$com.getHeight().navHeight;
 const leftClick = () => {
@@ -53,7 +69,7 @@ const search = async () => {
   const { data } = await uni.$http.get("/wx/product-search", {
     keyword: keyword.value,
   });
-  products.value = [...data, ...data, ...data, ...data, ...data, ...data];
+  products.value = [...data];
 };
 </script>
 

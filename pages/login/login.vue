@@ -101,15 +101,24 @@ import { useUserStore } from "@/stores";
 const SITE_NAME = uni.$com.env().SITE_NAME;
 // 表单数据
 const form = ref({
-  username: "",
-  password: "",
+  username: "addmin22",
+  password: "addmin22",
   verifyCode: "",
   verifyKey: "",
 });
 const verifyImage = ref("");
 // 协议勾选状态
 const agreementChecked = ref([]);
-
+const navigationSource = ref("");
+onLoad(() => {
+  const pages = getCurrentPages();
+  const pageStackLength = pages.length;
+  if (pageStackLength === 1) {
+    navigationSource.value = "reLaunch";
+  } else {
+    navigationSource.value = "navigateTo";
+  }
+});
 // 微信登录处理
 // const handleWeChatLogin = async () => {
 //   if (!agreementChecked.value.includes("agree")) {
@@ -190,6 +199,14 @@ const getVerifyCode = async () => {
 };
 // 账号登录处理
 const handleAccountLogin = async () => {
+  uni.$com.toast(
+    {
+      type: "loading",
+      title: "正在加载",
+      message: "正在加载",
+    },
+    true
+  );
   if (!agreementChecked.value.includes("agree")) {
     const flag = await showPolicy();
     if (!flag) {
@@ -230,10 +247,9 @@ const handleAccountLogin = async () => {
       openId,
     });
     saveToken(res);
-    uni.showToast({
-      title: "登录成功",
-      icon: "success",
-      mask: true,
+    uni.$com.toast({
+      type: "success",
+      message: "登录成功",
     });
     setTimeout(() => {
       const redirect = uni.getStorageSync("redirect");
@@ -243,11 +259,16 @@ const handleAccountLogin = async () => {
           url: redirect,
         });
       } else {
-        uni.navigateBack();
+        if (navigationSource.value === "navigateTo") {
+          uni.navigateBack();
+        } else {
+          uni.reLaunch({
+            url: "/pages/index/index",
+          });
+        }
       }
-    }, 1000);
+    }, 500);
   } catch (error) {
-    console.log(error);
     getVerifyCode();
   }
 };
@@ -287,6 +308,7 @@ const saveToken = (res) => {
   useUserStore().setRoles(res.data.roles);
   useUserStore().setTokenExpiresIn(res.data.tokenExpiresIn);
   useUserStore().setTokenTimestamp(Date.now());
+  useUserStore().setTokenFreeTimeout(res.data.tokenFreeTimeout);
 };
 onMounted(() => {
   getVerifyCode();

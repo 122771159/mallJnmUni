@@ -9,12 +9,12 @@
         ></image>
         <uv-badge
           type="error"
-          :value="itemCount"
+          :value="totalCount"
           :is-dot="false"
           :absolute="true"
           :offset="[-2, -2]"
           class="cart-badge"
-          v-if="itemCount > 0"
+          v-if="totalCount > 0"
         ></uv-badge>
       </view>
       <view class="price-details">
@@ -23,9 +23,7 @@
           <text class="currency-symbol">¥</text>
           <text class="amount">{{ totalPrice }}</text>
         </view>
-        <text class="discount-info"
-          >已享受更低优惠，共减免¥{{ discountAmount }}</text
-        >
+        <text class="discount-info">中裕内部商场系统</text>
       </view>
     </view>
     <view class="summary-right">
@@ -42,24 +40,9 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  // 购物车中的商品总数量 (用于角标)
-  itemCount: {
-    type: Number,
-    default: 0,
-  },
-  // 预计到手总价
-  totalPrice: {
-    type: [Number, String],
-    default: 0,
-  },
-  // 共减免金额
-  discountAmount: {
-    type: [Number, String],
-    default: 0,
-  },
-});
-
+const store = uni.$com.getStore();
+const totalPrice = computed(() => store.totalPrice);
+const totalCount = computed(() => store.totalCount);
 const emit = defineEmits(["checkout", "icon-click"]);
 
 const handleCheckout = () => {

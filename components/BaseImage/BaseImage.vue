@@ -14,22 +14,40 @@
       </view>
     </view>
 
-    <uv-image
-      v-if="previewUrl && !isLoading && !showError"
-      ref="imgRef"
-      class="preview-image"
-      :src="previewUrl"
-      :show-loading="false"
-      :show-error="false"
-      :mode="mode"
-      :width="width"
-      :height="height"
-      lazy-load
-      @click="handlePreviewImage"
-      @load="onImageLoad"
-      @error="onImageError"
-    />
-
+    <template v-if="ableClick">
+      <uv-image
+        v-if="previewUrl && !isLoading && !showError"
+        ref="imgRef"
+        class="preview-image"
+        :src="previewUrl"
+        :show-loading="false"
+        :show-error="false"
+        :mode="mode"
+        :width="width"
+        :height="height"
+        lazy-load
+        @click="handlePreviewImage"
+        @load="onImageLoad"
+        @error="onImageError"
+      />
+    </template>
+    <template v-else>
+      <uv-image
+        v-if="previewUrl && !isLoading && !showError"
+        ref="imgRef"
+        class="preview-image"
+        :src="previewUrl"
+        :show-loading="false"
+        :show-error="false"
+        :mode="mode"
+        :width="width"
+        :height="height"
+        lazy-load
+        @click="handleClick"
+        @load="onImageLoad"
+        @error="onImageError"
+      />
+    </template>
     <view v-if="showError && !isLoading" class="error-placeholder">
       <uv-icon name="photo-fill" size="32" color="#909399"></uv-icon>
       <text>图片加载失败</text>
@@ -69,8 +87,12 @@ const props = defineProps({
     type: String,
     default: "scaleToFill", // 默认与 cover 行为类似
   },
+  ableClick: {
+    type: Boolean,
+    default: false,
+  },
 });
-
+const emit = defineEmits(["click"]);
 const imgRef = ref(null);
 const previewUrl = ref("");
 const isLoading = ref(true);
@@ -124,6 +146,10 @@ const handlePreviewImage = () => {
       current: 0,
     });
   }
+};
+
+const handleClick = () => {
+  emit("click");
 };
 
 watch(

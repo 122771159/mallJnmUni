@@ -10,6 +10,9 @@ export const useUserStore = defineStore("user", () => {
   const tokenExpiresIn = ref(
     uni.getStorageSync("tokenExpiresIn") || 7200 * 1000
   );
+  const tokenFreeTimeout = ref(
+    uni.getStorageSync("tokenFreeTimeout") || 1000 * 60 * 15
+  );
   function addCart(product) {
     //添加商品到购物车
     const index = cart.value.findIndex((item) => item.id === product.id);
@@ -76,6 +79,10 @@ export const useUserStore = defineStore("user", () => {
     tokenTimestamp.value = tokenTimestamp_;
     uni.setStorageSync("tokenTimestamp", tokenTimestamp_);
   }
+  function setTokenFreeTimeout(tokenFreeTimeout_) {
+    tokenFreeTimeout.value = tokenFreeTimeout_;
+    uni.setStorageSync("tokenFreeTimeout", tokenFreeTimeout_);
+  }
   function setRoles(roles_) {
     // 设置角色
     uni.setStorageSync("roles", roles_);
@@ -94,6 +101,7 @@ export const useUserStore = defineStore("user", () => {
     uni.removeStorageSync("userInfo");
     uni.removeStorageSync("tokenTimestamp");
     uni.removeStorageSync("tokenExpiresIn");
+    uni.removeStorageSync("tokenFreeTimeout");
     clearCart();
     token.value = "";
     roles.value = "";
@@ -118,6 +126,7 @@ export const useUserStore = defineStore("user", () => {
               setRoles(res.data.roles);
               setTokenExpiresIn(res.data.tokenExpiresIn);
               setTokenTimestamp(Date.now());
+              setTokenFreeTimeout(res.data.tokenFreeTimeout);
               resolve(res.data); // 返回完整数据，方便调用方使用
             })
             .catch((err) => {
@@ -129,18 +138,32 @@ export const useUserStore = defineStore("user", () => {
         });
     });
   }
+
   const isLogin = computed(() => token.value !== ""); // 是否登录
   const getToken = computed(() => token.value); // 获取token
   const getRoles = computed(() => roles.value); // 获取角色
   const isSales = computed(() => {
     // 是否是销售
-    return roles.value.includes("SALES");
+    return !roles.value.includes("CUSTOMER");
+  });
+  const totalPrice = computed(() => {
+    // 获取购物车中商品的总价
+    return cart.value.reduce(
+      (total, item) => total + item.displayPrice * item.count,
+      0
+    );
+  });
+  const totalCount = computed(() => {
+    // 获取购物车中商品的总数量
+    return cart.value.reduce((total, item) => total + item.count, 0);
   });
   const getUserInfo = computed(() => JSON.parse(userInfo.value)); // 获取用户信息
   return {
     token,
     getToken,
     getRoles,
+    totalPrice,
+    totalCount,
     setToken,
     setRoles,
     logout,
@@ -156,6 +179,8 @@ export const useUserStore = defineStore("user", () => {
     setCart,
     setTokenExpiresIn,
     setTokenTimestamp,
+    setTokenFreeTimeout,
+    tokenFreeTimeout,
     tokenTimestamp,
     tokenExpiresIn,
     wxlogin,

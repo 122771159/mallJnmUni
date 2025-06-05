@@ -1,4 +1,9 @@
-const whiteList = ["/pages/login/login", "/pages/user/user"];
+const whiteList = [
+  "/pages/login/login",
+  "/pages/user/user",
+  "/pages/policy/privacy",
+  "/pages/policy/service",
+];
 
 const list = ["navigateTo", "redirectTo", "reLaunch", "switchTab"];
 
