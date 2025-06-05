@@ -246,6 +246,8 @@ const handleAccountLogin = async () => {
       password: md5(form.value.password),
       openId,
     });
+    console.log(res);
+
     saveToken(res);
     uni.$com.toast({
       type: "success",

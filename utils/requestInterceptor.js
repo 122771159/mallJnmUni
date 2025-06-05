@@ -130,7 +130,7 @@ uni.addInterceptor("request", {
         isNavigatingToLogin = true; // <--- 设置标志位，表示开始处理跳转登录
         uni.showModal({
           title: "提示",
-          content: "请先进行登录" + FreeTime, // 可以使用后端返回的msg
+          content: "请先进行登录", // 可以使用后端返回的msg
           confirmText: "去登录",
           showCancel: false,
           success: (modalRes) => {
@@ -144,7 +144,7 @@ uni.addInterceptor("request", {
           },
         });
       }
-      return new Error(data.msg || "登录失效(104)");
+      return Promise.reject(new Error(data.msg || "登录失效(104)"));
     }
     // 判断是不是刷新token的请求
     if (requestHeader.refreshToken_) {
@@ -168,15 +168,7 @@ uni.addInterceptor("request", {
     if (requestHeader.silentLogin_ || requestArgs.url.includes("/login")) {
       processPendingRequests(null);
     }
-    if (data.success !== undefined && !data.success) {
-      uni.showToast({
-        title: data.msg || "操作失败",
-        icon: "none",
-        duration: 3000,
-      });
 
-      return new Error(data.msg || "操作失败");
-    }
     return response;
   },
   fail(err, requestArgs) {
@@ -187,6 +179,6 @@ uni.addInterceptor("request", {
       icon: "none",
       duration: 3000,
     });
-    return new Error(err.errMsg || "操作失败");
+    return Promise.reject(new Error(err.errMsg || "操作失败"));
   },
 });

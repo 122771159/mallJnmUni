@@ -42,6 +42,13 @@
       "style": {
         "navigationBarTitleText": ""
       }
+    },
+    {
+    	"path" : "pages/address/address",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "地址管理"
+    	}
     }
   ],
   "globalStyle": {

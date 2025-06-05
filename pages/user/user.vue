@@ -94,7 +94,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useUserStore } from "@/stores";
-import { url } from "@climblee/uv-ui/libs/function/test";
 const userStore = useUserStore();
 const isLoggedIn = computed(() => userStore.isLogin);
 const currentUser = computed(() => userStore.getUserInfo);
@@ -178,7 +177,7 @@ const paymentActions = ref([
   { icon: "order", text: "发票申请", path: "/pages/invoice/apply" },
   { icon: "coupon", text: "我的返款", path: "/pages/refund/my-refunds" },
   { icon: "tags", text: "税金凭证", path: "/pages/tax-voucher/tax-voucher" },
-  { icon: "bag", text: "我的钱包", path: "/pages/wallet/my-wallet" },
+  { icon: "car", text: "地址管理", path: "/pages/address/address" },
 ]);
 
 const handleActionClick = (item) => {
