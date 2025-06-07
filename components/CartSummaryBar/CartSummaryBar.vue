@@ -33,7 +33,7 @@
         text="去结算"
         custom-style="width: 100px; height: 40px;"
         @click="handleCheckout"
-        :disabled="itemCount === 0"
+        :disabled="totalCount === 0"
       ></uv-button>
     </view>
   </view>
@@ -46,8 +46,8 @@ const totalCount = computed(() => store.totalCount);
 const emit = defineEmits(["checkout", "icon-click"]);
 
 const handleCheckout = () => {
-  if (props.itemCount > 0) {
-    emit("checkout");
+  if (totalCount.value > 0) {
+    uni.navigateTo({ url: "/pages/order/pre" });
   }
 };
 

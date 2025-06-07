@@ -24,6 +24,25 @@
       <uv-form-item label="收货地址:" prop="address" borderBottom>
         <uv-input v-model="address_details.address" border="none"> </uv-input>
       </uv-form-item>
+      <uv-form-item label="是否默认:" prop="isDefault" borderBottom>
+        <uv-radio-group
+          :customStyle="{ margin: '8px' }"
+          v-model="address_details.isDefault"
+          @change="radioChange"
+        >
+          <uv-radio
+            :customStyle="{ margin: '8px' }"
+            label="是"
+            :name="1"
+          ></uv-radio>
+
+          <uv-radio
+            :customStyle="{ margin: '8px' }"
+            label="否"
+            :name="0"
+          ></uv-radio>
+        </uv-radio-group>
+      </uv-form-item>
       <view class="button-group">
         <view>
           <uv-button
@@ -55,6 +74,7 @@ const address_details = ref({
   name: "",
   phone: "",
   address: "",
+  isDefault: 0,
 });
 const emit = defineEmits(["submit", "edit"]);
 const rules = {
@@ -81,6 +101,7 @@ const reset = () => {
   address_details.value.name = "";
   address_details.value.phone = "";
   address_details.value.address = "";
+  address_details.value.isDefault = 0;
 };
 const submit = () => {
   form.value
@@ -101,14 +122,21 @@ const submit = () => {
       });
     });
 };
+const radioChange = (e) => {
+  address_details.value.isDefault = e;
+};
 // const close = () => {
 //   popup.value.close();
 // };
 defineExpose({
   add: () => {
-    address_details.value.name = "";
-    address_details.value.phone = "";
-    address_details.value.address = "";
+    buttonText.value = "保存";
+    address_details.value = {
+      name: "",
+      phone: "",
+      address: "",
+      isDefault: 0,
+    };
     popup.value.open();
   },
   //   close: close,

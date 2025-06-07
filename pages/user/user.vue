@@ -72,7 +72,7 @@
         </view>
         <uv-grid :col="5" :border="false">
           <uv-grid-item
-            v-for="(item, index) in paymentActions"
+            v-for="(item, index) in paymentActionsDisPlay"
             :key="index"
             @click="handleActionClick(item)"
           >
@@ -95,6 +95,23 @@
 import { ref, computed } from "vue";
 import { useUserStore } from "@/stores";
 const userStore = useUserStore();
+const paymentActions = [
+  {
+    icon: "order",
+    text: "待支付",
+    path: "/pages/payment/to-pay",
+    customPrefix: "uvicon",
+  },
+  { icon: "order", text: "发票申请", path: "/pages/invoice/apply" },
+  { icon: "coupon", text: "我的返款", path: "/pages/refund/my-refunds" },
+  { icon: "tags", text: "税金凭证", path: "/pages/tax-voucher/tax-voucher" },
+  {
+    icon: "car",
+    text: "地址管理",
+    path: "/pages/address/address",
+    role: "CUSTOMER",
+  },
+];
 const isLoggedIn = computed(() => userStore.isLogin);
 const currentUser = computed(() => userStore.getUserInfo);
 const userRoles = computed(() => userStore.getRoles);
@@ -109,7 +126,10 @@ const username = computed(() => {
 });
 const userType = computed(() => {
   if (isLoggedIn.value) {
-    if (userRoles.value.includes("SALES")) {
+    if (
+      userRoles.value.includes("SALES") ||
+      userRoles.value.includes("ADMIN")
+    ) {
       return "业务员";
     } else if (userRoles.value.includes("CUSTOMER")) {
       return "普通客户";
@@ -118,6 +138,12 @@ const userType = computed(() => {
     }
   }
   return "请先登录";
+});
+const paymentActionsDisPlay = computed(() => {
+  return paymentActions.filter((item) => {
+    if (!item.role) return item;
+    if (item.role == userStore.getRoles) return item;
+  });
 });
 // --- 临时状态结束 ---
 
@@ -166,19 +192,6 @@ const userType = computed(() => {
 //     path: "/pages/template-library/template-library",
 //   },
 // ]);
-
-const paymentActions = ref([
-  {
-    icon: "order",
-    text: "待支付",
-    path: "/pages/payment/to-pay",
-    customPrefix: "uvicon",
-  },
-  { icon: "order", text: "发票申请", path: "/pages/invoice/apply" },
-  { icon: "coupon", text: "我的返款", path: "/pages/refund/my-refunds" },
-  { icon: "tags", text: "税金凭证", path: "/pages/tax-voucher/tax-voucher" },
-  { icon: "car", text: "地址管理", path: "/pages/address/address" },
-]);
 
 const handleActionClick = (item) => {
   if (item.path) {

@@ -5,7 +5,6 @@ let isRefreshingToken = false;
 let isNavigatingToLogin = false;
 let isLoseToken = false;
 let pendingRequests = [];
-
 // 将挂起的请求重新执行
 function processPendingRequests(error) {
   const store = useUserStore();
@@ -130,7 +129,7 @@ uni.addInterceptor("request", {
         isNavigatingToLogin = true; // <--- 设置标志位，表示开始处理跳转登录
         uni.showModal({
           title: "提示",
-          content: "请先进行登录", // 可以使用后端返回的msg
+          content: `${data.msg} 请先进行登录`, // 可以使用后端返回的msg
           confirmText: "去登录",
           showCancel: false,
           success: (modalRes) => {
@@ -160,6 +159,7 @@ uni.addInterceptor("request", {
         store.setToken(new_token);
         store.setTokenTimestamp(Date.now());
         store.setTokenExpiresIn(expiresIn);
+        console.log("FreeTime", FreeTime);
         store.setTokenFreeTimeout(FreeTime);
         processPendingRequests(null);
       }

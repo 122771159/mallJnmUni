@@ -160,7 +160,8 @@ const preImage = (index) => {
 const fetchProductDetail = async (id) => {
   isLoading.value = true;
   try {
-    const { data } = await uni.$http.get(`/wx/product/${id}`);
+    const cid = uni.$com.getStore().payUser.id;
+    const { data } = await uni.$http.get(`/wx/product/${id}`, { cid });
     product.value = data;
     nodes.value = appContext.config.globalProperties.$towxml(
       replaceImageBaseUrlIfContainsImagesPath(

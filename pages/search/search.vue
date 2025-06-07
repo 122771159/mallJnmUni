@@ -66,8 +66,10 @@ const search = async () => {
     });
     return;
   }
+  const cid = uni.$com.getStore().payUser.id;
   const { data } = await uni.$http.get("/wx/product-search", {
     keyword: keyword.value,
+    cid,
   });
   products.value = [...data];
 };

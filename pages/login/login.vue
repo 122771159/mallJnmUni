@@ -90,6 +90,17 @@
           >
         </view>
       </view>
+      <view class="change-type">
+        <uv-button
+          :type="userType == 'CUSTOMER' ? 'primary' : 'warning'"
+          plain
+          shape="square"
+          @click="changeType"
+          size="small"
+        >
+          切换登录类型 当前:{{ userType == "CUSTOMER" ? "客户" : "业务员" }}
+        </uv-button>
+      </view>
     </view>
   </layout>
 </template>
@@ -100,6 +111,7 @@ import md5 from "js-md5";
 import { useUserStore } from "@/stores";
 const SITE_NAME = uni.$com.env().SITE_NAME;
 // 表单数据
+const userType = ref("CUSTOMER");
 const form = ref({
   username: "addmin22",
   password: "addmin22",
@@ -242,12 +254,10 @@ const handleAccountLogin = async () => {
     const openId = await uni.$com.getOpenId();
     const res = await uni.$http.post("/login", {
       ...form.value,
-      userType: "CUSTOMER",
+      userType: userType.value,
       password: md5(form.value.password),
       openId,
     });
-    console.log(res);
-
     saveToken(res);
     uni.$com.toast({
       type: "success",
@@ -271,6 +281,8 @@ const handleAccountLogin = async () => {
       }
     }, 500);
   } catch (error) {
+    console.log(error);
+
     getVerifyCode();
   }
 };
@@ -311,6 +323,19 @@ const saveToken = (res) => {
   useUserStore().setTokenExpiresIn(res.data.tokenExpiresIn);
   useUserStore().setTokenTimestamp(Date.now());
   useUserStore().setTokenFreeTimeout(res.data.tokenFreeTimeout);
+  if (res.data.roles == "CUSTOMER") {
+    useUserStore().setPayUser(res.data.user);
+  }
+};
+const changeType = () => {
+  if (userType.value == "CUSTOMER") {
+    userType.value = "";
+    return;
+  }
+  if (userType.value == "") {
+    userType.value = "CUSTOMER";
+    return;
+  }
 };
 onMounted(() => {
   getVerifyCode();
@@ -385,7 +410,9 @@ onMounted(() => {
     color: #333333;
   }
 }
-
+.change-type {
+  margin-top: 25px;
+}
 .agreement-section {
   display: flex;
   align-items: center;

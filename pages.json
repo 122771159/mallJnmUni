@@ -44,11 +44,22 @@
       }
     },
     {
-    	"path" : "pages/address/address",
-    	"style" : 
-    	{
-    		"navigationBarTitleText" : "地址管理"
-    	}
+      "path": "pages/address/address",
+      "style": {
+        "navigationBarTitleText": "地址管理"
+      }
+    },
+    {
+      "path": "pages/customer/select",
+      "style": {
+        "navigationBarTitleText": "客户选择"
+      }
+    },
+    {
+      "path": "pages/order/pre",
+      "style": {
+        "navigationBarTitleText": "结算订单"
+      }
     }
   ],
   "globalStyle": {

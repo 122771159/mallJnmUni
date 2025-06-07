@@ -35,7 +35,7 @@ const { tabberFreeHeight } = uni.$com.getHeight();
 const list = ref([]);
 const chain = ref(false);
 const value = ref(0);
-
+const store = uni.$com.getStore();
 const list2 = computed(() => {
   const _list = list.value[value.value]?.childrens;
   return _list ? _list : [];
@@ -44,14 +44,17 @@ const list2 = computed(() => {
 const change = (index) => {
   value.value = index;
 };
-
+const getList = async () => {
+  const cid = store.payUser.id;
+  const res = await uni.$http.get("/wx/products", { cid });
+  list.value = res.data;
+};
 onMounted(async () => {
   uni.showLoading({
     title: "加载中",
   });
   setTimeout(async () => {
-    const res = await uni.$http.get("/wx/products");
-    list.value = res.data;
+    getList();
     uni.hideLoading();
   }, 200);
 });
@@ -60,6 +63,15 @@ const handleClick = (item) => {
     url: `/pages/product/product?id=${item.id}&name=${item.name}`,
   });
 };
+watch(
+  () => store.payUser.id,
+  (newValue, old) => {
+    console.log(newValue, old);
+    if (newValue) {
+      getList();
+    }
+  }
+);
 </script>
 <style scoped lang="scss">
 .header {

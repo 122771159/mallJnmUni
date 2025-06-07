@@ -7,6 +7,7 @@ export const useUserStore = defineStore("user", () => {
   const userInfo = ref(uni.getStorageSync("userInfo") || "");
   const cart = ref(uni.getStorageSync("cart") || []);
   const tokenTimestamp = ref(uni.getStorageSync("tokenTimestamp") || 0);
+  const payUser = ref(uni.getStorageSync("pay_user") || {});
   const tokenExpiresIn = ref(
     uni.getStorageSync("tokenExpiresIn") || 7200 * 1000
   );
@@ -72,8 +73,8 @@ export const useUserStore = defineStore("user", () => {
     token.value = token_;
   }
   function setTokenExpiresIn(tokenExpiresIn_) {
-    tokenExpiresIn.value = tokenExpiresIn_;
-    uni.setStorageSync("tokenExpiresIn", tokenExpiresIn_);
+    tokenExpiresIn.value = tokenExpiresIn_ - 60 * 1000;
+    uni.setStorageSync("tokenExpiresIn", tokenExpiresIn_ - 60 * 1000);
   }
   function setTokenTimestamp(tokenTimestamp_) {
     tokenTimestamp.value = tokenTimestamp_;
@@ -94,6 +95,10 @@ export const useUserStore = defineStore("user", () => {
     userInfo.value = userInfo_;
     uni.setStorageSync("userInfo", userInfo_);
   }
+  function setPayUser(payUser_) {
+    payUser.value = payUser_;
+    uni.setStorageSync("pay_user", payUser_);
+  }
   function logout() {
     // 退出登录
     uni.removeStorageSync("token");
@@ -102,10 +107,12 @@ export const useUserStore = defineStore("user", () => {
     uni.removeStorageSync("tokenTimestamp");
     uni.removeStorageSync("tokenExpiresIn");
     uni.removeStorageSync("tokenFreeTimeout");
+    uni.removeStorageSync("pay_user");
     clearCart();
     token.value = "";
     roles.value = "";
     userInfo.value = {};
+    payUser.value = {};
   }
   function wxlogin() {
     return new Promise((resolve, reject) => {
@@ -127,6 +134,9 @@ export const useUserStore = defineStore("user", () => {
               setTokenExpiresIn(res.data.tokenExpiresIn);
               setTokenTimestamp(Date.now());
               setTokenFreeTimeout(res.data.tokenFreeTimeout);
+              if (res.data.roles == "CUSTOMER") {
+                setPayUser(res.data.user);
+              }
               resolve(res.data); // 返回完整数据，方便调用方使用
             })
             .catch((err) => {
@@ -184,5 +194,7 @@ export const useUserStore = defineStore("user", () => {
     tokenTimestamp,
     tokenExpiresIn,
     wxlogin,
+    setPayUser,
+    payUser,
   };
 });

@@ -1,0 +1,163 @@
+@for $i from 1 through 5 {
+  .j-line-#{$i} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: #{$i};
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+  }
+}
+
+// 单行省略
+.j-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 文本对齐
+.j-text-left {
+  text-align: left;
+}
+.j-text-center {
+  text-align: center;
+}
+.j-text-right {
+  text-align: right;
+}
+
+// 字体样式
+.j-bold {
+  font-weight: bold;
+}
+.j-normal {
+  font-weight: normal;
+}
+.j-light {
+  font-weight: 300;
+}
+.j-italic {
+  font-style: italic;
+}
+
+// 字体大小
+@for $i from 12 through 20 {
+  .j-fs-#{$i} {
+    font-size: #{$i}px;
+  }
+}
+
+// 文字颜色
+.j-text-main {
+  color: #2979ff;
+}
+.j-text-gray {
+  color: #999;
+}
+.j-text-red {
+  color: #f56c6c;
+}
+.j-text-black {
+  color: #222;
+}
+
+// 圆角
+@for $i from 1 through 4 {
+  .j-radius-#{4 * $i} {
+    border-radius: #{4 * $i}px;
+  }
+}
+
+// 阴影
+.j-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+// flex常用
+.j-flex {
+  display: flex;
+}
+.j-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.j-flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.j-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.j-flex-1 {
+  flex: 1;
+}
+
+// Padding
+@each $size in 4, 8, 12, 16, 20, 24 {
+  .j-p-#{$size} {
+    padding: #{$size}px;
+  }
+  .j-pt-#{$size} {
+    padding-top: #{$size}px;
+  }
+  .j-pr-#{$size} {
+    padding-right: #{$size}px;
+  }
+  .j-pb-#{$size} {
+    padding-bottom: #{$size}px;
+  }
+  .j-pl-#{$size} {
+    padding-left: #{$size}px;
+  }
+  .j-px-#{$size} {
+    padding-left: #{$size}px;
+    padding-right: #{$size}px;
+  }
+  .j-py-#{$size} {
+    padding-top: #{$size}px;
+    padding-bottom: #{$size}px;
+  }
+}
+
+// Margin
+@each $size in 4, 8, 12, 16, 20, 24 {
+  .j-m-#{$size} {
+    margin: #{$size}px;
+  }
+  .j-mt-#{$size} {
+    margin-top: #{$size}px;
+  }
+  .j-mr-#{$size} {
+    margin-right: #{$size}px;
+  }
+  .j-mb-#{$size} {
+    margin-bottom: #{$size}px;
+  }
+  .j-ml-#{$size} {
+    margin-left: #{$size}px;
+  }
+  .j-mx-#{$size} {
+    margin-left: #{$size}px;
+    margin-right: #{$size}px;
+  }
+  .j-my-#{$size} {
+    margin-top: #{$size}px;
+    margin-bottom: #{$size}px;
+  }
+}
+
+.j-border-top {
+  border-top: 1px solid #f0f0f0;
+}
+.j-border-bottom {
+  border-bottom: 1px solid #f0f0f0;
+}
+// 去掉margin-top 塌陷
+.clearfix::before {
+  content: "";
+  display: table;
+}

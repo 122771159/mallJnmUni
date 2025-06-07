@@ -10,7 +10,7 @@ export default {
 
 <style lang="scss">
 @import "./static/iconfont.css";
-/*每个页面公共css */
+@import "./static/main.scss";
 body,
 page,
 #app {
